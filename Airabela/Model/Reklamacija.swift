@@ -7,3 +7,8 @@
 //
 
 import Foundation
+
+struct Reklamacija {
+    let kupec : Kupec?
+    let predmet : Predmet?
+}

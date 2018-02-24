@@ -7,3 +7,13 @@
 //
 
 import Foundation
+
+struct Kupec {
+    
+    var ime : String
+    var priimek : String
+    var naslovVgradnje : String
+    var krajVgradnje : String
+    var datumVgradnje : String
+    
+}

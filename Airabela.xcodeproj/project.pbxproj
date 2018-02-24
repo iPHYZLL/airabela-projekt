@@ -7,21 +7,116 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC01549A20403A4E00B63EF7 /* SlikaReklamacijaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC01549920403A4E00B63EF7 /* SlikaReklamacijaController.swift */; };
+		BC107B45203ED79E00E66365 /* PredmetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC107B44203ED79E00E66365 /* PredmetController.swift */; };
+		BC6580E220373DA600C8A3C0 /* KupecController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6580E120373DA600C8A3C0 /* KupecController.swift */; };
+		BC6580E42037449500C8A3C0 /* Kupec.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6580E32037449500C8A3C0 /* Kupec.swift */; };
+		BC6580E8203C25FF00C8A3C0 /* Reklamacija.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6580E7203C25FF00C8A3C0 /* Reklamacija.swift */; };
+		BC7A5E752035155E008679A1 /* AirabelaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7A5E742035155E008679A1 /* AirabelaController.swift */; };
+		BC7D6B4C203C5BAD002182F6 /* Predmet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7D6B4B203C5BAD002182F6 /* Predmet.swift */; };
+		BC956A40203D721200B6F0F5 /* Naprava.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC956A3F203D721200B6F0F5 /* Naprava.swift */; };
+		BC956A42203D722800B6F0F5 /* ToplotnaCrpalka.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC956A41203D722800B6F0F5 /* ToplotnaCrpalka.swift */; };
+		BC956A44203D724600B6F0F5 /* KlimatskaNaprava.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC956A43203D724600B6F0F5 /* KlimatskaNaprava.swift */; };
+		BC956A46203D725800B6F0F5 /* Rekuperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC956A45203D725800B6F0F5 /* Rekuperator.swift */; };
+		BC956A48203D726D00B6F0F5 /* CistilecZraka.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC956A47203D726D00B6F0F5 /* CistilecZraka.swift */; };
+		BC956A4A203D728100B6F0F5 /* Konvektor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC956A49203D728100B6F0F5 /* Konvektor.swift */; };
+		BC956A4C203D729800B6F0F5 /* VRVSistem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC956A4B203D729800B6F0F5 /* VRVSistem.swift */; };
+		BC956A4F203D72BA00B6F0F5 /* PlinskiKotel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC956A4E203D72BA00B6F0F5 /* PlinskiKotel.swift */; };
+		BCA70515203337B900249480 /* HoshiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA70514203337B900249480 /* HoshiTextField.swift */; };
+		BCA70517203337D100249480 /* TextFieldEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA70516203337D100249480 /* TextFieldEffects.swift */; };
+		BCA7051A2033457B00249480 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA705192033457B00249480 /* User.swift */; };
+		BCA7053320337E1F00249480 /* IQTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA7051D20337E1F00249480 /* IQTextView.swift */; };
+		BCA7053420337E1F00249480 /* IQPreviousNextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA7051F20337E1F00249480 /* IQPreviousNextView.swift */; };
+		BCA7053520337E1F00249480 /* IQTitleBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA7052020337E1F00249480 /* IQTitleBarButtonItem.swift */; };
+		BCA7053620337E1F00249480 /* IQBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA7052120337E1F00249480 /* IQBarButtonItem.swift */; };
+		BCA7053720337E1F00249480 /* IQToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA7052220337E1F00249480 /* IQToolbar.swift */; };
+		BCA7053820337E1F00249480 /* IQUIView+IQKeyboardToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA7052320337E1F00249480 /* IQUIView+IQKeyboardToolbar.swift */; };
+		BCA7053920337E1F00249480 /* IQKeyboardManagerConstantsInternal.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA7052520337E1F00249480 /* IQKeyboardManagerConstantsInternal.swift */; };
+		BCA7053A20337E1F00249480 /* IQKeyboardManagerConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA7052620337E1F00249480 /* IQKeyboardManagerConstants.swift */; };
+		BCA7053B20337E1F00249480 /* IQKeyboardManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BCA7052820337E1F00249480 /* IQKeyboardManager.bundle */; };
+		BCA7053C20337E1F00249480 /* IQKeyboardReturnKeyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA7052920337E1F00249480 /* IQKeyboardReturnKeyHandler.swift */; };
+		BCA7053D20337E1F00249480 /* IQKeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA7052A20337E1F00249480 /* IQKeyboardManager.swift */; };
+		BCA7053E20337E1F00249480 /* IQUIWindow+Hierarchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA7052D20337E1F00249480 /* IQUIWindow+Hierarchy.swift */; };
+		BCA7053F20337E1F00249480 /* IQUIScrollView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA7052E20337E1F00249480 /* IQUIScrollView+Additions.swift */; };
+		BCA7054020337E1F00249480 /* IQUIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA7052F20337E1F00249480 /* IQUIViewController+Additions.swift */; };
+		BCA7054120337E1F00249480 /* IQUITextFieldView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA7053020337E1F00249480 /* IQUITextFieldView+Additions.swift */; };
+		BCA7054220337E1F00249480 /* IQUIView+Hierarchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA7053120337E1F00249480 /* IQUIView+Hierarchy.swift */; };
+		BCA7054320337E1F00249480 /* IQNSArray+Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA7053220337E1F00249480 /* IQNSArray+Sort.swift */; };
+		BCA7054520338C8300249480 /* PogojiController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA7054420338C8300249480 /* PogojiController.swift */; };
+		BCA705482033983800249480 /* Pogoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA705472033983800249480 /* Pogoji.swift */; };
+		BCA7054A203442D700249480 /* PogojiButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA70549203442D700249480 /* PogojiButton.swift */; };
+		BCAE96922036F71B0095CB81 /* UserChangeDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAE96912036F71B0095CB81 /* UserChangeDataController.swift */; };
+		BCC4685B203C92E400434084 /* OpisReklamacijeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC4685A203C92E400434084 /* OpisReklamacijeController.swift */; };
+		BCC4685D203C985600434084 /* ReklamacijaContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC4685C203C985600434084 /* ReklamacijaContentView.swift */; };
+		BCC4685F203CA67F00434084 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC4685E203CA67F00434084 /* Utilities.swift */; };
+		BCCF1DF220360C6700F14A08 /* UserProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCF1DF120360C6700F14A08 /* UserProfileController.swift */; };
 		BCD338882031B2E800FA5F8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD338872031B2E800FA5F8A /* AppDelegate.swift */; };
-		BCD3388A2031B2E800FA5F8A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD338892031B2E800FA5F8A /* ViewController.swift */; };
-		BCD3388D2031B2E800FA5F8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCD3388B2031B2E800FA5F8A /* Main.storyboard */; };
 		BCD3388F2031B2EA00FA5F8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCD3388E2031B2EA00FA5F8A /* Assets.xcassets */; };
 		BCD338922031B2EA00FA5F8A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCD338902031B2EA00FA5F8A /* LaunchScreen.storyboard */; };
+		BCD3389D2031CA5600FA5F8A /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD3389C2031CA5600FA5F8A /* HomeController.swift */; };
+		BCD338A02031CE4F00FA5F8A /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD3389F2031CE4F00FA5F8A /* UIColor+Extension.swift */; };
+		BCD338A32031CE7700FA5F8A /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD338A22031CE7700FA5F8A /* UIView+Extension.swift */; };
+		BCD338A52031CEA900FA5F8A /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD338A42031CEA900FA5F8A /* UITextField+Extension.swift */; };
+		BCD338A72031DF3000FA5F8A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD338A62031DF3000FA5F8A /* HomeView.swift */; };
+		BCD338AA2033136B00FA5F8A /* UserRegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD338A92033136B00FA5F8A /* UserRegistrationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BC01549920403A4E00B63EF7 /* SlikaReklamacijaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlikaReklamacijaController.swift; sourceTree = "<group>"; };
+		BC107B44203ED79E00E66365 /* PredmetController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredmetController.swift; sourceTree = "<group>"; };
+		BC6580E120373DA600C8A3C0 /* KupecController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KupecController.swift; sourceTree = "<group>"; };
+		BC6580E32037449500C8A3C0 /* Kupec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kupec.swift; sourceTree = "<group>"; };
+		BC6580E7203C25FF00C8A3C0 /* Reklamacija.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reklamacija.swift; sourceTree = "<group>"; };
+		BC7A5E742035155E008679A1 /* AirabelaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirabelaController.swift; sourceTree = "<group>"; };
+		BC7D6B4B203C5BAD002182F6 /* Predmet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Predmet.swift; sourceTree = "<group>"; };
+		BC956A3F203D721200B6F0F5 /* Naprava.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Naprava.swift; sourceTree = "<group>"; };
+		BC956A41203D722800B6F0F5 /* ToplotnaCrpalka.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToplotnaCrpalka.swift; sourceTree = "<group>"; };
+		BC956A43203D724600B6F0F5 /* KlimatskaNaprava.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KlimatskaNaprava.swift; sourceTree = "<group>"; };
+		BC956A45203D725800B6F0F5 /* Rekuperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rekuperator.swift; sourceTree = "<group>"; };
+		BC956A47203D726D00B6F0F5 /* CistilecZraka.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CistilecZraka.swift; sourceTree = "<group>"; };
+		BC956A49203D728100B6F0F5 /* Konvektor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Konvektor.swift; sourceTree = "<group>"; };
+		BC956A4B203D729800B6F0F5 /* VRVSistem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VRVSistem.swift; sourceTree = "<group>"; };
+		BC956A4E203D72BA00B6F0F5 /* PlinskiKotel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlinskiKotel.swift; sourceTree = "<group>"; };
+		BCA70514203337B900249480 /* HoshiTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoshiTextField.swift; sourceTree = "<group>"; };
+		BCA70516203337D100249480 /* TextFieldEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldEffects.swift; sourceTree = "<group>"; };
+		BCA705192033457B00249480 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		BCA7051D20337E1F00249480 /* IQTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IQTextView.swift; sourceTree = "<group>"; };
+		BCA7051F20337E1F00249480 /* IQPreviousNextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IQPreviousNextView.swift; sourceTree = "<group>"; };
+		BCA7052020337E1F00249480 /* IQTitleBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IQTitleBarButtonItem.swift; sourceTree = "<group>"; };
+		BCA7052120337E1F00249480 /* IQBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IQBarButtonItem.swift; sourceTree = "<group>"; };
+		BCA7052220337E1F00249480 /* IQToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IQToolbar.swift; sourceTree = "<group>"; };
+		BCA7052320337E1F00249480 /* IQUIView+IQKeyboardToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQUIView+IQKeyboardToolbar.swift"; sourceTree = "<group>"; };
+		BCA7052520337E1F00249480 /* IQKeyboardManagerConstantsInternal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IQKeyboardManagerConstantsInternal.swift; sourceTree = "<group>"; };
+		BCA7052620337E1F00249480 /* IQKeyboardManagerConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IQKeyboardManagerConstants.swift; sourceTree = "<group>"; };
+		BCA7052820337E1F00249480 /* IQKeyboardManager.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IQKeyboardManager.bundle; sourceTree = "<group>"; };
+		BCA7052920337E1F00249480 /* IQKeyboardReturnKeyHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IQKeyboardReturnKeyHandler.swift; sourceTree = "<group>"; };
+		BCA7052A20337E1F00249480 /* IQKeyboardManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IQKeyboardManager.swift; sourceTree = "<group>"; };
+		BCA7052B20337E1F00249480 /* IQKeyboardManagerSwift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQKeyboardManagerSwift.h; sourceTree = "<group>"; };
+		BCA7052D20337E1F00249480 /* IQUIWindow+Hierarchy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQUIWindow+Hierarchy.swift"; sourceTree = "<group>"; };
+		BCA7052E20337E1F00249480 /* IQUIScrollView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQUIScrollView+Additions.swift"; sourceTree = "<group>"; };
+		BCA7052F20337E1F00249480 /* IQUIViewController+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQUIViewController+Additions.swift"; sourceTree = "<group>"; };
+		BCA7053020337E1F00249480 /* IQUITextFieldView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQUITextFieldView+Additions.swift"; sourceTree = "<group>"; };
+		BCA7053120337E1F00249480 /* IQUIView+Hierarchy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQUIView+Hierarchy.swift"; sourceTree = "<group>"; };
+		BCA7053220337E1F00249480 /* IQNSArray+Sort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQNSArray+Sort.swift"; sourceTree = "<group>"; };
+		BCA7054420338C8300249480 /* PogojiController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PogojiController.swift; sourceTree = "<group>"; };
+		BCA705472033983800249480 /* Pogoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pogoji.swift; sourceTree = "<group>"; };
+		BCA70549203442D700249480 /* PogojiButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PogojiButton.swift; sourceTree = "<group>"; };
+		BCAE96912036F71B0095CB81 /* UserChangeDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserChangeDataController.swift; sourceTree = "<group>"; };
+		BCC4685A203C92E400434084 /* OpisReklamacijeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpisReklamacijeController.swift; sourceTree = "<group>"; };
+		BCC4685C203C985600434084 /* ReklamacijaContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReklamacijaContentView.swift; sourceTree = "<group>"; };
+		BCC4685E203CA67F00434084 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		BCCF1DF120360C6700F14A08 /* UserProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileController.swift; sourceTree = "<group>"; };
 		BCD338842031B2E800FA5F8A /* Airabela.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Airabela.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCD338872031B2E800FA5F8A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BCD338892031B2E800FA5F8A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		BCD3388C2031B2E800FA5F8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BCD3388E2031B2EA00FA5F8A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BCD338912031B2EA00FA5F8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BCD338932031B2EA00FA5F8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BCD3389C2031CA5600FA5F8A /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
+		BCD3389F2031CE4F00FA5F8A /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		BCD338A22031CE7700FA5F8A /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		BCD338A42031CEA900FA5F8A /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
+		BCD338A62031DF3000FA5F8A /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		BCD338A92033136B00FA5F8A /* UserRegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRegistrationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +130,131 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BC6580E020373C3200C8A3C0 /* Reklamacije */ = {
+			isa = PBXGroup;
+			children = (
+				BC6580E120373DA600C8A3C0 /* KupecController.swift */,
+				BC107B44203ED79E00E66365 /* PredmetController.swift */,
+				BCC4685A203C92E400434084 /* OpisReklamacijeController.swift */,
+				BC01549920403A4E00B63EF7 /* SlikaReklamacijaController.swift */,
+			);
+			path = Reklamacije;
+			sourceTree = "<group>";
+		};
+		BC7A5E732035154C008679A1 /* Airabela */ = {
+			isa = PBXGroup;
+			children = (
+				BC7A5E742035155E008679A1 /* AirabelaController.swift */,
+			);
+			path = Airabela;
+			sourceTree = "<group>";
+		};
+		BCA70513203337A500249480 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BCA70516203337D100249480 /* TextFieldEffects.swift */,
+				BCA70514203337B900249480 /* HoshiTextField.swift */,
+				BCA70549203442D700249480 /* PogojiButton.swift */,
+				BCD338A62031DF3000FA5F8A /* HomeView.swift */,
+				BCC4685C203C985600434084 /* ReklamacijaContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BCA705182033457300249480 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BCA705192033457B00249480 /* User.swift */,
+				BC6580E32037449500C8A3C0 /* Kupec.swift */,
+				BC6580E7203C25FF00C8A3C0 /* Reklamacija.swift */,
+				BC7D6B4B203C5BAD002182F6 /* Predmet.swift */,
+				BCC4685E203CA67F00434084 /* Utilities.swift */,
+				BC956A3F203D721200B6F0F5 /* Naprava.swift */,
+				BC956A41203D722800B6F0F5 /* ToplotnaCrpalka.swift */,
+				BC956A43203D724600B6F0F5 /* KlimatskaNaprava.swift */,
+				BC956A45203D725800B6F0F5 /* Rekuperator.swift */,
+				BC956A47203D726D00B6F0F5 /* CistilecZraka.swift */,
+				BC956A49203D728100B6F0F5 /* Konvektor.swift */,
+				BC956A4B203D729800B6F0F5 /* VRVSistem.swift */,
+				BC956A4E203D72BA00B6F0F5 /* PlinskiKotel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BCA7051B20337E1F00249480 /* IQKeyboardManagerSwift */ = {
+			isa = PBXGroup;
+			children = (
+				BCA7051C20337E1F00249480 /* IQTextView */,
+				BCA7051E20337E1F00249480 /* IQToolbar */,
+				BCA7052420337E1F00249480 /* Constants */,
+				BCA7052720337E1F00249480 /* Resources */,
+				BCA7052920337E1F00249480 /* IQKeyboardReturnKeyHandler.swift */,
+				BCA7052A20337E1F00249480 /* IQKeyboardManager.swift */,
+				BCA7052B20337E1F00249480 /* IQKeyboardManagerSwift.h */,
+				BCA7052C20337E1F00249480 /* Categories */,
+			);
+			path = IQKeyboardManagerSwift;
+			sourceTree = "<group>";
+		};
+		BCA7051C20337E1F00249480 /* IQTextView */ = {
+			isa = PBXGroup;
+			children = (
+				BCA7051D20337E1F00249480 /* IQTextView.swift */,
+			);
+			path = IQTextView;
+			sourceTree = "<group>";
+		};
+		BCA7051E20337E1F00249480 /* IQToolbar */ = {
+			isa = PBXGroup;
+			children = (
+				BCA7051F20337E1F00249480 /* IQPreviousNextView.swift */,
+				BCA7052020337E1F00249480 /* IQTitleBarButtonItem.swift */,
+				BCA7052120337E1F00249480 /* IQBarButtonItem.swift */,
+				BCA7052220337E1F00249480 /* IQToolbar.swift */,
+				BCA7052320337E1F00249480 /* IQUIView+IQKeyboardToolbar.swift */,
+			);
+			path = IQToolbar;
+			sourceTree = "<group>";
+		};
+		BCA7052420337E1F00249480 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				BCA7052520337E1F00249480 /* IQKeyboardManagerConstantsInternal.swift */,
+				BCA7052620337E1F00249480 /* IQKeyboardManagerConstants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		BCA7052720337E1F00249480 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BCA7052820337E1F00249480 /* IQKeyboardManager.bundle */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		BCA7052C20337E1F00249480 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				BCA7052D20337E1F00249480 /* IQUIWindow+Hierarchy.swift */,
+				BCA7052E20337E1F00249480 /* IQUIScrollView+Additions.swift */,
+				BCA7052F20337E1F00249480 /* IQUIViewController+Additions.swift */,
+				BCA7053020337E1F00249480 /* IQUITextFieldView+Additions.swift */,
+				BCA7053120337E1F00249480 /* IQUIView+Hierarchy.swift */,
+				BCA7053220337E1F00249480 /* IQNSArray+Sort.swift */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		BCA705462033981B00249480 /* TermsAndCondition */ = {
+			isa = PBXGroup;
+			children = (
+				BCA705472033983800249480 /* Pogoji.swift */,
+				BCA7054420338C8300249480 /* PogojiController.swift */,
+			);
+			path = TermsAndCondition;
+			sourceTree = "<group>";
+		};
 		BCD3387B2031B2E800FA5F8A = {
 			isa = PBXGroup;
 			children = (
@@ -54,14 +274,49 @@
 		BCD338862031B2E800FA5F8A /* Airabela */ = {
 			isa = PBXGroup;
 			children = (
+				BCA705462033981B00249480 /* TermsAndCondition */,
+				BCA7051B20337E1F00249480 /* IQKeyboardManagerSwift */,
+				BCA705182033457300249480 /* Model */,
+				BCA70513203337A500249480 /* Views */,
+				BCD338A82033134700FA5F8A /* User */,
+				BCD3389E2031CDB200FA5F8A /* Extensions */,
+				BCD3389B2031C96200FA5F8A /* Home */,
+				BC7A5E732035154C008679A1 /* Airabela */,
+				BC6580E020373C3200C8A3C0 /* Reklamacije */,
 				BCD338872031B2E800FA5F8A /* AppDelegate.swift */,
-				BCD338892031B2E800FA5F8A /* ViewController.swift */,
-				BCD3388B2031B2E800FA5F8A /* Main.storyboard */,
 				BCD3388E2031B2EA00FA5F8A /* Assets.xcassets */,
-				BCD338902031B2EA00FA5F8A /* LaunchScreen.storyboard */,
 				BCD338932031B2EA00FA5F8A /* Info.plist */,
+				BCD338902031B2EA00FA5F8A /* LaunchScreen.storyboard */,
 			);
 			path = Airabela;
+			sourceTree = "<group>";
+		};
+		BCD3389B2031C96200FA5F8A /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				BCD3389C2031CA5600FA5F8A /* HomeController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		BCD3389E2031CDB200FA5F8A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BCD3389F2031CE4F00FA5F8A /* UIColor+Extension.swift */,
+				BCD338A22031CE7700FA5F8A /* UIView+Extension.swift */,
+				BCD338A42031CEA900FA5F8A /* UITextField+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		BCD338A82033134700FA5F8A /* User */ = {
+			isa = PBXGroup;
+			children = (
+				BCD338A92033136B00FA5F8A /* UserRegistrationController.swift */,
+				BCCF1DF120360C6700F14A08 /* UserProfileController.swift */,
+				BCAE96912036F71B0095CB81 /* UserChangeDataController.swift */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,7 +379,7 @@
 			files = (
 				BCD338922031B2EA00FA5F8A /* LaunchScreen.storyboard in Resources */,
 				BCD3388F2031B2EA00FA5F8A /* Assets.xcassets in Resources */,
-				BCD3388D2031B2E800FA5F8A /* Main.storyboard in Resources */,
+				BCA7053B20337E1F00249480 /* IQKeyboardManager.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,22 +390,61 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCD3388A2031B2E800FA5F8A /* ViewController.swift in Sources */,
+				BC956A48203D726D00B6F0F5 /* CistilecZraka.swift in Sources */,
+				BCD338A52031CEA900FA5F8A /* UITextField+Extension.swift in Sources */,
+				BCD338A02031CE4F00FA5F8A /* UIColor+Extension.swift in Sources */,
+				BCA7053620337E1F00249480 /* IQBarButtonItem.swift in Sources */,
+				BCA7054220337E1F00249480 /* IQUIView+Hierarchy.swift in Sources */,
+				BC956A4C203D729800B6F0F5 /* VRVSistem.swift in Sources */,
+				BCC4685D203C985600434084 /* ReklamacijaContentView.swift in Sources */,
+				BC01549A20403A4E00B63EF7 /* SlikaReklamacijaController.swift in Sources */,
+				BC956A42203D722800B6F0F5 /* ToplotnaCrpalka.swift in Sources */,
+				BC6580E220373DA600C8A3C0 /* KupecController.swift in Sources */,
+				BCA7054320337E1F00249480 /* IQNSArray+Sort.swift in Sources */,
+				BCCF1DF220360C6700F14A08 /* UserProfileController.swift in Sources */,
+				BCA7053520337E1F00249480 /* IQTitleBarButtonItem.swift in Sources */,
+				BC6580E8203C25FF00C8A3C0 /* Reklamacija.swift in Sources */,
+				BC6580E42037449500C8A3C0 /* Kupec.swift in Sources */,
+				BC956A4A203D728100B6F0F5 /* Konvektor.swift in Sources */,
+				BCA7054A203442D700249480 /* PogojiButton.swift in Sources */,
 				BCD338882031B2E800FA5F8A /* AppDelegate.swift in Sources */,
+				BCA70515203337B900249480 /* HoshiTextField.swift in Sources */,
+				BCA7053E20337E1F00249480 /* IQUIWindow+Hierarchy.swift in Sources */,
+				BC956A46203D725800B6F0F5 /* Rekuperator.swift in Sources */,
+				BC7D6B4C203C5BAD002182F6 /* Predmet.swift in Sources */,
+				BCD338AA2033136B00FA5F8A /* UserRegistrationController.swift in Sources */,
+				BC956A4F203D72BA00B6F0F5 /* PlinskiKotel.swift in Sources */,
+				BC107B45203ED79E00E66365 /* PredmetController.swift in Sources */,
+				BCD338A72031DF3000FA5F8A /* HomeView.swift in Sources */,
+				BCC4685B203C92E400434084 /* OpisReklamacijeController.swift in Sources */,
+				BCA705482033983800249480 /* Pogoji.swift in Sources */,
+				BCA7053720337E1F00249480 /* IQToolbar.swift in Sources */,
+				BCD338A32031CE7700FA5F8A /* UIView+Extension.swift in Sources */,
+				BCA7053F20337E1F00249480 /* IQUIScrollView+Additions.swift in Sources */,
+				BCA7053A20337E1F00249480 /* IQKeyboardManagerConstants.swift in Sources */,
+				BCD3389D2031CA5600FA5F8A /* HomeController.swift in Sources */,
+				BC7A5E752035155E008679A1 /* AirabelaController.swift in Sources */,
+				BCA7054120337E1F00249480 /* IQUITextFieldView+Additions.swift in Sources */,
+				BCA7053420337E1F00249480 /* IQPreviousNextView.swift in Sources */,
+				BC956A44203D724600B6F0F5 /* KlimatskaNaprava.swift in Sources */,
+				BCA7053320337E1F00249480 /* IQTextView.swift in Sources */,
+				BCA7051A2033457B00249480 /* User.swift in Sources */,
+				BCA7054520338C8300249480 /* PogojiController.swift in Sources */,
+				BCA7054020337E1F00249480 /* IQUIViewController+Additions.swift in Sources */,
+				BCA7053820337E1F00249480 /* IQUIView+IQKeyboardToolbar.swift in Sources */,
+				BCA7053D20337E1F00249480 /* IQKeyboardManager.swift in Sources */,
+				BCAE96922036F71B0095CB81 /* UserChangeDataController.swift in Sources */,
+				BCA7053C20337E1F00249480 /* IQKeyboardReturnKeyHandler.swift in Sources */,
+				BCA70517203337D100249480 /* TextFieldEffects.swift in Sources */,
+				BCC4685F203CA67F00434084 /* Utilities.swift in Sources */,
+				BCA7053920337E1F00249480 /* IQKeyboardManagerConstantsInternal.swift in Sources */,
+				BC956A40203D721200B6F0F5 /* Naprava.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		BCD3388B2031B2E800FA5F8A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BCD3388C2031B2E800FA5F8A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		BCD338902031B2EA00FA5F8A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -282,12 +576,15 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 45KWM69QJR;
 				INFOPLIST_FILE = Airabela/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.alenkirm.Airabela;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -300,12 +597,15 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 45KWM69QJR;
 				INFOPLIST_FILE = Airabela/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.alenkirm.Airabela;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

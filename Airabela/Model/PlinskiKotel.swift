@@ -7,3 +7,13 @@
 //
 
 import Foundation
+
+class PlinskiKotel : Naprava {
+    
+    var oznakaNaprave : String
+    
+    init(oznakaNaprave : String) {
+        self.oznakaNaprave = oznakaNaprave
+        super.init(vrstaNaprave: .PlinskiKotel)
+    }
+}

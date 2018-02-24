@@ -7,3 +7,13 @@
 //
 
 import Foundation
+
+class Naprava {
+    
+    var vrstaNaprave : VrstaNaprave
+    
+    init(vrstaNaprave : VrstaNaprave) {
+        self.vrstaNaprave = vrstaNaprave
+    }
+    
+}

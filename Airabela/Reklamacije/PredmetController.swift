@@ -8,11 +8,9 @@
 
 import UIKit
 
-class PredmetController: UIViewController {
+class PredmetController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var reklamacija : Reklamacija?
-    let vrsteNaprav = ["Toplotna črpalka", "Klimatska naprava", "Rekuperator", "Čistilec zraka", "Konvektor", "VRV Sistem", "Plinski kotel"]
-    var izbranaVrstaNaprave : VrstaNaprave?
     
     let headerView : UIView = {
         let hv = UIView()
@@ -48,15 +46,44 @@ class PredmetController: UIViewController {
     }()
     
     @objc func handleCloseButton() {
+//        IQKeyboardManager.sharedManager().enable = true
         navigationController?.popViewController(animated: true)
     }
     
     @objc func handleNaprejButton() {
-        let alertController = UIAlertController(title: "NAPAKA", message: "Za nadaljevanje reklamacijskega zapisnika morate navesti vse podatke o kupcu.", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "VREDU", style: .cancel, handler: nil)
-        alertController.addAction(cancelAction)
         
+        // init predmet
         let opisReklamacijeController = OpisReklamacijeController()
+        var predmet : Naprava
+        
+        if izbranaVrstaNaprave == VrstaNaprave.ToplotnaCrpalka.rawValue {
+
+            predmet = ToplotnaCrpalka(tipNaprave: izbranTipNaprave, reklamirnaEnota: izbranaReklamiranaEnota, zunanjaEnotaStevilka: izbranaZunanjaReklamiranaEnota, notranjaEnotaStevilka: izbranaNotranjaReklamiranaEnota)
+            opisReklamacijeController.predmet = predmet as! ToplotnaCrpalka
+        } else if izbranaVrstaNaprave == VrstaNaprave.KlimatskaNaprava.rawValue {
+            // do klimatska naprava stuff here
+        } else if izbranaVrstaNaprave == VrstaNaprave.Rekuperator.rawValue {
+            
+            predmet = Rekuperator(naprava: izbranaNaprava ?? "", oznakaNaprave: oznakaNaprave ?? "")
+            opisReklamacijeController.predmet = predmet as! Rekuperator
+        } else if izbranaVrstaNaprave == VrstaNaprave.CistilecZraka.rawValue {
+            
+            predmet = CistilecZraka(naprava: izbranaNaprava ?? "", oznakaNaprave: oznakaNaprave ?? "")
+            opisReklamacijeController.predmet = predmet as! CistilecZraka
+        } else if izbranaVrstaNaprave == VrstaNaprave.Konvektor.rawValue {
+            
+            predmet = Konvektor(oznakaNaprave: oznakaNaprave ?? "")
+            opisReklamacijeController.predmet = predmet as! Konvektor
+        } else if izbranaVrstaNaprave == VrstaNaprave.VRVSistem.rawValue {
+            
+            predmet = VRVSistem(oznakaNaprave: oznakaNaprave ?? "")
+            opisReklamacijeController.predmet = predmet as! VRVSistem
+        } else {
+            // plinski kotel
+            
+            predmet = PlinskiKotel(oznakaNaprave: oznakaNaprave ?? "")
+            opisReklamacijeController.predmet = predmet as! PlinskiKotel
+        }
         
         let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         
@@ -66,11 +93,447 @@ class PredmetController: UIViewController {
         
     }
     
+    // picker view stuff
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView == vrstaNapravePickerView {
+            return vrsteNaprav.count
+        } else if pickerView == tipNapraveToplotnaCrpalkaPickerView {
+            return tipiNapravToplotnaCrpalka.count
+        } else if pickerView == reklamiranaEnotaToplotnaCrpalkaPickerView {
+            return reklamiraneEnoteToplotnaCrpalka.count
+        } else if pickerView == zunanjaEnotaPickerView {
+            
+            if izbranTipNaprave == TipNapraveToplotnaCrpalka.VisokoTemperaturna.rawValue {
+                if izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
+                    return visokoTemperaturnaZunanjaToplotnaCrpalkaKoda.count
+                }
+            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.NizkoTemperaturna.rawValue {
+                if izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
+                    return nizkoTemperaturnaZunanjaToplotnaCrpalkaKoda.count
+                }
+            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.Hibridna.rawValue {
+                if izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
+                    return hibridnaZunanjaToplotnaCrpalkaKoda.count
+                }
+            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.Monoblok.rawValue {
+                return monoblokZunanjaToplotnaCrpalkaKoda.count
+            }
+            
+        } else if pickerView == notranjaEnotaPickerView {
+            
+            if izbranTipNaprave == TipNapraveToplotnaCrpalka.NizkoTemperaturna.rawValue {
+                if izbranaReklamiranaEnota == ReklamiranaEnota.NotranjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
+                    return nizkoTemperaturnaNotranjaToplotnaCrpalkaKoda.count
+                }
+            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.VisokoTemperaturna.rawValue {
+                if izbranaReklamiranaEnota == ReklamiranaEnota.NotranjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
+                    return visokoTemperaturnaNotranjaToplotnaCrpalkaKoda.count
+                }
+            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.Hibridna.rawValue {
+                if izbranaReklamiranaEnota == ReklamiranaEnota.NotranjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
+                    return hibridnaZunanjaToplotnaCrpalkaKoda.count
+                }
+            }
+           
+        } else if pickerView == napravaPickerView {
+            if izbranaVrstaNaprave == VrstaNaprave.Rekuperator.rawValue {
+                return rekuperatorNapravaKoda.count
+            } else if izbranaVrstaNaprave == VrstaNaprave.CistilecZraka.rawValue {
+                return cistilecZrakaNapravaKoda.count
+            }
+        }
+        
+        return 0
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if pickerView == vrstaNapravePickerView {
+            return vrsteNaprav[row]
+        } else if pickerView == tipNapraveToplotnaCrpalkaPickerView {
+            return tipiNapravToplotnaCrpalka[row]
+        } else if pickerView == reklamiranaEnotaToplotnaCrpalkaPickerView {
+            return reklamiraneEnoteToplotnaCrpalka[row]
+        } else if pickerView == zunanjaEnotaPickerView {
+            
+            if izbranTipNaprave == TipNapraveToplotnaCrpalka.VisokoTemperaturna.rawValue {
+                if izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
+                    return visokoTemperaturnaZunanjaToplotnaCrpalkaKoda[row]
+                }
+            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.NizkoTemperaturna.rawValue {
+                if izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
+                    return nizkoTemperaturnaZunanjaToplotnaCrpalkaKoda[row]
+                }
+            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.Hibridna.rawValue {
+                if izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
+                    return hibridnaZunanjaToplotnaCrpalkaKoda[row]
+                }
+            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.Monoblok.rawValue {
+                return monoblokZunanjaToplotnaCrpalkaKoda[row]
+            }
+            
+        } else if pickerView == notranjaEnotaPickerView {
+            
+            if izbranTipNaprave == TipNapraveToplotnaCrpalka.VisokoTemperaturna.rawValue {
+                if izbranaReklamiranaEnota == ReklamiranaEnota.NotranjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
+                    return visokoTemperaturnaNotranjaToplotnaCrpalkaKoda[row]
+                }
+            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.NizkoTemperaturna.rawValue {
+                if izbranaReklamiranaEnota == ReklamiranaEnota.NotranjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
+                    return nizkoTemperaturnaNotranjaToplotnaCrpalkaKoda[row]
+                }
+            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.Hibridna.rawValue {
+                if izbranaReklamiranaEnota == ReklamiranaEnota.NotranjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
+                    return hibridnaNotranjaToplotnaCrpalkaKoda[row]
+                }
+            }
+            
+        } else if pickerView == napravaPickerView {
+            if izbranaVrstaNaprave == VrstaNaprave.Rekuperator.rawValue {
+                return rekuperatorNapravaKoda[row]
+            } else if izbranaVrstaNaprave == VrstaNaprave.CistilecZraka.rawValue {
+                return cistilecZrakaNapravaKoda[row]
+            }
+        }
+        
+        return ""
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView == vrstaNapravePickerView {
+            vrstaNapraveTextField.text = vrsteNaprav[row]
+            vrstaNapraveTextField.resignFirstResponder()
+            
+            izbranaVrstaNaprave = vrstaNapraveTextField.text!
+        } else if pickerView == tipNapraveToplotnaCrpalkaPickerView {
+            tipNapraveToplotnaCrpalkaTextField.text = tipiNapravToplotnaCrpalka[row]
+            tipNapraveToplotnaCrpalkaTextField.resignFirstResponder()
+            
+            izbranTipNaprave = tipNapraveToplotnaCrpalkaTextField.text
+        } else if pickerView == reklamiranaEnotaToplotnaCrpalkaPickerView {
+            reklamiranaEnotaToplotnaCrpalkaTextField.text = reklamiraneEnoteToplotnaCrpalka[row]
+            reklamiranaEnotaToplotnaCrpalkaTextField.resignFirstResponder()
+            
+            izbranaReklamiranaEnota = reklamiranaEnotaToplotnaCrpalkaTextField.text
+        } else if pickerView == notranjaEnotaPickerView {
+            
+            if izbranTipNaprave == TipNapraveToplotnaCrpalka.VisokoTemperaturna.rawValue {
+                reklamiranaNotranjaEnotaTextField.text = visokoTemperaturnaNotranjaToplotnaCrpalkaKoda[row]
+                reklamiranaNotranjaEnotaTextField.resignFirstResponder()
+                
+                izbranaNotranjaReklamiranaEnota = reklamiranaNotranjaEnotaTextField.text
+            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.NizkoTemperaturna.rawValue {
+                reklamiranaNotranjaEnotaTextField.text = nizkoTemperaturnaNotranjaToplotnaCrpalkaKoda[row]
+                reklamiranaNotranjaEnotaTextField.resignFirstResponder()
+                
+                izbranaNotranjaReklamiranaEnota = reklamiranaNotranjaEnotaTextField.text
+            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.Hibridna.rawValue {
+                reklamiranaNotranjaEnotaTextField.text = hibridnaNotranjaToplotnaCrpalkaKoda[row]
+                reklamiranaNotranjaEnotaTextField.resignFirstResponder()
+                
+                izbranaNotranjaReklamiranaEnota = reklamiranaNotranjaEnotaTextField.text
+            }
+            
+        } else if pickerView == zunanjaEnotaPickerView {
+            
+            if izbranTipNaprave == TipNapraveToplotnaCrpalka.VisokoTemperaturna.rawValue {
+                reklamiranaZunanjaEnotaTextField.text = visokoTemperaturnaZunanjaToplotnaCrpalkaKoda[row]
+                reklamiranaZunanjaEnotaTextField.resignFirstResponder()
+                
+                izbranaZunanjaReklamiranaEnota = reklamiranaZunanjaEnotaTextField.text
+            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.NizkoTemperaturna.rawValue {
+                reklamiranaZunanjaEnotaTextField.text = nizkoTemperaturnaZunanjaToplotnaCrpalkaKoda[row]
+                reklamiranaZunanjaEnotaTextField.resignFirstResponder()
+                
+                izbranaZunanjaReklamiranaEnota = reklamiranaZunanjaEnotaTextField.text
+            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.Hibridna.rawValue {
+                reklamiranaZunanjaEnotaTextField.text = hibridnaZunanjaToplotnaCrpalkaKoda[row]
+                reklamiranaZunanjaEnotaTextField.resignFirstResponder()
+                
+                izbranaZunanjaReklamiranaEnota = reklamiranaZunanjaEnotaTextField.text
+            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.Monoblok.rawValue {
+                reklamiranaZunanjaEnotaTextField.text = monoblokZunanjaToplotnaCrpalkaKoda[row]
+                reklamiranaZunanjaEnotaTextField.resignFirstResponder()
+                
+                izbranaZunanjaReklamiranaEnota = reklamiranaZunanjaEnotaTextField.text
+            } 
+            
+        } else if pickerView == napravaPickerView {
+            if izbranaVrstaNaprave == VrstaNaprave.Rekuperator.rawValue {
+                napravaTextField.text = rekuperatorNapravaKoda[row]
+                napravaTextField.resignFirstResponder()
+                
+                izbranaNaprava = napravaTextField.text
+            } else if izbranaVrstaNaprave == VrstaNaprave.CistilecZraka.rawValue {
+                napravaTextField.text = cistilecZrakaNapravaKoda[row]
+                napravaTextField.resignFirstResponder()
+                
+                izbranaNaprava = napravaTextField.text
+            }
+        }
+        
+    }
+    
+    // predmet info
+    
+    var izbranaVrstaNaprave : String? {
+        
+        willSet {
+            for subView in predmetContainerView.subviews {
+                if !(subView == vrstaNapraveTextField) {
+                    subView.removeFromSuperview()
+                }
+            }
+        }
+        
+        didSet {
+            // manage # of views in container view
+            if izbranaVrstaNaprave == VrstaNaprave.ToplotnaCrpalka.rawValue {
+                predmetContainerView.addSubview(tipNapraveToplotnaCrpalkaTextField)
+                tipNapraveToplotnaCrpalkaTextField.anchor(top: vrstaNapraveTextField.bottomAnchor, paddingTop: 20, right: vrstaNapraveTextField.rightAnchor, paddingRight: 0, left: vrstaNapraveTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
+                tipNapraveToplotnaCrpalkaTextField.inputView = tipNapraveToplotnaCrpalkaPickerView
+                tipNapraveToplotnaCrpalkaPickerView.dataSource = self
+                tipNapraveToplotnaCrpalkaPickerView.delegate = self
+                
+            } else if izbranaVrstaNaprave == VrstaNaprave.Rekuperator.rawValue || izbranaVrstaNaprave == VrstaNaprave.CistilecZraka.rawValue {
+                predmetContainerView.addSubview(napravaTextField)
+                napravaTextField.anchor(top: vrstaNapraveTextField.bottomAnchor, paddingTop: 20, right: vrstaNapraveTextField.rightAnchor, paddingRight: 0, left: vrstaNapraveTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
+                napravaTextField.inputView = napravaPickerView
+                napravaPickerView.delegate = self
+                napravaPickerView.dataSource = self
+            } else if izbranaVrstaNaprave == VrstaNaprave.Konvektor.rawValue || izbranaVrstaNaprave == VrstaNaprave.VRVSistem.rawValue || izbranaVrstaNaprave == VrstaNaprave.PlinskiKotel.rawValue {
+                
+                // add oznaka naprave textfield
+                predmetContainerView.addSubview(oznakaNapraveTextField)
+                oznakaNapraveTextField.anchor(top: vrstaNapraveTextField.bottomAnchor, paddingTop: 20, right: vrstaNapraveTextField.rightAnchor, paddingRight: 0, left: vrstaNapraveTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
+            }
+        }
+    }
+    
+    var izbranTipNaprave : String? {
+        
+        willSet {
+            for subView in predmetContainerView.subviews {
+                if !(subView == vrstaNapraveTextField) && !(subView == tipNapraveToplotnaCrpalkaTextField) {
+                    subView.removeFromSuperview()
+                }
+            }
+        }
+        
+        didSet {
+            
+            if izbranTipNaprave == TipNapraveToplotnaCrpalka.VisokoTemperaturna.rawValue || izbranTipNaprave == TipNapraveToplotnaCrpalka.NizkoTemperaturna.rawValue || izbranTipNaprave == TipNapraveToplotnaCrpalka.Hibridna.rawValue {
+                
+                predmetContainerView.addSubview(reklamiranaEnotaToplotnaCrpalkaTextField)
+                reklamiranaEnotaToplotnaCrpalkaTextField.anchor(top: tipNapraveToplotnaCrpalkaTextField.bottomAnchor, paddingTop: 20, right: tipNapraveToplotnaCrpalkaTextField.rightAnchor, paddingRight: 0, left: tipNapraveToplotnaCrpalkaTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
+                reklamiranaEnotaToplotnaCrpalkaTextField.inputView = reklamiranaEnotaToplotnaCrpalkaPickerView
+                reklamiranaEnotaToplotnaCrpalkaPickerView.delegate = self
+                reklamiranaEnotaToplotnaCrpalkaPickerView.dataSource = self
+                
+            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.Monoblok.rawValue {
+                predmetContainerView.addSubview(reklamiranaZunanjaEnotaTextField)
+                reklamiranaZunanjaEnotaTextField.anchor(top: tipNapraveToplotnaCrpalkaTextField.bottomAnchor, paddingTop: 20, right: tipNapraveToplotnaCrpalkaTextField.rightAnchor, paddingRight: 0, left: tipNapraveToplotnaCrpalkaTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
+                reklamiranaZunanjaEnotaTextField.inputView = zunanjaEnotaPickerView
+                zunanjaEnotaPickerView.delegate = self
+                zunanjaEnotaPickerView.dataSource = self
+                
+            }
+            
+        }
+    }
+    
+    var izbranaReklamiranaEnota : String? {
+        
+        willSet {
+            for subView in predmetContainerView.subviews {
+                if !(subView == vrstaNapraveTextField) && !(subView == tipNapraveToplotnaCrpalkaTextField) && !(subView == reklamiranaEnotaToplotnaCrpalkaTextField) {
+                    subView.removeFromSuperview()
+                }
+            }
+        }
+        
+        didSet {
+            
+            if izbranaReklamiranaEnota == ReklamiranaEnota.NotranjaEnota.rawValue {
+                
+                // add notranja enota toplotna view
+                
+                predmetContainerView.addSubview(reklamiranaNotranjaEnotaTextField)
+                reklamiranaNotranjaEnotaTextField.anchor(top: reklamiranaEnotaToplotnaCrpalkaTextField.bottomAnchor, paddingTop: 20, right: reklamiranaEnotaToplotnaCrpalkaTextField.rightAnchor, paddingRight: 0, left: reklamiranaEnotaToplotnaCrpalkaTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
+                reklamiranaNotranjaEnotaTextField.inputView = notranjaEnotaPickerView
+                notranjaEnotaPickerView.delegate = self
+                notranjaEnotaPickerView.dataSource = self
+                
+            } else if izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaEnota.rawValue {
+                
+                // add zunanja enota toplotna view
+                
+                predmetContainerView.addSubview(reklamiranaZunanjaEnotaTextField)
+                reklamiranaZunanjaEnotaTextField.anchor(top: reklamiranaEnotaToplotnaCrpalkaTextField.bottomAnchor, paddingTop: 20, right: reklamiranaEnotaToplotnaCrpalkaTextField.rightAnchor, paddingRight: 0, left: reklamiranaEnotaToplotnaCrpalkaTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
+                reklamiranaZunanjaEnotaTextField.inputView = zunanjaEnotaPickerView
+                zunanjaEnotaPickerView.delegate = self
+                zunanjaEnotaPickerView.dataSource = self
+                
+            } else if izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
+                
+                // add both above
+                
+                predmetContainerView.addSubview(reklamiranaNotranjaEnotaTextField)
+                reklamiranaNotranjaEnotaTextField.anchor(top: reklamiranaEnotaToplotnaCrpalkaTextField.bottomAnchor, paddingTop: 20, right: reklamiranaEnotaToplotnaCrpalkaTextField.rightAnchor, paddingRight: 0, left: reklamiranaEnotaToplotnaCrpalkaTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
+                reklamiranaNotranjaEnotaTextField.inputView = notranjaEnotaPickerView
+                notranjaEnotaPickerView.delegate = self
+                notranjaEnotaPickerView.dataSource = self
+                
+                predmetContainerView.addSubview(reklamiranaZunanjaEnotaTextField)
+                reklamiranaZunanjaEnotaTextField.anchor(top: reklamiranaNotranjaEnotaTextField.bottomAnchor, paddingTop: 20, right: reklamiranaNotranjaEnotaTextField.rightAnchor, paddingRight: 0, left: reklamiranaNotranjaEnotaTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
+                reklamiranaZunanjaEnotaTextField.inputView = zunanjaEnotaPickerView
+                zunanjaEnotaPickerView.delegate = self
+                zunanjaEnotaPickerView.dataSource = self
+                
+            }
+            
+        }
+        
+    }
+    
+    var izbranaZunanjaReklamiranaEnota : String? {
+        didSet {
+            print(izbranaZunanjaReklamiranaEnota)
+        }
+    }
+    
+    var izbranaNotranjaReklamiranaEnota : String? {
+        didSet {
+            print(izbranaNotranjaReklamiranaEnota)
+        }
+    }
+    
+    var izbranaNaprava : String? {
+        didSet {
+            print(izbranaNaprava)
+        }
+    }
+    
+    var oznakaNaprave : String? {
+        didSet {
+            print(oznakaNaprave)
+        }
+    }
+    
+    // let predmet views
+    
+    let predmetContainerView : UIView = {
+        let v = UIView()
+        v.backgroundColor = UIColor.airabelaGray
+        return v
+    }()
+    
+    let vrstaNapraveTextField : HoshiTextField = {
+        let tf = HoshiTextField()
+        tf.borderActiveColor = UIColor.airabelaBlue
+        tf.borderInactiveColor = UIColor.airabelaBlue
+        tf.placeholder = "VRSTA NAPRAVE"
+        return tf
+    }()
+    
+    let tipNapraveToplotnaCrpalkaTextField : HoshiTextField = {
+        let tf = HoshiTextField()
+        tf.borderActiveColor = UIColor.airabelaBlue
+        tf.borderInactiveColor = UIColor.airabelaBlue
+        tf.placeholder = "TIP NAPRAVE"
+        return tf
+    }()
+    
+    let reklamiranaEnotaToplotnaCrpalkaTextField : HoshiTextField = {
+        let tf = HoshiTextField()
+        tf.borderActiveColor = UIColor.airabelaBlue
+        tf.borderInactiveColor = UIColor.airabelaBlue
+        tf.placeholder = "REKLAMIRANA ENOTA"
+        return tf
+    }()
+    
+    let reklamiranaZunanjaEnotaTextField : HoshiTextField = {
+        let tf = HoshiTextField()
+        tf.borderActiveColor = UIColor.airabelaBlue
+        tf.borderInactiveColor = UIColor.airabelaBlue
+        tf.placeholder = "ZUNANJA ENOTA"
+        return tf
+    }()
+    
+    let reklamiranaNotranjaEnotaTextField : HoshiTextField = {
+        let tf = HoshiTextField()
+        tf.borderActiveColor = UIColor.airabelaBlue
+        tf.borderInactiveColor = UIColor.airabelaBlue
+        tf.placeholder = "NOTRANJA ENOTA"
+        return tf
+    }()
+    
+    let napravaTextField : HoshiTextField = {
+        let tf = HoshiTextField()
+        tf.borderActiveColor = UIColor.airabelaBlue
+        tf.borderInactiveColor = UIColor.airabelaBlue
+        tf.placeholder = "NAPRAVA:"
+        return tf
+    }()
+    
+    let oznakaNapraveTextField : HoshiTextField = {
+        let tf = HoshiTextField()
+        tf.borderActiveColor = UIColor.airabelaBlue
+        tf.borderInactiveColor = UIColor.airabelaBlue
+        tf.placeholder = "OZNAKA NAPRAVE:"
+        return tf
+    }()
+    
+    let vrstaNapravePickerView : UIPickerView = {
+        let pv = UIPickerView()
+        return pv
+    }()
+    
+    let tipNapraveToplotnaCrpalkaPickerView : UIPickerView = {
+        let pv = UIPickerView()
+        return pv
+    }()
+
+    let reklamiranaEnotaToplotnaCrpalkaPickerView : UIPickerView = {
+        let pv = UIPickerView()
+        return pv
+    }()
+    
+    let zunanjaEnotaPickerView : UIPickerView = {
+        let pv = UIPickerView()
+        return pv
+    }()
+    
+    let notranjaEnotaPickerView : UIPickerView = {
+        let pv = UIPickerView()
+        return pv
+    }()
+    
+    let napravaPickerView: UIPickerView = {
+        let pv = UIPickerView()
+        return pv
+    }()
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        izbranaZunanjaReklamiranaEnota = nil
+        izbranaNotranjaReklamiranaEnota = nil
+        izbranaReklamiranaEnota = nil
+        
+        reklamiranaEnotaToplotnaCrpalkaPickerView.selectRow(0, inComponent: 0, animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.airabelaGray
         navigationItem.title = "PREDMET"
+        
+//        IQKeyboardManager.sharedManager().enable = false
         
         print(reklamacija?.kupec ?? "")
         
@@ -88,11 +551,16 @@ class PredmetController: UIViewController {
         view.addSubview(buttonsStackView)
         buttonsStackView.anchor(top: nil, paddingTop: 0, right: view.rightAnchor, paddingRight: 40, left: view.leftAnchor, paddingLeft: 40, bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 20, width: 0, height: 40)
         
-        // add subviews
+        // add container view
         
-        view.addSubview(vrsteNapravTableView)
-        vrsteNapravTableView.anchor(top: headerView.bottomAnchor, paddingTop: 20, right: view.rightAnchor, paddingRight: 40, left: view.leftAnchor, paddingLeft: 40, bottom: buttonsStackView.topAnchor, paddingBottom: 20, width: 0, height: 0)
+        view.addSubview(predmetContainerView)
+        predmetContainerView.anchor(top: headerView.bottomAnchor, paddingTop: 0, right: buttonsStackView.rightAnchor, paddingRight: 0, left: buttonsStackView.leftAnchor, paddingLeft: 0, bottom: buttonsStackView.topAnchor, paddingBottom: 20, width: 0, height: 0)
         
+        predmetContainerView.addSubview(vrstaNapraveTextField)
+        vrstaNapraveTextField.anchor(top: predmetContainerView.topAnchor, paddingTop: 0, right: predmetContainerView.rightAnchor, paddingRight: 0, left: predmetContainerView.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
+        vrstaNapraveTextField.inputView = vrstaNapravePickerView
+        vrstaNapravePickerView.dataSource = self
+        vrstaNapravePickerView.delegate = self
         
     }
     

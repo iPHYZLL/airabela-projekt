@@ -7,3 +7,14 @@
 //
 
 import Foundation
+
+class Konvektor : Naprava {
+    
+    var oznakaNaprave : String
+    
+    init(oznakaNaprave : String) {
+        self.oznakaNaprave = oznakaNaprave
+        super.init(vrstaNaprave: .Konvektor)
+    }
+    
+}

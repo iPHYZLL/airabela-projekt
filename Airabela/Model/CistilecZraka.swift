@@ -7,3 +7,18 @@
 //
 
 import Foundation
+
+class CistilecZraka : Naprava {
+    
+    var naprava : String
+    var oznakaNaprave : String
+    
+    init(naprava : String, oznakaNaprave : String) {
+        self.naprava = naprava
+        self.oznakaNaprave = oznakaNaprave
+        super.init(vrstaNaprave: .CistilecZraka)
+    }
+    
+}
+
+var cistilecZrakaNapravaKoda = ["izberi...", "MC70L", "MCK75JVM-K", "Drugo"]

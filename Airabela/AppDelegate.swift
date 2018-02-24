@@ -13,9 +13,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        IQKeyboardManager.sharedManager().enable = true
+    
+        window = UIWindow()
+        
+        let mainNavigationViewController = UINavigationController(rootViewController: HomeController())
+        
+        mainNavigationViewController.navigationBar.isTranslucent = false
+        mainNavigationViewController.navigationBar.barTintColor = UIColor.airabelaBlue
+        mainNavigationViewController.navigationBar.tintColor = UIColor.airabelaGray
+        
+        
+        window?.rootViewController = mainNavigationViewController
+        window?.makeKeyAndVisible()
+        
+        if #available(iOS 11.0, *) {
+            mainNavigationViewController.navigationBar.prefersLargeTitles = true
+            UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.airabelaGray]
+        } else {
+            mainNavigationViewController.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.airabelaGray]
+
+        }
+        
         return true
     }
 

@@ -7,3 +7,14 @@
 //
 
 import Foundation
+
+class VRVSistem : Naprava {
+    
+    var oznakaNaprave : String
+    
+    init(oznakaNaprave : String) {
+        self.oznakaNaprave = oznakaNaprave
+        super.init(vrstaNaprave: .VRVSistem)
+    }
+    
+}

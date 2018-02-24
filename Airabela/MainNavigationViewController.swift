@@ -6,4 +6,14 @@
 //  Copyright © 2018 Alen Kirm. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class MainNavigationViewController: UINavigationController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .green
+    }
+    
+    
+}

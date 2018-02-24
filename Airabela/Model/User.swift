@@ -7,3 +7,16 @@
 //
 
 import Foundation
+
+struct User {
+    
+    let naslov : String
+    let postnaSt : Int
+    let kraj : String
+    let davcnaSt : String
+    let kontaktnaOseba : String
+    let kontaktniEnaslov : String
+    let kontaktnaTelefonskaSt : Int
+    
+    
+}
