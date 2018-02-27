@@ -198,7 +198,9 @@ class UserRegistrationController: UIViewController, UITextFieldDelegate {
             
             let homeController = HomeController()
             let mainNavigationViewController = UINavigationController(rootViewController: homeController)
-            mainNavigationViewController.navigationBar.prefersLargeTitles = true
+            if #available(iOS 11.0, *) {
+                mainNavigationViewController.navigationBar.prefersLargeTitles = true
+            }
             mainNavigationViewController.navigationBar.isTranslucent = false
             mainNavigationViewController.navigationBar.barTintColor = UIColor.airabelaBlue
             mainNavigationViewController.navigationBar.tintColor = UIColor.airabelaGray
@@ -263,7 +265,12 @@ class UserRegistrationController: UIViewController, UITextFieldDelegate {
     
     fileprivate func addSubviews() {
         view.addSubview(headerView)
-        headerView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 0, left: view.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 80)
+        if #available(iOS 11.0, *) {
+            headerView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 0, left: view.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 80)
+        } else {
+            // Fallback on earlier versions
+            headerView.anchor(top: view.layoutMarginsGuide.topAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 0, left: view.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 80)
+        }
         
         let stackView = UIStackView(arrangedSubviews: [iconImage, iconLabel])
         stackView.axis = .vertical
@@ -279,7 +286,13 @@ class UserRegistrationController: UIViewController, UITextFieldDelegate {
         textViewContainerView.anchor(top: headerView.bottomAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 0, left: view.leftAnchor, paddingLeft: 0, bottom: view.bottomAnchor, paddingBottom: 0, width: 0, height: 0)
         
         textViewContainerView.addSubview(homeScreenButton)
-        homeScreenButton.anchor(top: nil, paddingTop: 0, right: textViewContainerView.rightAnchor, paddingRight: 20, left: textViewContainerView.leftAnchor, paddingLeft: 20, bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 20, width: 0, height: 50)
+        
+        if #available(iOS 11.0, *) {
+            homeScreenButton.anchor(top: nil, paddingTop: 0, right: textViewContainerView.rightAnchor, paddingRight: 20, left: textViewContainerView.leftAnchor, paddingLeft: 20, bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 20, width: 0, height: 50)
+        } else {
+            // Fallback on earlier versions
+            homeScreenButton.anchor(top: nil, paddingTop: 0, right: textViewContainerView.rightAnchor, paddingRight: 20, left: textViewContainerView.leftAnchor, paddingLeft: 20, bottom: view.layoutMarginsGuide.bottomAnchor, paddingBottom: 20, width: 0, height: 50)
+        }
         
         let pogojiStackView = UIStackView(arrangedSubviews: [pogojiBtn, pogojiLabel])
         pogojiStackView.distribution = .fillProportionally

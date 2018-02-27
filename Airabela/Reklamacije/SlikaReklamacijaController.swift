@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MessageUI
 
-class SlikaReklamacijaController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class SlikaReklamacijaController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MFMailComposeViewControllerDelegate {
     
     let headerView : UIView = {
         let hv = UIView()
@@ -23,93 +24,61 @@ class SlikaReklamacijaController: UIViewController, UIImagePickerControllerDeleg
         return liv
     }()
     
-    let galerijaImageView : UIImageView = {
-        let iv = UIImageView()
-        iv.image = #imageLiteral(resourceName: "slika_galerija")
-        iv.contentMode = .scaleAspectFill
-        iv.clipsToBounds = true
-//        iv.isUserInteractionEnabled = true
-        return iv
+    let infoLabel : UILabel = {
+        let l = UILabel()
+        l.text = "Fotografije so zaželjene.\nMaksimalno število fotografij je 3."
+        l.font = UIFont.boldSystemFont(ofSize: 12)
+        l.textColor = UIColor.black
+        l.textAlignment = .center
+        l.numberOfLines = 0
+        return l
     }()
     
-    let slikajImageView : UIImageView = {
-        let iv = UIImageView()
-        iv.image = #imageLiteral(resourceName: "slika_fotografiraj")
-        iv.contentMode = .scaleAspectFill
-        iv.clipsToBounds = true
-//        iv.isUserInteractionEnabled = true
-        return iv
-    }()
-    
-    let brezSlikeImageView : UIImageView = {
-        let iv = UIImageView()
-        iv.image = #imageLiteral(resourceName: "slika_brez_foto")
-        iv.contentMode = .scaleAspectFill
-        iv.clipsToBounds = true
-//        iv.isUserInteractionEnabled = true
-        return iv
-    }()
-    
-    let galerijaButton : UIButton = {
-        let b = UIButton(type: .system)
-        b.addTarget(self, action: #selector(galerijaButtonTapped), for: .touchUpInside)
-        return b
-    }()
-    
-    let fotografijaButton : UIButton = {
-        let b = UIButton(type: .system)
-        b.addTarget(self, action: #selector(fotografijaButtonTapped), for: .touchUpInside)
-        return b
-    }()
-    
-    let brezSlikeButton : UIButton = {
-        let b = UIButton(type: .system)
-        b.addTarget(self, action: #selector(brezSlikeButtonTapped), for: .touchUpInside)
-        return b
-    }()
-
-    
-    let galerijaView : HomeView = {
-        let view = HomeView(withStyle: .left)
-        view.image = #imageLiteral(resourceName: "slika_galerija")
-        view.btnTitle = "DODAJ IZ\nGALERIJE"
-        view.btnIcon = #imageLiteral(resourceName: "galerija")
-        return view
-    }()
-    
-    let fotografijaView : HomeView = {
-        let view = HomeView(withStyle: .right)
-        view.image = #imageLiteral(resourceName: "slika_fotografiraj")
-        view.btnTitle = "USTVARI\nFOTOGRAFIJO"
-        view.btnIcon = #imageLiteral(resourceName: "camera")
-        return view
-    }()
-    
-    let brezSlikeView : HomeView = {
-        let view = HomeView(withStyle: .left)
-        view.image = #imageLiteral(resourceName: "slika_brez_foto")
-        view.btnTitle = "NADALJUJ BREZ\nFOTOGRAFIJ"
-        view.btnIcon = #imageLiteral(resourceName: "brez-slike")
-        return view
-    }()
-    
-    @objc func galerijaButtonTapped() {
+    @objc func dodajFotografijoButtonTapped() {
+        
+        let alertController = UIAlertController(title: "DODAJ FOTOGRAFIJO", message: "Kako želite dodati fotografijo?", preferredStyle: .actionSheet)
         
         let picker = UIImagePickerController()
         picker.delegate = self
-        picker.allowsEditing = false
-        picker.sourceType = .photoLibrary
-        picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
-        present(picker, animated: true) {
-            print("image picker presented")
+        picker.allowsEditing = true
+        
+        let galerijaAction = UIAlertAction(title: "Galerija", style: .default) { (action) in
+            picker.sourceType = .photoLibrary
+            picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+            self.present(picker, animated: true)
         }
         
+        let slikajAction = UIAlertAction(title: "Kamera", style: .default) { (action) in
+            picker.sourceType = .camera
+            self.present(picker, animated: true, completion: nil)
+        }
         
+        let cancelAction = UIAlertAction(title: "Prekliči", style: .destructive, handler: nil)
+        
+        alertController.addAction(galerijaAction)
+        alertController.addAction(slikajAction)
+        alertController.addAction(cancelAction)
+        
+        if imageArray.count < 3 {
+            present(alertController, animated: true, completion: nil)
+        } else {
+            let alertController = UIAlertController(title: "NAPAKA", message: "Maksimalno število slik je 3.", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "VREDU", style: .cancel, handler: nil)
+            
+            alertController.addAction(cancelAction)
+            present(alertController, animated: true, completion: nil)
+        }
+    
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
+        guard let selectedImage = info[UIImagePickerControllerEditedImage] as? UIImage else { return }
         print(selectedImage)
+        
+        imageArray.append(selectedImage)
+        collectionView?.reloadData()
+        
+        dismiss(animated: true, completion: nil)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -118,12 +87,170 @@ class SlikaReklamacijaController: UIViewController, UIImagePickerControllerDeleg
         }
     }
     
-    @objc func fotografijaButtonTapped() {
-        print("fotografija btn tapped")
+    var imageArray = [UIImage]()
+    let reklamacijaCellId = "reklamacijaCell"
+    
+    var reklamacija : Reklamacija?
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
     }
     
-    @objc func brezSlikeButtonTapped() {
-        print("brez slike btn tapped")
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return imageArray.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reklamacijaCellId, for: indexPath) as? SlikaReklamacijaCell {
+            
+            cell.reklamacijaImage = imageArray[indexPath.item]
+        
+            return cell
+        }
+        
+        return UICollectionViewCell()
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let size = collectionView.frame.height
+        
+        return CGSize(width: size, height: size)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        imageArray.remove(at: indexPath.item)
+        collectionView.reloadData()
+    }
+    
+    let layout = UICollectionViewFlowLayout()
+    var collectionView : UICollectionView?
+    
+    let closeButton : UIButton = {
+        let b = UIButton(type: .system)
+        b.backgroundColor = UIColor.airabelaBlue
+        b.setTitle("PREKLIČI", for: .normal)
+        b.addTarget(self, action: #selector(handleCloseButton), for: .touchUpInside)
+        b.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        b.setTitleColor(UIColor.airabelaGray, for: .normal)
+        return b
+    }()
+    
+    let pošljiButton : UIButton = {
+        let b = UIButton(type: .system)
+        b.backgroundColor = UIColor.airabelaBlue
+        b.setTitle("  POŠLJI ZAPISNIK", for: .normal)
+        b.setImage(#imageLiteral(resourceName: "reklamacijskiZapisnik"), for: .normal)
+        b.addTarget(self, action: #selector(handleNaprejButton), for: .touchUpInside)
+        b.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
+        b.tintColor = UIColor.airabelaGray
+        return b
+    }()
+    
+    let dodajFotografijoButton : UIButton = {
+        let b = UIButton(type: .system)
+        b.backgroundColor = .white
+        b.setTitle("  DODAJ FOTOGRAFIJO", for: .normal)
+        b.setImage(#imageLiteral(resourceName: "camera"), for: .normal)
+        b.tintColor = UIColor.airabelaBlue
+        b.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
+        b.addTarget(self, action: #selector(dodajFotografijoButtonTapped), for: .touchUpInside)
+        return b
+    }()
+    
+    @objc func handleCloseButton() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func handleNaprejButton() {
+        
+        let mailController = MFMailComposeViewController()
+        mailController.mailComposeDelegate = self
+        mailController.setSubject("Reklamacijski zapisnik")
+        mailController.setToRecipients(["alen.kirm@gmail.com"])
+        
+        // mail controller body
+        mailController.setMessageBody(composeBody(), isHTML: false)
+        
+        // mail controller image
+        if imageArray.count > 0 {
+            var i = 0
+            for image in imageArray {
+                i += 1
+                mailController.addAttachmentData(UIImageJPEGRepresentation(image, 1.0)!, mimeType: "image/jpeg", fileName: "slika\(i)")
+            }
+        }
+        
+        present(mailController, animated: true, completion: nil)
+        
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        
+        if result == .cancelled {
+            dismiss(animated: true, completion: nil)
+        } else if result == .sent {
+            dismiss(animated: true) {
+                self.navigationController?.popToRootViewController(animated: true)
+            }
+        }
+        
+    }
+    
+    func composeBody() -> String {
+        
+        let defaults = UserDefaults.standard
+        let podjetje = defaults.object(forKey: "podjetje") as? String ?? ""
+        let naslov = defaults.object(forKey: "naslov") as? String ?? ""
+        let krajInPostna = "\(defaults.object(forKey: "postnaSt") as? String ?? "") \(defaults.object(forKey: "kraj") as? String ?? "")"
+        let davcna = defaults.object(forKey: "davcnaSt") as? String ?? ""
+        let kontaktnaOseba = defaults.object(forKey: "kontaktnaOseba") as? String ?? ""
+        let kontaktniEmail = defaults.object(forKey: "kontaktniEnaslov") as? String ?? ""
+        let telefonska = defaults.object(forKey: "kontaktnaTelefonskaSt") as? String ?? ""
+        
+        // text
+        let naslovText = "----- REKLAMACIJSKI ZAPISNIK -----"
+        
+        let podjetjeText = "PODJETJE:\n\n   \(podjetje)\n   \(naslov)\n   \(krajInPostna)\n   \(davcna)"
+        
+        let kontaktnaOsebaText = "KONTAKTNA OSEBA:\n\n   \(kontaktnaOseba)\n   \(kontaktniEmail)\n   \(telefonska)"
+        
+        let kupecText = "KUPEC:\n\n   \(reklamacija?.kupec.ime ?? "") \(reklamacija?.kupec.priimek ?? "")"
+        
+        let vgradnjaText = "VGRADNJA:\n\n   \(reklamacija?.kupec.krajVgradnje ?? "")\n   \(reklamacija?.kupec.naslovVgradnje ?? "")\n   \(reklamacija?.kupec.datumVgradnje ?? "")"
+        
+        let kodaNapakeText = "KODA NAPAKE:\n\n   \(reklamacija?.opisReklamacije?.kodaNapake ?? "")"
+        
+        let opisNapakeText = "OPIS NAPAKE:\n\n   \(reklamacija?.opisReklamacije?.opisNapake ?? "")"
+        
+        var predmetText = "NAPRAVA:\n\n   "
+        
+        // naprava stuff
+        if let naprava = reklamacija?.naprava {
+            predmetText += "\(naprava.vrstaNaprave)\n"
+            if let toplotnaCrpalka = naprava as? ToplotnaCrpalka {
+                if let notranjaNapravaKoda = toplotnaCrpalka.notranjaEnotaStevilka {
+                    predmetText += "Notranja enota koda: \(notranjaNapravaKoda)\n"
+                }
+                
+                if let zunanjaNapravaKoda = toplotnaCrpalka.zunanjaEnotaStevilka {
+                    predmetText += "Zunanja enota koda: \(zunanjaNapravaKoda)\n"
+                }
+            }
+        }
+        
+        let serijskaNotranjaText = "SERIJSKA ŠTEVILKA NOTRANJE ENOTE:\n\n   \(reklamacija?.opisReklamacije?.serijskaNotranjeEnote ?? "Neznana")"
+        
+        let serijskaZunanjaText = "SERIJSKA ŠTEVILKA ZUNANJE ENOTE:\n\n   \(reklamacija?.opisReklamacije?.serijskaZunanjeEnote ?? "Neznana")"
+        
+        let bodyText = "\n\(naslovText.uppercased())\n\n\(podjetjeText.uppercased())\n\n\(kontaktnaOsebaText.uppercased())\n\n\(predmetText.uppercased())\n\n\(serijskaNotranjaText.uppercased())\n\n\(serijskaZunanjaText.uppercased())\n\n\(kodaNapakeText.uppercased())\n\n\(opisNapakeText.uppercased())\n\n\(kupecText.uppercased())\n\n\(vgradnjaText.uppercased())"
+        
+        return bodyText
     }
     
     override func viewDidLoad() {
@@ -133,38 +260,46 @@ class SlikaReklamacijaController: UIViewController, UIImagePickerControllerDeleg
         navigationItem.title = "FOTOGRAFIJE"
         
         view.addSubview(headerView)
-        headerView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 0, left: view.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 80)
+        if #available(iOS 11.0, *) {
+            headerView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 0, left: view.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 80)
+        } else {
+            // Fallback on earlier versions
+            headerView.anchor(top: view.layoutMarginsGuide.topAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 0, left: view.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 80)
+        }
         
         headerView.addSubview(logoImageView)
         
         logoImageView.anchorCenter(to: headerView, withHeight: 50, andWidth: 0)
         
         // add subviews
-        let stackView = UIStackView(arrangedSubviews: [galerijaView, fotografijaView, brezSlikeView])
-        stackView.distribution = .fillEqually
-        stackView.axis = .vertical
         
-        view.addSubview(stackView)
-        stackView.anchor(top: headerView.bottomAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 0, left: view.leftAnchor, paddingLeft: 0, bottom: view.bottomAnchor, paddingBottom: 0, width: 0, height: 0)
+        collectionView = UICollectionView(frame: UIScreen.main.bounds, collectionViewLayout: layout)
+        collectionView?.delegate = self
+        collectionView?.dataSource = self
+        collectionView?.isScrollEnabled = false
+        collectionView?.backgroundColor = UIColor.airabelaGray
         
-        addButtonsToMenuViews()
+        collectionView?.register(SlikaReklamacijaCell.self, forCellWithReuseIdentifier: reklamacijaCellId)
         
+        view.addSubview(collectionView!)
+        collectionView?.anchor(top: headerView.bottomAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 20, left: view.leftAnchor, paddingLeft: 20, bottom: nil, paddingBottom: 0, width: 0, height: 100)
+        
+        let buttonsStackView = UIStackView(arrangedSubviews: [infoLabel, dodajFotografijoButton, pošljiButton, closeButton])
+        buttonsStackView.distribution = .fillEqually
+        buttonsStackView.spacing = 10
+        buttonsStackView.axis = .vertical
+        
+        view.addSubview(buttonsStackView)
+        if #available(iOS 11.0, *) {
+            buttonsStackView.anchor(top: nil, paddingTop: 0, right: view.rightAnchor, paddingRight: 40, left: view.leftAnchor, paddingLeft: 40, bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 20, width: 0, height: 230)
+        } else {
+            // Fallback on earlier versions
+            buttonsStackView.anchor(top: nil, paddingTop: 0, right: view.rightAnchor, paddingRight: 40, left: view.leftAnchor, paddingLeft: 40, bottom: view.layoutMarginsGuide.bottomAnchor, paddingBottom: 20, width: 0, height: 40)
+        }
+        
+//        view.addSubview(infoLabel)
+//        infoLabel.anchor(top: collectionView?.topAnchor, paddingTop: 0, right: collectionView?.rightAnchor, paddingRight: 0, left: collectionView?.leftAnchor, paddingLeft: 0, bottom: buttonsStackView.topAnchor, paddingBottom: 20, width: 0, height: 0)
     }
     
-    fileprivate func addButtonsToMenuViews() {
-        let galerijaBtnView = galerijaView.buttonView
-        let fotografijaBtnView = fotografijaView.buttonView
-        let brezSlikeBtnView = brezSlikeView.buttonView
-        
-        galerijaBtnView.addSubview(galerijaButton)
-        galerijaButton.anchor(top: galerijaBtnView.topAnchor, paddingTop: 0, right: galerijaBtnView.rightAnchor, paddingRight: 0, left: galerijaBtnView.leftAnchor, paddingLeft: 0, bottom: galerijaBtnView.bottomAnchor, paddingBottom: 0, width: 0, height: 0)
-        
-        fotografijaBtnView.addSubview(fotografijaButton)
-        fotografijaButton.anchor(top: fotografijaBtnView.topAnchor, paddingTop: 0, right: fotografijaBtnView.rightAnchor, paddingRight: 0, left: fotografijaBtnView.leftAnchor, paddingLeft: 0, bottom: fotografijaBtnView.bottomAnchor, paddingBottom: 0, width: 0, height: 0)
-        
-        brezSlikeBtnView.addSubview(brezSlikeButton)
-        brezSlikeButton.anchor(top: brezSlikeBtnView.topAnchor, paddingTop: 0, right: brezSlikeBtnView.rightAnchor, paddingRight: 0, left: brezSlikeBtnView.leftAnchor, paddingLeft: 0, bottom: brezSlikeBtnView.bottomAnchor, paddingBottom: 0, width: 0, height: 0)
-
-    }
     
 }

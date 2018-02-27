@@ -7,8 +7,18 @@
 //
 
 import Foundation
+import UIKit
 
 struct Reklamacija {
-    let kupec : Kupec?
-    let predmet : Predmet?
+    var kupec : Kupec
+    var naprava : Naprava?
+    var opisReklamacije : OpisReklamacije?
+    var fotografijeReklamacije : [UIImage]?
+}
+
+struct OpisReklamacije {
+    var kodaNapake : String
+    var opisNapake : String
+    var serijskaZunanjeEnote : String
+    var serijskaNotranjeEnote : String
 }

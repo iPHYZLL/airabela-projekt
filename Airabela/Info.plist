@@ -20,6 +20,12 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Aplikacija potrebujo odobren dostop do kamere</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Aplikacija za izbiro fotografije in prikaz galerije potrebuje odobren dostop do galerije</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Aplikacija za izbiro fotografije in prikaz galerije potrebuje odobren dostop do galerije</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -32,8 +38,6 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Aplikacija za izbiro fotografije in prikaz galerije potrebuje odobren dostop do galerije.</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

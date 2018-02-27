@@ -95,34 +95,24 @@ class KupecController: UIViewController {
         let cancelAction = UIAlertAction(title: "VREDU", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
         
-        
-        
-//        if let imeKupca = imeKupcaTextView.text, imeKupca.count > 0, let priimekKupca = priimekKupcaTextView.text, priimekKupca.count > 0, let naslovVgradnje = naslovVgradnjeTextView.text, naslovVgradnje.count > 0, let krajVgradnje = krajVgradnjeTextView.text, krajVgradnje.count > 0, let datumVgradnje = datumVgradnjeTextView.text, datumVgradnje.count > 0 {
-//
-//            kupec = Kupec(ime: imeKupca, priimek: priimekKupca, naslovVgradnje: naslovVgradnje, krajVgradnje: krajVgradnje, datumVgradnje: datumVgradnje)
-//
-//            reklamacija = Reklamacija(kupec: kupec, predmet: nil)
-//
-//            let predmetViewController = PredmetController()
-//            predmetViewController.reklamacija = reklamacija
-//
-//            let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-//
-//            self.navigationItem.backBarButtonItem = backButton
-//
-//            navigationController?.pushViewController(predmetViewController, animated: true)
-//
-//        } else {
-//            present(alertController, animated: true, completion: nil)
-//        }
-        
-        let predmetViewController = PredmetController()
-        
-        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        
-        self.navigationItem.backBarButtonItem = backButton
-        
-        navigationController?.pushViewController(predmetViewController, animated: true)
+        if let imeKupca = imeKupcaTextView.text, imeKupca.count > 0, let priimekKupca = priimekKupcaTextView.text, priimekKupca.count > 0, let naslovVgradnje = naslovVgradnjeTextView.text, naslovVgradnje.count > 0, let krajVgradnje = krajVgradnjeTextView.text, krajVgradnje.count > 0, let datumVgradnje = datumVgradnjeTextView.text, datumVgradnje.count > 0 {
+
+            kupec = Kupec(ime: imeKupca, priimek: priimekKupca, naslovVgradnje: naslovVgradnje, krajVgradnje: krajVgradnje, datumVgradnje: datumVgradnje)
+
+            reklamacija = Reklamacija(kupec: kupec!, naprava: nil, opisReklamacije: nil, fotografijeReklamacije: nil)
+
+            let predmetViewController = PredmetController()
+            predmetViewController.reklamacija = reklamacija
+
+            let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+
+            self.navigationItem.backBarButtonItem = backButton
+
+            navigationController?.pushViewController(predmetViewController, animated: true)
+
+        } else {
+            present(alertController, animated: true, completion: nil)
+        }
         
     }
     
@@ -134,7 +124,12 @@ class KupecController: UIViewController {
         navigationItem.title = "KUPEC"
         
         view.addSubview(headerView)
-        headerView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 0, left: view.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 80)
+        if #available(iOS 11.0, *) {
+            headerView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 0, left: view.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 80)
+        } else {
+            // Fallback on earlier versions
+            headerView.anchor(top: view.layoutMarginsGuide.topAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 0, left: view.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 80)
+        }
         
         headerView.addSubview(logoImageView)
         
@@ -145,7 +140,12 @@ class KupecController: UIViewController {
         buttonsStackView.spacing = 10
         
         view.addSubview(buttonsStackView)
-        buttonsStackView.anchor(top: nil, paddingTop: 0, right: view.rightAnchor, paddingRight: 40, left: view.leftAnchor, paddingLeft: 40, bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 20, width: 0, height: 40)
+        if #available(iOS 11.0, *) {
+            buttonsStackView.anchor(top: nil, paddingTop: 0, right: view.rightAnchor, paddingRight: 40, left: view.leftAnchor, paddingLeft: 40, bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 20, width: 0, height: 40)
+        } else {
+            // Fallback on earlier versions
+            buttonsStackView.anchor(top: nil, paddingTop: 0, right: view.rightAnchor, paddingRight: 40, left: view.leftAnchor, paddingLeft: 40, bottom: view.layoutMarginsGuide.bottomAnchor, paddingBottom: 20, width: 0, height: 40)
+        }
         
         let kupecStackView = UIStackView(arrangedSubviews: [imeKupcaTextView, priimekKupcaTextView, naslovVgradnjeTextView, krajVgradnjeTextView, datumVgradnjeTextView])
         kupecStackView.distribution = .fillEqually

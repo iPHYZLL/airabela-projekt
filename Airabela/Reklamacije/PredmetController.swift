@@ -46,7 +46,6 @@ class PredmetController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     }()
     
     @objc func handleCloseButton() {
-//        IQKeyboardManager.sharedManager().enable = true
         navigationController?.popViewController(animated: true)
     }
     
@@ -54,37 +53,34 @@ class PredmetController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         
         // init predmet
         let opisReklamacijeController = OpisReklamacijeController()
-        var predmet : Naprava
+        var predmet : Naprava?
         
         if izbranaVrstaNaprave == VrstaNaprave.ToplotnaCrpalka.rawValue {
 
             predmet = ToplotnaCrpalka(tipNaprave: izbranTipNaprave, reklamirnaEnota: izbranaReklamiranaEnota, zunanjaEnotaStevilka: izbranaZunanjaReklamiranaEnota, notranjaEnotaStevilka: izbranaNotranjaReklamiranaEnota)
-            opisReklamacijeController.predmet = predmet as! ToplotnaCrpalka
         } else if izbranaVrstaNaprave == VrstaNaprave.KlimatskaNaprava.rawValue {
             // do klimatska naprava stuff here
+            
         } else if izbranaVrstaNaprave == VrstaNaprave.Rekuperator.rawValue {
             
             predmet = Rekuperator(naprava: izbranaNaprava ?? "", oznakaNaprave: oznakaNaprave ?? "")
-            opisReklamacijeController.predmet = predmet as! Rekuperator
         } else if izbranaVrstaNaprave == VrstaNaprave.CistilecZraka.rawValue {
             
             predmet = CistilecZraka(naprava: izbranaNaprava ?? "", oznakaNaprave: oznakaNaprave ?? "")
-            opisReklamacijeController.predmet = predmet as! CistilecZraka
         } else if izbranaVrstaNaprave == VrstaNaprave.Konvektor.rawValue {
             
             predmet = Konvektor(oznakaNaprave: oznakaNaprave ?? "")
-            opisReklamacijeController.predmet = predmet as! Konvektor
         } else if izbranaVrstaNaprave == VrstaNaprave.VRVSistem.rawValue {
             
             predmet = VRVSistem(oznakaNaprave: oznakaNaprave ?? "")
-            opisReklamacijeController.predmet = predmet as! VRVSistem
         } else {
             // plinski kotel
-            
             predmet = PlinskiKotel(oznakaNaprave: oznakaNaprave ?? "")
-            opisReklamacijeController.predmet = predmet as! PlinskiKotel
         }
         
+        reklamacija?.naprava = predmet
+        opisReklamacijeController.reklamacija = reklamacija
+//        opisReklamacijeController.predmet = predmet
         let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         
         self.navigationItem.backBarButtonItem = backButton
@@ -402,25 +398,25 @@ class PredmetController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     
     var izbranaZunanjaReklamiranaEnota : String? {
         didSet {
-            print(izbranaZunanjaReklamiranaEnota)
+//            print(izbranaZunanjaReklamiranaEnota)
         }
     }
     
     var izbranaNotranjaReklamiranaEnota : String? {
         didSet {
-            print(izbranaNotranjaReklamiranaEnota)
+//            print(izbranaNotranjaReklamiranaEnota)
         }
     }
     
     var izbranaNaprava : String? {
         didSet {
-            print(izbranaNaprava)
+//            print(izbranaNaprava)
         }
     }
     
     var oznakaNaprave : String? {
         didSet {
-            print(oznakaNaprave)
+//            print(oznakaNaprave)
         }
     }
     
@@ -533,12 +529,15 @@ class PredmetController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         view.backgroundColor = UIColor.airabelaGray
         navigationItem.title = "PREDMET"
         
-//        IQKeyboardManager.sharedManager().enable = false
-        
         print(reklamacija?.kupec ?? "")
         
         view.addSubview(headerView)
-        headerView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 0, left: view.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 80)
+        if #available(iOS 11.0, *) {
+            headerView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 0, left: view.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 80)
+        } else {
+            // Fallback on earlier versions
+            headerView.anchor(top: view.layoutMarginsGuide.topAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 0, left: view.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 80)
+        }
         
         headerView.addSubview(logoImageView)
         
@@ -549,7 +548,12 @@ class PredmetController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         buttonsStackView.spacing = 10
         
         view.addSubview(buttonsStackView)
-        buttonsStackView.anchor(top: nil, paddingTop: 0, right: view.rightAnchor, paddingRight: 40, left: view.leftAnchor, paddingLeft: 40, bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 20, width: 0, height: 40)
+        if #available(iOS 11.0, *) {
+            buttonsStackView.anchor(top: nil, paddingTop: 0, right: view.rightAnchor, paddingRight: 40, left: view.leftAnchor, paddingLeft: 40, bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 20, width: 0, height: 40)
+        } else {
+            // Fallback on earlier versions
+            buttonsStackView.anchor(top: nil, paddingTop: 0, right: view.rightAnchor, paddingRight: 40, left: view.leftAnchor, paddingLeft: 40, bottom: view.layoutMarginsGuide.bottomAnchor, paddingBottom: 20, width: 0, height: 40)
+        }
         
         // add container view
         

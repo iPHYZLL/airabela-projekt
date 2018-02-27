@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		BC01549A20403A4E00B63EF7 /* SlikaReklamacijaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC01549920403A4E00B63EF7 /* SlikaReklamacijaController.swift */; };
 		BC107B45203ED79E00E66365 /* PredmetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC107B44203ED79E00E66365 /* PredmetController.swift */; };
+		BC178410204178B900C56032 /* SlikaReklamacijaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC17840F204178B900C56032 /* SlikaReklamacijaCell.swift */; };
 		BC6580E220373DA600C8A3C0 /* KupecController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6580E120373DA600C8A3C0 /* KupecController.swift */; };
 		BC6580E42037449500C8A3C0 /* Kupec.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6580E32037449500C8A3C0 /* Kupec.swift */; };
 		BC6580E8203C25FF00C8A3C0 /* Reklamacija.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6580E7203C25FF00C8A3C0 /* Reklamacija.swift */; };
 		BC7A5E752035155E008679A1 /* AirabelaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7A5E742035155E008679A1 /* AirabelaController.swift */; };
-		BC7D6B4C203C5BAD002182F6 /* Predmet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7D6B4B203C5BAD002182F6 /* Predmet.swift */; };
 		BC956A40203D721200B6F0F5 /* Naprava.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC956A3F203D721200B6F0F5 /* Naprava.swift */; };
 		BC956A42203D722800B6F0F5 /* ToplotnaCrpalka.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC956A41203D722800B6F0F5 /* ToplotnaCrpalka.swift */; };
 		BC956A44203D724600B6F0F5 /* KlimatskaNaprava.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC956A43203D724600B6F0F5 /* KlimatskaNaprava.swift */; };
@@ -22,6 +22,7 @@
 		BC956A4A203D728100B6F0F5 /* Konvektor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC956A49203D728100B6F0F5 /* Konvektor.swift */; };
 		BC956A4C203D729800B6F0F5 /* VRVSistem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC956A4B203D729800B6F0F5 /* VRVSistem.swift */; };
 		BC956A4F203D72BA00B6F0F5 /* PlinskiKotel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC956A4E203D72BA00B6F0F5 /* PlinskiKotel.swift */; };
+		BCA01EDA2045AE04000A4C70 /* ReklamacijaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA01ED92045AE04000A4C70 /* ReklamacijaController.swift */; };
 		BCA70515203337B900249480 /* HoshiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA70514203337B900249480 /* HoshiTextField.swift */; };
 		BCA70517203337D100249480 /* TextFieldEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA70516203337D100249480 /* TextFieldEffects.swift */; };
 		BCA7051A2033457B00249480 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA705192033457B00249480 /* User.swift */; };
@@ -64,11 +65,11 @@
 /* Begin PBXFileReference section */
 		BC01549920403A4E00B63EF7 /* SlikaReklamacijaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlikaReklamacijaController.swift; sourceTree = "<group>"; };
 		BC107B44203ED79E00E66365 /* PredmetController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredmetController.swift; sourceTree = "<group>"; };
+		BC17840F204178B900C56032 /* SlikaReklamacijaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlikaReklamacijaCell.swift; sourceTree = "<group>"; };
 		BC6580E120373DA600C8A3C0 /* KupecController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KupecController.swift; sourceTree = "<group>"; };
 		BC6580E32037449500C8A3C0 /* Kupec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kupec.swift; sourceTree = "<group>"; };
 		BC6580E7203C25FF00C8A3C0 /* Reklamacija.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reklamacija.swift; sourceTree = "<group>"; };
 		BC7A5E742035155E008679A1 /* AirabelaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirabelaController.swift; sourceTree = "<group>"; };
-		BC7D6B4B203C5BAD002182F6 /* Predmet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Predmet.swift; sourceTree = "<group>"; };
 		BC956A3F203D721200B6F0F5 /* Naprava.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Naprava.swift; sourceTree = "<group>"; };
 		BC956A41203D722800B6F0F5 /* ToplotnaCrpalka.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToplotnaCrpalka.swift; sourceTree = "<group>"; };
 		BC956A43203D724600B6F0F5 /* KlimatskaNaprava.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KlimatskaNaprava.swift; sourceTree = "<group>"; };
@@ -77,6 +78,7 @@
 		BC956A49203D728100B6F0F5 /* Konvektor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Konvektor.swift; sourceTree = "<group>"; };
 		BC956A4B203D729800B6F0F5 /* VRVSistem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VRVSistem.swift; sourceTree = "<group>"; };
 		BC956A4E203D72BA00B6F0F5 /* PlinskiKotel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlinskiKotel.swift; sourceTree = "<group>"; };
+		BCA01ED92045AE04000A4C70 /* ReklamacijaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReklamacijaController.swift; sourceTree = "<group>"; };
 		BCA70514203337B900249480 /* HoshiTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoshiTextField.swift; sourceTree = "<group>"; };
 		BCA70516203337D100249480 /* TextFieldEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldEffects.swift; sourceTree = "<group>"; };
 		BCA705192033457B00249480 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -130,6 +132,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BC536DFA204247740079D06B /* Launchscreen */ = {
+			isa = PBXGroup;
+			children = (
+				BCD338902031B2EA00FA5F8A /* LaunchScreen.storyboard */,
+			);
+			path = Launchscreen;
+			sourceTree = "<group>";
+		};
 		BC6580E020373C3200C8A3C0 /* Reklamacije */ = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +159,14 @@
 			path = Airabela;
 			sourceTree = "<group>";
 		};
+		BCA01ED82045AD58000A4C70 /* Reusable */ = {
+			isa = PBXGroup;
+			children = (
+				BCA01ED92045AE04000A4C70 /* ReklamacijaController.swift */,
+			);
+			path = Reusable;
+			sourceTree = "<group>";
+		};
 		BCA70513203337A500249480 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -157,6 +175,7 @@
 				BCA70549203442D700249480 /* PogojiButton.swift */,
 				BCD338A62031DF3000FA5F8A /* HomeView.swift */,
 				BCC4685C203C985600434084 /* ReklamacijaContentView.swift */,
+				BC17840F204178B900C56032 /* SlikaReklamacijaCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -167,7 +186,6 @@
 				BCA705192033457B00249480 /* User.swift */,
 				BC6580E32037449500C8A3C0 /* Kupec.swift */,
 				BC6580E7203C25FF00C8A3C0 /* Reklamacija.swift */,
-				BC7D6B4B203C5BAD002182F6 /* Predmet.swift */,
 				BCC4685E203CA67F00434084 /* Utilities.swift */,
 				BC956A3F203D721200B6F0F5 /* Naprava.swift */,
 				BC956A41203D722800B6F0F5 /* ToplotnaCrpalka.swift */,
@@ -274,6 +292,8 @@
 		BCD338862031B2E800FA5F8A /* Airabela */ = {
 			isa = PBXGroup;
 			children = (
+				BCA01ED82045AD58000A4C70 /* Reusable */,
+				BC536DFA204247740079D06B /* Launchscreen */,
 				BCA705462033981B00249480 /* TermsAndCondition */,
 				BCA7051B20337E1F00249480 /* IQKeyboardManagerSwift */,
 				BCA705182033457300249480 /* Model */,
@@ -286,7 +306,6 @@
 				BCD338872031B2E800FA5F8A /* AppDelegate.swift */,
 				BCD3388E2031B2EA00FA5F8A /* Assets.xcassets */,
 				BCD338932031B2EA00FA5F8A /* Info.plist */,
-				BCD338902031B2EA00FA5F8A /* LaunchScreen.storyboard */,
 			);
 			path = Airabela;
 			sourceTree = "<group>";
@@ -390,6 +409,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCA01EDA2045AE04000A4C70 /* ReklamacijaController.swift in Sources */,
 				BC956A48203D726D00B6F0F5 /* CistilecZraka.swift in Sources */,
 				BCD338A52031CEA900FA5F8A /* UITextField+Extension.swift in Sources */,
 				BCD338A02031CE4F00FA5F8A /* UIColor+Extension.swift in Sources */,
@@ -411,7 +431,6 @@
 				BCA70515203337B900249480 /* HoshiTextField.swift in Sources */,
 				BCA7053E20337E1F00249480 /* IQUIWindow+Hierarchy.swift in Sources */,
 				BC956A46203D725800B6F0F5 /* Rekuperator.swift in Sources */,
-				BC7D6B4C203C5BAD002182F6 /* Predmet.swift in Sources */,
 				BCD338AA2033136B00FA5F8A /* UserRegistrationController.swift in Sources */,
 				BC956A4F203D72BA00B6F0F5 /* PlinskiKotel.swift in Sources */,
 				BC107B45203ED79E00E66365 /* PredmetController.swift in Sources */,
@@ -425,6 +444,7 @@
 				BCD3389D2031CA5600FA5F8A /* HomeController.swift in Sources */,
 				BC7A5E752035155E008679A1 /* AirabelaController.swift in Sources */,
 				BCA7054120337E1F00249480 /* IQUITextFieldView+Additions.swift in Sources */,
+				BC178410204178B900C56032 /* SlikaReklamacijaCell.swift in Sources */,
 				BCA7053420337E1F00249480 /* IQPreviousNextView.swift in Sources */,
 				BC956A44203D724600B6F0F5 /* KlimatskaNaprava.swift in Sources */,
 				BCA7053320337E1F00249480 /* IQTextView.swift in Sources */,
@@ -576,7 +596,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 45KWM69QJR;
 				INFOPLIST_FILE = Airabela/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -597,7 +617,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 45KWM69QJR;
 				INFOPLIST_FILE = Airabela/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

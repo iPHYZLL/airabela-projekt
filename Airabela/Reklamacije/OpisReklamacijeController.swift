@@ -87,21 +87,45 @@ class OpisReklamacijeController: UIViewController {
     
     @objc func handleNaprejButton() {
         
-        let alertController = UIAlertController(title: "NAPAKA", message: "Za nadaljevanje reklamacijskega zapisnika morate navesti vse podatke o kupcu.", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "VREDU", style: .cancel, handler: nil)
-        alertController.addAction(cancelAction)
-        
-        let slikaReklamacijaController = SlikaReklamacijaController()
-        
-        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        
-        self.navigationItem.backBarButtonItem = backButton
-        
-        navigationController?.pushViewController(slikaReklamacijaController, animated: true)
+        if isOpisValid() {
+            
+            let slikaReklamacijaController = SlikaReklamacijaController()
+            slikaReklamacijaController.reklamacija = reklamacija
+            
+            let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+            
+            self.navigationItem.backBarButtonItem = backButton
+            
+            navigationController?.pushViewController(slikaReklamacijaController, animated: true)
+            
+        } else {
+            
+            let alertController = UIAlertController(title: "NAPAKA", message: "Za nadaljevanje reklamacijskega zapisnika potrebujemo izpolnjen opis reklamacije.", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "VREDU", style: .cancel, handler: nil)
+            alertController.addAction(cancelAction)
+            
+            present(alertController, animated: true, completion: nil)
+            
+        }
         
     }
     
-    var predmet : Naprava? {
+    func isOpisValid() -> Bool {
+        
+        if let kodaNapake = kodaNapakeTextField.text, kodaNapake.count > 0, let opisNapake = opisNapakeTextField.text, opisNapake.count > 0 {
+            let zunanjaKoda = serijskaStevilkaZunanjeEnoteTextField.text ?? ""
+            let notranjaKoda = serijskaStevilkaNotranjeEnoteTextField.text ?? ""
+            
+            reklamacija?.opisReklamacije = OpisReklamacije(kodaNapake: kodaNapake, opisNapake: opisNapake, serijskaZunanjeEnote: zunanjaKoda, serijskaNotranjeEnote: notranjaKoda)
+            
+            return true
+        }
+        
+        return false
+        
+    }
+    
+    var reklamacija : Reklamacija? {
         
         willSet {
             predmetContainerView.addSubview(kodaNapakeTextField)
@@ -111,29 +135,27 @@ class OpisReklamacijeController: UIViewController {
         }
         
         didSet {
-            if let predmet = predmet as? ToplotnaCrpalka {
-                print("TIP", predmet.tipNaprave ?? "")
-                print("Zunanja", predmet.zunanjaEnotaStevilka ?? "")
-                print("Notranja", predmet.notranjaEnotaStevilka ?? "")
-                print("Reklamirana", predmet.reklamirnaEnota ?? "")
-                print("Vrsta", predmet.vrstaNaprave)
+            
+            if let naprava = reklamacija?.naprava as? ToplotnaCrpalka {
                 
-                if predmet.zunanjaEnotaStevilka != nil && predmet.notranjaEnotaStevilka != nil {
+                if naprava.zunanjaEnotaStevilka != nil && naprava.notranjaEnotaStevilka != nil {
                     // add both
                     predmetContainerView.addSubview(serijskaStevilkaZunanjeEnoteTextField)
                     serijskaStevilkaZunanjeEnoteTextField.anchor(top: opisNapakeTextField.bottomAnchor, paddingTop: 20, right: predmetContainerView.rightAnchor, paddingRight: 0, left: predmetContainerView.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
                     predmetContainerView.addSubview(serijskaStevilkaNotranjeEnoteTextField)
                     serijskaStevilkaNotranjeEnoteTextField.anchor(top: serijskaStevilkaZunanjeEnoteTextField.bottomAnchor, paddingTop: 20, right: predmetContainerView.rightAnchor, paddingRight: 0, left: predmetContainerView.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
-                } else if predmet.zunanjaEnotaStevilka != nil && predmet.notranjaEnotaStevilka == nil {
+                } else if naprava.zunanjaEnotaStevilka != nil && naprava.notranjaEnotaStevilka == nil {
                     // add serijska zunanja subview
                     predmetContainerView.addSubview(serijskaStevilkaZunanjeEnoteTextField)
                     serijskaStevilkaZunanjeEnoteTextField.anchor(top: opisNapakeTextField.bottomAnchor, paddingTop: 20, right: predmetContainerView.rightAnchor, paddingRight: 0, left: predmetContainerView.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
-                } else if predmet.notranjaEnotaStevilka != nil && predmet.zunanjaEnotaStevilka == nil {
+                } else if naprava.notranjaEnotaStevilka != nil && naprava.zunanjaEnotaStevilka == nil {
                     // add serijska notranja subview
                     predmetContainerView.addSubview(serijskaStevilkaNotranjeEnoteTextField)
                     serijskaStevilkaNotranjeEnoteTextField.anchor(top: opisNapakeTextField.bottomAnchor, paddingTop: 20, right: predmetContainerView.rightAnchor, paddingRight: 0, left: predmetContainerView.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
                 }
+                
             }
+            
         }
     }
     
@@ -144,7 +166,12 @@ class OpisReklamacijeController: UIViewController {
         navigationItem.title = "OPIS"
         
         view.addSubview(headerView)
-        headerView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 0, left: view.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 80)
+        if #available(iOS 11.0, *) {
+            headerView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 0, left: view.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 80)
+        } else {
+            // Fallback on earlier versions
+            headerView.anchor(top: view.layoutMarginsGuide.topAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 0, left: view.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 80)
+        }
         
         headerView.addSubview(logoImageView)
         
@@ -155,7 +182,12 @@ class OpisReklamacijeController: UIViewController {
         buttonsStackView.spacing = 10
         
         view.addSubview(buttonsStackView)
-        buttonsStackView.anchor(top: nil, paddingTop: 0, right: view.rightAnchor, paddingRight: 40, left: view.leftAnchor, paddingLeft: 40, bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 20, width: 0, height: 40)
+        if #available(iOS 11.0, *) {
+            buttonsStackView.anchor(top: nil, paddingTop: 0, right: view.rightAnchor, paddingRight: 40, left: view.leftAnchor, paddingLeft: 40, bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 20, width: 0, height: 40)
+        } else {
+            // Fallback on earlier versions
+            buttonsStackView.anchor(top: nil, paddingTop: 0, right: view.rightAnchor, paddingRight: 40, left: view.leftAnchor, paddingLeft: 40, bottom: view.layoutMarginsGuide.bottomAnchor, paddingBottom: 20, width: 0, height: 40)
+        }
         
         // add container view
         
