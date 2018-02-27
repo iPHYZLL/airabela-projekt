@@ -8,46 +8,9 @@
 
 import UIKit
 
-class PredmetController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class PredmetController: ReklamacijaController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var reklamacija : Reklamacija?
-    
-    let headerView : UIView = {
-        let hv = UIView()
-        hv.backgroundColor = UIColor.airabelaGray
-        return hv
-    }()
-    
-    let logoImageView : UIImageView = {
-        let liv = UIImageView()
-        liv.image = #imageLiteral(resourceName: "Airabela+podpis")
-        liv.contentMode = .scaleAspectFit
-        return liv
-    }()
-    
-    let closeButton : UIButton = {
-        let b = UIButton(type: .system)
-        b.backgroundColor = UIColor.airabelaBlue
-        b.setTitle("PREKLIČI", for: .normal)
-        b.addTarget(self, action: #selector(handleCloseButton), for: .touchUpInside)
-        b.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        b.setTitleColor(UIColor.airabelaGray, for: .normal)
-        return b
-    }()
-    
-    let naprejButton : UIButton = {
-        let b = UIButton(type: .system)
-        b.backgroundColor = UIColor.airabelaBlue
-        b.setTitle("NARPREJ", for: .normal)
-        b.addTarget(self, action: #selector(handleNaprejButton), for: .touchUpInside)
-        b.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        b.setTitleColor(UIColor.airabelaGray, for: .normal)
-        return b
-    }()
-    
-    @objc func handleCloseButton() {
-        navigationController?.popViewController(animated: true)
-    }
     
     @objc func handleNaprejButton() {
         
@@ -80,7 +43,7 @@ class PredmetController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         
         reklamacija?.naprava = predmet
         opisReklamacijeController.reklamacija = reklamacija
-//        opisReklamacijeController.predmet = predmet
+        
         let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         
         self.navigationItem.backBarButtonItem = backButton
@@ -526,24 +489,11 @@ class PredmetController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.airabelaGray
         navigationItem.title = "PREDMET"
         
-        print(reklamacija?.kupec ?? "")
+        naprejButton.addTarget(self, action: #selector(handleNaprejButton), for: .touchUpInside)
         
-        view.addSubview(headerView)
-        if #available(iOS 11.0, *) {
-            headerView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 0, left: view.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 80)
-        } else {
-            // Fallback on earlier versions
-            headerView.anchor(top: view.layoutMarginsGuide.topAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 0, left: view.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 80)
-        }
-        
-        headerView.addSubview(logoImageView)
-        
-        logoImageView.anchorCenter(to: headerView, withHeight: 50, andWidth: 0)
-        
-        let buttonsStackView = UIStackView(arrangedSubviews: [closeButton, naprejButton])
+        let buttonsStackView = UIStackView(arrangedSubviews: [nazajButton, naprejButton])
         buttonsStackView.distribution = .fillEqually
         buttonsStackView.spacing = 10
         

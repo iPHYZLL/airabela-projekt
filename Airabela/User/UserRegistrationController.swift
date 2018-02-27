@@ -25,7 +25,7 @@ class UserRegistrationController: UIViewController, UITextFieldDelegate {
         tf.borderActiveColor = UIColor.airabelaBlue
         tf.borderInactiveColor = UIColor.airabelaBlue
         tf.keyboardType = UIKeyboardType.alphabet
-        tf.font = UIFont.boldSystemFont(ofSize: 14)
+//        tf.font = UIFont.boldSystemFont(ofSize: 14)
         tf.addTarget(self, action: #selector(formValid), for: UIControlEvents.editingChanged)
         return tf
     }()
@@ -37,7 +37,7 @@ class UserRegistrationController: UIViewController, UITextFieldDelegate {
         tf.borderActiveColor = UIColor.airabelaBlue
         tf.borderInactiveColor = UIColor.airabelaBlue
         tf.keyboardType = UIKeyboardType.alphabet
-        tf.font = UIFont.boldSystemFont(ofSize: 14)
+//        tf.font = UIFont.boldSystemFont(ofSize: 14)
         tf.addTarget(self, action: #selector(formValid), for: UIControlEvents.editingChanged)
         return tf
     }()
@@ -49,7 +49,7 @@ class UserRegistrationController: UIViewController, UITextFieldDelegate {
         tf.borderActiveColor = UIColor.airabelaBlue
         tf.borderInactiveColor = UIColor.airabelaBlue
         tf.keyboardType = UIKeyboardType.numberPad
-        tf.font = UIFont.boldSystemFont(ofSize: 14)
+//        tf.font = UIFont.boldSystemFont(ofSize: 14)
         tf.addTarget(self, action: #selector(formValid), for: UIControlEvents.editingChanged)
         return tf
     }()
@@ -61,7 +61,7 @@ class UserRegistrationController: UIViewController, UITextFieldDelegate {
         tf.borderActiveColor = UIColor.airabelaBlue
         tf.borderInactiveColor = UIColor.airabelaBlue
         tf.keyboardType = UIKeyboardType.alphabet
-        tf.font = UIFont.boldSystemFont(ofSize: 14)
+//        tf.font = UIFont.boldSystemFont(ofSize: 14)
         tf.addTarget(self, action: #selector(formValid), for: UIControlEvents.editingChanged)
         return tf
     }()
@@ -73,7 +73,7 @@ class UserRegistrationController: UIViewController, UITextFieldDelegate {
         tf.borderActiveColor = UIColor.airabelaBlue
         tf.borderInactiveColor = UIColor.airabelaBlue
         tf.keyboardType = UIKeyboardType.numberPad
-        tf.font = UIFont.boldSystemFont(ofSize: 14)
+//        tf.font = UIFont.boldSystemFont(ofSize: 14)
         tf.addTarget(self, action: #selector(formValid), for: UIControlEvents.editingChanged)
         return tf
     }()
@@ -85,7 +85,7 @@ class UserRegistrationController: UIViewController, UITextFieldDelegate {
         tf.borderActiveColor = UIColor.airabelaBlue
         tf.borderInactiveColor = UIColor.airabelaBlue
         tf.keyboardType = UIKeyboardType.alphabet
-        tf.font = UIFont.boldSystemFont(ofSize: 14)
+//        tf.font = UIFont.boldSystemFont(ofSize: 14)
         tf.addTarget(self, action: #selector(formValid), for: UIControlEvents.editingChanged)
         return tf
     }()
@@ -97,7 +97,7 @@ class UserRegistrationController: UIViewController, UITextFieldDelegate {
         tf.borderActiveColor = UIColor.airabelaBlue
         tf.borderInactiveColor = UIColor.airabelaBlue
         tf.keyboardType = UIKeyboardType.emailAddress
-        tf.font = UIFont.boldSystemFont(ofSize: 14)
+//        tf.font = UIFont.boldSystemFont(ofSize: 14)
         tf.addTarget(self, action: #selector(formValid), for: UIControlEvents.editingChanged)
         return tf
     }()
@@ -109,7 +109,7 @@ class UserRegistrationController: UIViewController, UITextFieldDelegate {
         tf.borderActiveColor = UIColor.airabelaBlue
         tf.borderInactiveColor = UIColor.airabelaBlue
         tf.keyboardType = UIKeyboardType.phonePad
-        tf.font = UIFont.boldSystemFont(ofSize: 14)
+//        tf.font = UIFont.boldSystemFont(ofSize: 14)
         tf.addTarget(self, action: #selector(formValid), for: UIControlEvents.editingChanged)
         return tf
     }()
@@ -198,12 +198,17 @@ class UserRegistrationController: UIViewController, UITextFieldDelegate {
             
             let homeController = HomeController()
             let mainNavigationViewController = UINavigationController(rootViewController: homeController)
-            if #available(iOS 11.0, *) {
-                mainNavigationViewController.navigationBar.prefersLargeTitles = true
-            }
             mainNavigationViewController.navigationBar.isTranslucent = false
             mainNavigationViewController.navigationBar.barTintColor = UIColor.airabelaBlue
             mainNavigationViewController.navigationBar.tintColor = UIColor.airabelaGray
+            
+            if #available(iOS 11.0, *) {
+                mainNavigationViewController.navigationBar.prefersLargeTitles = true
+                UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.airabelaGray]
+            } else {
+                mainNavigationViewController.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.airabelaGray]
+            }
+            
             present(mainNavigationViewController, animated: true, completion: nil)
         } else {
             let actionController = UIAlertController(title: "Napaka", message: "\nZa registracijo se morate strinjati z pogoji uporabe ter izpolniti vsa polja.", preferredStyle: .alert)
@@ -269,7 +274,7 @@ class UserRegistrationController: UIViewController, UITextFieldDelegate {
             headerView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 0, left: view.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 80)
         } else {
             // Fallback on earlier versions
-            headerView.anchor(top: view.layoutMarginsGuide.topAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 0, left: view.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 80)
+            headerView.anchor(top: view.layoutMarginsGuide.topAnchor, paddingTop: 20, right: view.rightAnchor, paddingRight: 0, left: view.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 80)
         }
         
         let stackView = UIStackView(arrangedSubviews: [iconImage, iconLabel])
@@ -288,10 +293,10 @@ class UserRegistrationController: UIViewController, UITextFieldDelegate {
         textViewContainerView.addSubview(homeScreenButton)
         
         if #available(iOS 11.0, *) {
-            homeScreenButton.anchor(top: nil, paddingTop: 0, right: textViewContainerView.rightAnchor, paddingRight: 20, left: textViewContainerView.leftAnchor, paddingLeft: 20, bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 20, width: 0, height: 50)
+            homeScreenButton.anchor(top: nil, paddingTop: 0, right: textViewContainerView.rightAnchor, paddingRight: 10, left: textViewContainerView.leftAnchor, paddingLeft: 10, bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 10, width: 0, height: 40)
         } else {
             // Fallback on earlier versions
-            homeScreenButton.anchor(top: nil, paddingTop: 0, right: textViewContainerView.rightAnchor, paddingRight: 20, left: textViewContainerView.leftAnchor, paddingLeft: 20, bottom: view.layoutMarginsGuide.bottomAnchor, paddingBottom: 20, width: 0, height: 50)
+            homeScreenButton.anchor(top: nil, paddingTop: 0, right: textViewContainerView.rightAnchor, paddingRight: 10, left: textViewContainerView.leftAnchor, paddingLeft: 10, bottom: view.layoutMarginsGuide.bottomAnchor, paddingBottom: 10, width: 0, height: 40)
         }
         
         let pogojiStackView = UIStackView(arrangedSubviews: [pogojiBtn, pogojiLabel])
@@ -302,7 +307,8 @@ class UserRegistrationController: UIViewController, UITextFieldDelegate {
         pogojiStackView.anchor(top: nil, paddingTop: 10, right: nil, paddingRight: 0, left: nil, paddingLeft: 0, bottom: homeScreenButton.topAnchor, paddingBottom: 10, width: 0, height: 20)
         
         textViewContainerView.addSubview(splosniPogojiButton)
-        splosniPogojiButton.anchor(top: nil, paddingTop: 0, right: textViewContainerView.rightAnchor, paddingRight: 60, left: textViewContainerView.leftAnchor, paddingLeft: 40, bottom: pogojiStackView.topAnchor, paddingBottom: 10, width: 0, height: 20)
+        splosniPogojiButton.anchor(top: nil, paddingTop: 0, right: nil, paddingRight: 0, left: nil, paddingLeft: 00, bottom: pogojiStackView.topAnchor, paddingBottom: 0, width: 0, height: 20)
+        splosniPogojiButton.centerXAnchor.constraint(equalTo: textViewContainerView.centerXAnchor).isActive = true
         
         pogojiStackView.centerXAnchor.constraint(equalTo: splosniPogojiButton.centerXAnchor).isActive = true
         
@@ -318,7 +324,7 @@ class UserRegistrationController: UIViewController, UITextFieldDelegate {
         registrationStackView.spacing = 5
         
         textViewContainerView.addSubview(registrationStackView)
-        registrationStackView.anchor(top: headerView.bottomAnchor, paddingTop: 20, right: textViewContainerView.rightAnchor, paddingRight: 40, left: textViewContainerView.leftAnchor, paddingLeft: 40, bottom: splosniPogojiButton.topAnchor, paddingBottom: 10, width: 0, height: 0)
+        registrationStackView.anchor(top: headerView.bottomAnchor, paddingTop: 10, right: textViewContainerView.rightAnchor, paddingRight: 40, left: textViewContainerView.leftAnchor, paddingLeft: 40, bottom: splosniPogojiButton.topAnchor, paddingBottom: 10, width: 0, height: 0)
     }
 
 }

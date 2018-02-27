@@ -10,7 +10,6 @@
 		BC01549A20403A4E00B63EF7 /* SlikaReklamacijaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC01549920403A4E00B63EF7 /* SlikaReklamacijaController.swift */; };
 		BC107B45203ED79E00E66365 /* PredmetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC107B44203ED79E00E66365 /* PredmetController.swift */; };
 		BC178410204178B900C56032 /* SlikaReklamacijaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC17840F204178B900C56032 /* SlikaReklamacijaCell.swift */; };
-		BC6580E220373DA600C8A3C0 /* KupecController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6580E120373DA600C8A3C0 /* KupecController.swift */; };
 		BC6580E42037449500C8A3C0 /* Kupec.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6580E32037449500C8A3C0 /* Kupec.swift */; };
 		BC6580E8203C25FF00C8A3C0 /* Reklamacija.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6580E7203C25FF00C8A3C0 /* Reklamacija.swift */; };
 		BC7A5E752035155E008679A1 /* AirabelaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7A5E742035155E008679A1 /* AirabelaController.swift */; };
@@ -23,9 +22,9 @@
 		BC956A4C203D729800B6F0F5 /* VRVSistem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC956A4B203D729800B6F0F5 /* VRVSistem.swift */; };
 		BC956A4F203D72BA00B6F0F5 /* PlinskiKotel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC956A4E203D72BA00B6F0F5 /* PlinskiKotel.swift */; };
 		BCA01EDA2045AE04000A4C70 /* ReklamacijaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA01ED92045AE04000A4C70 /* ReklamacijaController.swift */; };
+		BCA01EDC2045BAFB000A4C70 /* KupecController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA01EDB2045BAFB000A4C70 /* KupecController.swift */; };
 		BCA70515203337B900249480 /* HoshiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA70514203337B900249480 /* HoshiTextField.swift */; };
 		BCA70517203337D100249480 /* TextFieldEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA70516203337D100249480 /* TextFieldEffects.swift */; };
-		BCA7051A2033457B00249480 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA705192033457B00249480 /* User.swift */; };
 		BCA7053320337E1F00249480 /* IQTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA7051D20337E1F00249480 /* IQTextView.swift */; };
 		BCA7053420337E1F00249480 /* IQPreviousNextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA7051F20337E1F00249480 /* IQPreviousNextView.swift */; };
 		BCA7053520337E1F00249480 /* IQTitleBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA7052020337E1F00249480 /* IQTitleBarButtonItem.swift */; };
@@ -48,7 +47,7 @@
 		BCA7054A203442D700249480 /* PogojiButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA70549203442D700249480 /* PogojiButton.swift */; };
 		BCAE96922036F71B0095CB81 /* UserChangeDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAE96912036F71B0095CB81 /* UserChangeDataController.swift */; };
 		BCC4685B203C92E400434084 /* OpisReklamacijeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC4685A203C92E400434084 /* OpisReklamacijeController.swift */; };
-		BCC4685D203C985600434084 /* ReklamacijaContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC4685C203C985600434084 /* ReklamacijaContentView.swift */; };
+		BCC4685D203C985600434084 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC4685C203C985600434084 /* ContentView.swift */; };
 		BCC4685F203CA67F00434084 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC4685E203CA67F00434084 /* Utilities.swift */; };
 		BCCF1DF220360C6700F14A08 /* UserProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCF1DF120360C6700F14A08 /* UserProfileController.swift */; };
 		BCD338882031B2E800FA5F8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD338872031B2E800FA5F8A /* AppDelegate.swift */; };
@@ -66,7 +65,6 @@
 		BC01549920403A4E00B63EF7 /* SlikaReklamacijaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlikaReklamacijaController.swift; sourceTree = "<group>"; };
 		BC107B44203ED79E00E66365 /* PredmetController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredmetController.swift; sourceTree = "<group>"; };
 		BC17840F204178B900C56032 /* SlikaReklamacijaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlikaReklamacijaCell.swift; sourceTree = "<group>"; };
-		BC6580E120373DA600C8A3C0 /* KupecController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KupecController.swift; sourceTree = "<group>"; };
 		BC6580E32037449500C8A3C0 /* Kupec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kupec.swift; sourceTree = "<group>"; };
 		BC6580E7203C25FF00C8A3C0 /* Reklamacija.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reklamacija.swift; sourceTree = "<group>"; };
 		BC7A5E742035155E008679A1 /* AirabelaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirabelaController.swift; sourceTree = "<group>"; };
@@ -79,9 +77,9 @@
 		BC956A4B203D729800B6F0F5 /* VRVSistem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VRVSistem.swift; sourceTree = "<group>"; };
 		BC956A4E203D72BA00B6F0F5 /* PlinskiKotel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlinskiKotel.swift; sourceTree = "<group>"; };
 		BCA01ED92045AE04000A4C70 /* ReklamacijaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReklamacijaController.swift; sourceTree = "<group>"; };
+		BCA01EDB2045BAFB000A4C70 /* KupecController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KupecController.swift; sourceTree = "<group>"; };
 		BCA70514203337B900249480 /* HoshiTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoshiTextField.swift; sourceTree = "<group>"; };
 		BCA70516203337D100249480 /* TextFieldEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldEffects.swift; sourceTree = "<group>"; };
-		BCA705192033457B00249480 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BCA7051D20337E1F00249480 /* IQTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IQTextView.swift; sourceTree = "<group>"; };
 		BCA7051F20337E1F00249480 /* IQPreviousNextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IQPreviousNextView.swift; sourceTree = "<group>"; };
 		BCA7052020337E1F00249480 /* IQTitleBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IQTitleBarButtonItem.swift; sourceTree = "<group>"; };
@@ -105,7 +103,7 @@
 		BCA70549203442D700249480 /* PogojiButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PogojiButton.swift; sourceTree = "<group>"; };
 		BCAE96912036F71B0095CB81 /* UserChangeDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserChangeDataController.swift; sourceTree = "<group>"; };
 		BCC4685A203C92E400434084 /* OpisReklamacijeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpisReklamacijeController.swift; sourceTree = "<group>"; };
-		BCC4685C203C985600434084 /* ReklamacijaContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReklamacijaContentView.swift; sourceTree = "<group>"; };
+		BCC4685C203C985600434084 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BCC4685E203CA67F00434084 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		BCCF1DF120360C6700F14A08 /* UserProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileController.swift; sourceTree = "<group>"; };
 		BCD338842031B2E800FA5F8A /* Airabela.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Airabela.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -143,7 +141,7 @@
 		BC6580E020373C3200C8A3C0 /* Reklamacije */ = {
 			isa = PBXGroup;
 			children = (
-				BC6580E120373DA600C8A3C0 /* KupecController.swift */,
+				BCA01EDB2045BAFB000A4C70 /* KupecController.swift */,
 				BC107B44203ED79E00E66365 /* PredmetController.swift */,
 				BCC4685A203C92E400434084 /* OpisReklamacijeController.swift */,
 				BC01549920403A4E00B63EF7 /* SlikaReklamacijaController.swift */,
@@ -174,7 +172,7 @@
 				BCA70514203337B900249480 /* HoshiTextField.swift */,
 				BCA70549203442D700249480 /* PogojiButton.swift */,
 				BCD338A62031DF3000FA5F8A /* HomeView.swift */,
-				BCC4685C203C985600434084 /* ReklamacijaContentView.swift */,
+				BCC4685C203C985600434084 /* ContentView.swift */,
 				BC17840F204178B900C56032 /* SlikaReklamacijaCell.swift */,
 			);
 			path = Views;
@@ -183,7 +181,6 @@
 		BCA705182033457300249480 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				BCA705192033457B00249480 /* User.swift */,
 				BC6580E32037449500C8A3C0 /* Kupec.swift */,
 				BC6580E7203C25FF00C8A3C0 /* Reklamacija.swift */,
 				BCC4685E203CA67F00434084 /* Utilities.swift */,
@@ -416,12 +413,12 @@
 				BCA7053620337E1F00249480 /* IQBarButtonItem.swift in Sources */,
 				BCA7054220337E1F00249480 /* IQUIView+Hierarchy.swift in Sources */,
 				BC956A4C203D729800B6F0F5 /* VRVSistem.swift in Sources */,
-				BCC4685D203C985600434084 /* ReklamacijaContentView.swift in Sources */,
+				BCC4685D203C985600434084 /* ContentView.swift in Sources */,
 				BC01549A20403A4E00B63EF7 /* SlikaReklamacijaController.swift in Sources */,
 				BC956A42203D722800B6F0F5 /* ToplotnaCrpalka.swift in Sources */,
-				BC6580E220373DA600C8A3C0 /* KupecController.swift in Sources */,
 				BCA7054320337E1F00249480 /* IQNSArray+Sort.swift in Sources */,
 				BCCF1DF220360C6700F14A08 /* UserProfileController.swift in Sources */,
+				BCA01EDC2045BAFB000A4C70 /* KupecController.swift in Sources */,
 				BCA7053520337E1F00249480 /* IQTitleBarButtonItem.swift in Sources */,
 				BC6580E8203C25FF00C8A3C0 /* Reklamacija.swift in Sources */,
 				BC6580E42037449500C8A3C0 /* Kupec.swift in Sources */,
@@ -448,7 +445,6 @@
 				BCA7053420337E1F00249480 /* IQPreviousNextView.swift in Sources */,
 				BC956A44203D724600B6F0F5 /* KlimatskaNaprava.swift in Sources */,
 				BCA7053320337E1F00249480 /* IQTextView.swift in Sources */,
-				BCA7051A2033457B00249480 /* User.swift in Sources */,
 				BCA7054520338C8300249480 /* PogojiController.swift in Sources */,
 				BCA7054020337E1F00249480 /* IQUIViewController+Additions.swift in Sources */,
 				BCA7053820337E1F00249480 /* IQUIView+IQKeyboardToolbar.swift in Sources */,

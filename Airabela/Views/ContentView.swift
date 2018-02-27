@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ReklamacijaContentView : UIView {
+class ContentView : UIView {
     
     let textLabel : UILabel = {
         let l = UILabel()
@@ -34,14 +34,13 @@ class ReklamacijaContentView : UIView {
         
         let stackView = UIStackView(arrangedSubviews: [leftView, rightView])
         stackView.axis = .horizontal
-        stackView.spacing = 10
+        stackView.distribution = .fillEqually
         
         addSubview(stackView)
         stackView.anchor(top: topAnchor, paddingTop: 0, right: rightAnchor, paddingRight: 0, left: leftAnchor, paddingLeft: 0, bottom: bottomAnchor, paddingBottom: 0, width: 0, height: 0)
-        leftView.translatesAutoresizingMaskIntoConstraints = false
-        leftView.widthAnchor.constraint(equalToConstant: 150).isActive = true
+
         leftView.addSubview(textLabel)
-        textLabel.anchorCenter(to: leftView, withHeight: 0, andWidth: 150)
+        textLabel.anchorCenter(to: leftView, withHeight: 0, andWidth: 0)
     }
     
     required init?(coder aDecoder: NSCoder) {

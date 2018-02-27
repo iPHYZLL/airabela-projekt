@@ -9,20 +9,13 @@
 import UIKit
 import MessageUI
 
-class SlikaReklamacijaController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MFMailComposeViewControllerDelegate {
+class SlikaReklamacijaController: ReklamacijaController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MFMailComposeViewControllerDelegate {
     
-    let headerView : UIView = {
-        let hv = UIView()
-        hv.backgroundColor = UIColor.airabelaGray
-        return hv
-    }()
-    
-    let logoImageView : UIImageView = {
-        let liv = UIImageView()
-        liv.image = #imageLiteral(resourceName: "Airabela+podpis")
-        liv.contentMode = .scaleAspectFit
-        return liv
-    }()
+    var imageArray = [UIImage]()
+    let reklamacijaCellId = "reklamacijaCell"
+    var reklamacija : Reklamacija?
+    let layout = UICollectionViewFlowLayout()
+    var collectionView : UICollectionView?
     
     let infoLabel : UILabel = {
         let l = UILabel()
@@ -87,11 +80,6 @@ class SlikaReklamacijaController: UIViewController, UIImagePickerControllerDeleg
         }
     }
     
-    var imageArray = [UIImage]()
-    let reklamacijaCellId = "reklamacijaCell"
-    
-    var reklamacija : Reklamacija?
-    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -128,26 +116,11 @@ class SlikaReklamacijaController: UIViewController, UIImagePickerControllerDeleg
         collectionView.reloadData()
     }
     
-    let layout = UICollectionViewFlowLayout()
-    var collectionView : UICollectionView?
-    
-    let closeButton : UIButton = {
-        let b = UIButton(type: .system)
-        b.backgroundColor = UIColor.airabelaBlue
-        b.setTitle("PREKLIČI", for: .normal)
-        b.addTarget(self, action: #selector(handleCloseButton), for: .touchUpInside)
-        b.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        b.setTitleColor(UIColor.airabelaGray, for: .normal)
-        return b
-    }()
-    
     let pošljiButton : UIButton = {
         let b = UIButton(type: .system)
         b.backgroundColor = UIColor.airabelaBlue
-        b.setTitle("  POŠLJI ZAPISNIK", for: .normal)
-        b.setImage(#imageLiteral(resourceName: "reklamacijskiZapisnik"), for: .normal)
+        b.setTitle("POŠLJI ZAPISNIK", for: .normal)
         b.addTarget(self, action: #selector(handleNaprejButton), for: .touchUpInside)
-        b.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
         b.tintColor = UIColor.airabelaGray
         return b
     }()
@@ -162,10 +135,6 @@ class SlikaReklamacijaController: UIViewController, UIImagePickerControllerDeleg
         b.addTarget(self, action: #selector(dodajFotografijoButtonTapped), for: .touchUpInside)
         return b
     }()
-    
-    @objc func handleCloseButton() {
-        navigationController?.popViewController(animated: true)
-    }
     
     @objc func handleNaprejButton() {
         
@@ -256,20 +225,9 @@ class SlikaReklamacijaController: UIViewController, UIImagePickerControllerDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.airabelaGray
         navigationItem.title = "FOTOGRAFIJE"
         
-        view.addSubview(headerView)
-        if #available(iOS 11.0, *) {
-            headerView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 0, left: view.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 80)
-        } else {
-            // Fallback on earlier versions
-            headerView.anchor(top: view.layoutMarginsGuide.topAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 0, left: view.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 80)
-        }
-        
-        headerView.addSubview(logoImageView)
-        
-        logoImageView.anchorCenter(to: headerView, withHeight: 50, andWidth: 0)
+        naprejButton.addTarget(self, action: #selector(handleNaprejButton), for: .touchUpInside)
         
         // add subviews
         
@@ -284,7 +242,7 @@ class SlikaReklamacijaController: UIViewController, UIImagePickerControllerDeleg
         view.addSubview(collectionView!)
         collectionView?.anchor(top: headerView.bottomAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 20, left: view.leftAnchor, paddingLeft: 20, bottom: nil, paddingBottom: 0, width: 0, height: 100)
         
-        let buttonsStackView = UIStackView(arrangedSubviews: [infoLabel, dodajFotografijoButton, pošljiButton, closeButton])
+        let buttonsStackView = UIStackView(arrangedSubviews: [infoLabel, dodajFotografijoButton, pošljiButton, nazajButton])
         buttonsStackView.distribution = .fillEqually
         buttonsStackView.spacing = 10
         buttonsStackView.axis = .vertical
@@ -294,11 +252,9 @@ class SlikaReklamacijaController: UIViewController, UIImagePickerControllerDeleg
             buttonsStackView.anchor(top: nil, paddingTop: 0, right: view.rightAnchor, paddingRight: 40, left: view.leftAnchor, paddingLeft: 40, bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 20, width: 0, height: 230)
         } else {
             // Fallback on earlier versions
-            buttonsStackView.anchor(top: nil, paddingTop: 0, right: view.rightAnchor, paddingRight: 40, left: view.leftAnchor, paddingLeft: 40, bottom: view.layoutMarginsGuide.bottomAnchor, paddingBottom: 20, width: 0, height: 40)
+            buttonsStackView.anchor(top: nil, paddingTop: 0, right: view.rightAnchor, paddingRight: 40, left: view.leftAnchor, paddingLeft: 40, bottom: view.layoutMarginsGuide.bottomAnchor, paddingBottom: 20, width: 0, height: 230)
         }
         
-//        view.addSubview(infoLabel)
-//        infoLabel.anchor(top: collectionView?.topAnchor, paddingTop: 0, right: collectionView?.rightAnchor, paddingRight: 0, left: collectionView?.leftAnchor, paddingLeft: 0, bottom: buttonsStackView.topAnchor, paddingBottom: 20, width: 0, height: 0)
     }
     
     

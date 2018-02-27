@@ -17,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         IQKeyboardManager.sharedManager().enable = true
         IQKeyboardManager.sharedManager().canAdjustAdditionalSafeAreaInsets = true
+        
+        UIApplication.shared.statusBarStyle = .lightContent 
     
         window = UIWindow()
         
@@ -26,17 +28,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         mainNavigationViewController.navigationBar.barTintColor = UIColor.airabelaBlue
         mainNavigationViewController.navigationBar.tintColor = UIColor.airabelaGray
         
-        
-        window?.rootViewController = mainNavigationViewController
-        window?.makeKeyAndVisible()
-        
         if #available(iOS 11.0, *) {
             mainNavigationViewController.navigationBar.prefersLargeTitles = true
             UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.airabelaGray]
         } else {
             mainNavigationViewController.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.airabelaGray]
-
         }
+        
+        
+        window?.rootViewController = mainNavigationViewController
+        window?.makeKeyAndVisible()
+        
+        
         
         return true
     }

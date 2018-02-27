@@ -21,7 +21,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Aplikacija potrebujo odobren dostop do kamere</string>
+	<string>Aplikacija potrebuje odobren dostop do kamere</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Aplikacija za izbiro fotografije in prikaz galerije potrebuje odobren dostop do galerije</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -38,6 +38,8 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
