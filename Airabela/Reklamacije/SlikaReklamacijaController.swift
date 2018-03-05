@@ -166,6 +166,13 @@ class SlikaReklamacijaController: ReklamacijaController, UIImagePickerController
         } else if result == .sent {
             dismiss(animated: true) {
                 self.navigationController?.popToRootViewController(animated: true)
+                
+                let alertController = UIAlertController(title: nil, message: "Hvala, ker uporabljate našo aplikacijo. V primeru uspešno poslane reklamacije, boste na naveden kontaktni e-naslov prejeli potrditveni email.", preferredStyle: .alert)
+                
+                let okAction = UIAlertAction(title: "V REDU", style: .cancel, handler: nil)
+                alertController.addAction(okAction)
+                
+                self.present(alertController, animated: true, completion: nil)
             }
         }
         

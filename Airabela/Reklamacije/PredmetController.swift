@@ -22,8 +22,8 @@ class PredmetController: ReklamacijaController, UIPickerViewDelegate, UIPickerVi
 
             predmet = ToplotnaCrpalka(tipNaprave: izbranTipNaprave, reklamirnaEnota: izbranaReklamiranaEnota, zunanjaEnotaStevilka: izbranaZunanjaReklamiranaEnota, notranjaEnotaStevilka: izbranaNotranjaReklamiranaEnota)
         } else if izbranaVrstaNaprave == VrstaNaprave.KlimatskaNaprava.rawValue {
-            // do klimatska naprava stuff here
             
+            predmet = KlimatskaNaprava(tipNaprave: izbranTipNaprave!, podTipNaprave: izbranPodtipNaprave, reklamiranaEnota: izbranaReklamiranaEnota, oznakaNaprave: oznakaNaprave, zunanjaEnota: izbranaZunanjaReklamiranaEnota, notranjaEnota: izbranaNotranjaReklamiranaEnota)
         } else if izbranaVrstaNaprave == VrstaNaprave.Rekuperator.rawValue {
             
             predmet = Rekuperator(naprava: izbranaNaprava ?? "", oznakaNaprave: oznakaNaprave ?? "")
@@ -63,49 +63,76 @@ class PredmetController: ReklamacijaController, UIPickerViewDelegate, UIPickerVi
             return vrsteNaprav.count
         } else if pickerView == tipNapraveToplotnaCrpalkaPickerView {
             return tipiNapravToplotnaCrpalka.count
+        } else if pickerView == tipNapraveKlimatskaNapravaPickerView {
+            return tipiNapravKlimatskeNaprave.count
         } else if pickerView == reklamiranaEnotaToplotnaCrpalkaPickerView {
-            return reklamiraneEnoteToplotnaCrpalka.count
+            return reklamiraneEnoteVrste.count
         } else if pickerView == zunanjaEnotaPickerView {
             
-            if izbranTipNaprave == TipNapraveToplotnaCrpalka.VisokoTemperaturna.rawValue {
-                if izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
-                    return visokoTemperaturnaZunanjaToplotnaCrpalkaKoda.count
+            if izbranaVrstaNaprave == VrstaNaprave.ToplotnaCrpalka.rawValue {
+                
+                if izbranTipNaprave == TipNapraveToplotnaCrpalka.VisokoTemperaturna.rawValue {
+                    if izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
+                        return visokoTemperaturnaZunanjaToplotnaCrpalkaKoda.count
+                    }
+                } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.NizkoTemperaturna.rawValue {
+                    if izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
+                        return nizkoTemperaturnaZunanjaToplotnaCrpalkaKoda.count
+                    }
+                } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.Hibridna.rawValue {
+                    if izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
+                        return hibridnaZunanjaToplotnaCrpalkaKoda.count
+                    }
+                } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.Monoblok.rawValue {
+                    return monoblokZunanjaToplotnaCrpalkaKoda.count
                 }
-            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.NizkoTemperaturna.rawValue {
-                if izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
-                    return nizkoTemperaturnaZunanjaToplotnaCrpalkaKoda.count
+                
+            } else if izbranaVrstaNaprave == VrstaNaprave.KlimatskaNaprava.rawValue {
+                
+                if let zunanjaEnotaKlimatskaNaprava = klimatskeNapraveDictionary[keyPath : "\(izbranTipNaprave ?? "").podtip.\(izbranPodtipNaprave ?? "").zunanja"] as? [String] {
+                    return zunanjaEnotaKlimatskaNaprava.count
                 }
-            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.Hibridna.rawValue {
-                if izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
-                    return hibridnaZunanjaToplotnaCrpalkaKoda.count
-                }
-            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.Monoblok.rawValue {
-                return monoblokZunanjaToplotnaCrpalkaKoda.count
+                
             }
             
         } else if pickerView == notranjaEnotaPickerView {
             
-            if izbranTipNaprave == TipNapraveToplotnaCrpalka.NizkoTemperaturna.rawValue {
-                if izbranaReklamiranaEnota == ReklamiranaEnota.NotranjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
-                    return nizkoTemperaturnaNotranjaToplotnaCrpalkaKoda.count
+            if izbranaVrstaNaprave == VrstaNaprave.ToplotnaCrpalka.rawValue {
+                if izbranTipNaprave == TipNapraveToplotnaCrpalka.NizkoTemperaturna.rawValue {
+                    if izbranaReklamiranaEnota == ReklamiranaEnota.NotranjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
+                        return nizkoTemperaturnaNotranjaToplotnaCrpalkaKoda.count
+                    }
+                } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.VisokoTemperaturna.rawValue {
+                    if izbranaReklamiranaEnota == ReklamiranaEnota.NotranjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
+                        return visokoTemperaturnaNotranjaToplotnaCrpalkaKoda.count
+                    }
+                } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.Hibridna.rawValue {
+                    if izbranaReklamiranaEnota == ReklamiranaEnota.NotranjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
+                        return hibridnaZunanjaToplotnaCrpalkaKoda.count
+                    }
                 }
-            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.VisokoTemperaturna.rawValue {
-                if izbranaReklamiranaEnota == ReklamiranaEnota.NotranjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
-                    return visokoTemperaturnaNotranjaToplotnaCrpalkaKoda.count
-                }
-            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.Hibridna.rawValue {
-                if izbranaReklamiranaEnota == ReklamiranaEnota.NotranjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
-                    return hibridnaZunanjaToplotnaCrpalkaKoda.count
+            } else if izbranaVrstaNaprave == VrstaNaprave.KlimatskaNaprava.rawValue {
+                
+                if let notranjaEnotaKlimatskaNaprava = klimatskeNapraveDictionary[keyPath : "\(izbranTipNaprave ?? "").podtip.\(izbranPodtipNaprave ?? "").notranja"] as? [String] {
+                    return notranjaEnotaKlimatskaNaprava.count
                 }
             }
-           
         } else if pickerView == napravaPickerView {
             if izbranaVrstaNaprave == VrstaNaprave.Rekuperator.rawValue {
                 return rekuperatorNapravaKoda.count
             } else if izbranaVrstaNaprave == VrstaNaprave.CistilecZraka.rawValue {
                 return cistilecZrakaNapravaKoda.count
             }
-        }
+        } else if pickerView == podtipKlimatskeNapravePickerView {
+            if izbranaVrstaNaprave == VrstaNaprave.KlimatskaNaprava.rawValue {
+                if let klimatskePodtipi = klimatskeNapraveDictionary[keyPath : "\(izbranTipNaprave ?? "").podtip"] as? [String : Any] {
+                    let podtipiArray = Array(klimatskePodtipi.keys)
+                    return podtipiArray.count
+                }
+            }
+        } else if pickerView == reklamiranaEnotaKlimatskaNapravaPickerView {
+            return reklamiraneEnoteVrste.count
+        } 
         
         return 0
     }
@@ -115,48 +142,72 @@ class PredmetController: ReklamacijaController, UIPickerViewDelegate, UIPickerVi
             return vrsteNaprav[row]
         } else if pickerView == tipNapraveToplotnaCrpalkaPickerView {
             return tipiNapravToplotnaCrpalka[row]
+        } else if pickerView == tipNapraveKlimatskaNapravaPickerView {
+            return tipiNapravKlimatskeNaprave[row]
         } else if pickerView == reklamiranaEnotaToplotnaCrpalkaPickerView {
-            return reklamiraneEnoteToplotnaCrpalka[row]
+            return reklamiraneEnoteVrste[row]
         } else if pickerView == zunanjaEnotaPickerView {
             
-            if izbranTipNaprave == TipNapraveToplotnaCrpalka.VisokoTemperaturna.rawValue {
-                if izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
-                    return visokoTemperaturnaZunanjaToplotnaCrpalkaKoda[row]
+            if izbranaVrstaNaprave == VrstaNaprave.ToplotnaCrpalka.rawValue {
+                if izbranTipNaprave == TipNapraveToplotnaCrpalka.VisokoTemperaturna.rawValue {
+                    if izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
+                        return visokoTemperaturnaZunanjaToplotnaCrpalkaKoda[row]
+                    }
+                } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.NizkoTemperaturna.rawValue {
+                    if izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
+                        return nizkoTemperaturnaZunanjaToplotnaCrpalkaKoda[row]
+                    }
+                } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.Hibridna.rawValue {
+                    if izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
+                        return hibridnaZunanjaToplotnaCrpalkaKoda[row]
+                    }
+                } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.Monoblok.rawValue {
+                    return monoblokZunanjaToplotnaCrpalkaKoda[row]
                 }
-            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.NizkoTemperaturna.rawValue {
-                if izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
-                    return nizkoTemperaturnaZunanjaToplotnaCrpalkaKoda[row]
+            } else if izbranaVrstaNaprave == VrstaNaprave.KlimatskaNaprava.rawValue {
+                
+                if let zunanjaEnotaKlimatskaNaprava = klimatskeNapraveDictionary[keyPath : "\(izbranTipNaprave ?? "").podtip.\(izbranPodtipNaprave ?? "").zunanja"] as? [String] {
+                    return zunanjaEnotaKlimatskaNaprava[row]
                 }
-            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.Hibridna.rawValue {
-                if izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
-                    return hibridnaZunanjaToplotnaCrpalkaKoda[row]
-                }
-            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.Monoblok.rawValue {
-                return monoblokZunanjaToplotnaCrpalkaKoda[row]
             }
-            
         } else if pickerView == notranjaEnotaPickerView {
             
-            if izbranTipNaprave == TipNapraveToplotnaCrpalka.VisokoTemperaturna.rawValue {
-                if izbranaReklamiranaEnota == ReklamiranaEnota.NotranjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
-                    return visokoTemperaturnaNotranjaToplotnaCrpalkaKoda[row]
+            if izbranaVrstaNaprave == VrstaNaprave.ToplotnaCrpalka.rawValue {
+                if izbranTipNaprave == TipNapraveToplotnaCrpalka.VisokoTemperaturna.rawValue {
+                    if izbranaReklamiranaEnota == ReklamiranaEnota.NotranjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
+                        return visokoTemperaturnaNotranjaToplotnaCrpalkaKoda[row]
+                    }
+                } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.NizkoTemperaturna.rawValue {
+                    if izbranaReklamiranaEnota == ReklamiranaEnota.NotranjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
+                        return nizkoTemperaturnaNotranjaToplotnaCrpalkaKoda[row]
+                    }
+                } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.Hibridna.rawValue {
+                    if izbranaReklamiranaEnota == ReklamiranaEnota.NotranjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
+                        return hibridnaNotranjaToplotnaCrpalkaKoda[row]
+                    }
                 }
-            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.NizkoTemperaturna.rawValue {
-                if izbranaReklamiranaEnota == ReklamiranaEnota.NotranjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
-                    return nizkoTemperaturnaNotranjaToplotnaCrpalkaKoda[row]
-                }
-            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.Hibridna.rawValue {
-                if izbranaReklamiranaEnota == ReklamiranaEnota.NotranjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
-                    return hibridnaNotranjaToplotnaCrpalkaKoda[row]
+            } else if izbranaVrstaNaprave == VrstaNaprave.KlimatskaNaprava.rawValue {
+                if let notranjaEnotaKlimatskaNaprava = klimatskeNapraveDictionary[keyPath : "\(izbranTipNaprave ?? "").podtip.\(izbranPodtipNaprave ?? "").notranja"] as? [String] {
+                    return notranjaEnotaKlimatskaNaprava[row]
                 }
             }
-            
         } else if pickerView == napravaPickerView {
             if izbranaVrstaNaprave == VrstaNaprave.Rekuperator.rawValue {
                 return rekuperatorNapravaKoda[row]
             } else if izbranaVrstaNaprave == VrstaNaprave.CistilecZraka.rawValue {
                 return cistilecZrakaNapravaKoda[row]
             }
+        } else if pickerView == podtipKlimatskeNapravePickerView {
+            if izbranaVrstaNaprave == VrstaNaprave.KlimatskaNaprava.rawValue {
+                if let klimatskePodtipi = klimatskeNapraveDictionary[keyPath : "\(izbranTipNaprave ?? "").podtip"] as? [String : Any] {
+                    let podtipiArray = Array(klimatskePodtipi.keys)
+                    print("Podtipi array", podtipiArray)
+                    return podtipiArray[row]
+                }
+            }
+            
+        } else if pickerView == reklamiranaEnotaKlimatskaNapravaPickerView {
+            return reklamiraneEnoteVrste[row]
         }
         
         return ""
@@ -174,53 +225,73 @@ class PredmetController: ReklamacijaController, UIPickerViewDelegate, UIPickerVi
             
             izbranTipNaprave = tipNapraveToplotnaCrpalkaTextField.text
         } else if pickerView == reklamiranaEnotaToplotnaCrpalkaPickerView {
-            reklamiranaEnotaToplotnaCrpalkaTextField.text = reklamiraneEnoteToplotnaCrpalka[row]
+            reklamiranaEnotaToplotnaCrpalkaTextField.text = reklamiraneEnoteVrste[row]
             reklamiranaEnotaToplotnaCrpalkaTextField.resignFirstResponder()
             
             izbranaReklamiranaEnota = reklamiranaEnotaToplotnaCrpalkaTextField.text
         } else if pickerView == notranjaEnotaPickerView {
             
-            if izbranTipNaprave == TipNapraveToplotnaCrpalka.VisokoTemperaturna.rawValue {
-                reklamiranaNotranjaEnotaTextField.text = visokoTemperaturnaNotranjaToplotnaCrpalkaKoda[row]
-                reklamiranaNotranjaEnotaTextField.resignFirstResponder()
+            if izbranaVrstaNaprave == VrstaNaprave.ToplotnaCrpalka.rawValue {
+                if izbranTipNaprave == TipNapraveToplotnaCrpalka.VisokoTemperaturna.rawValue {
+                    reklamiranaNotranjaEnotaTextField.text = visokoTemperaturnaNotranjaToplotnaCrpalkaKoda[row]
+                    reklamiranaNotranjaEnotaTextField.resignFirstResponder()
+                    
+                    izbranaNotranjaReklamiranaEnota = reklamiranaNotranjaEnotaTextField.text
+                } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.NizkoTemperaturna.rawValue {
+                    reklamiranaNotranjaEnotaTextField.text = nizkoTemperaturnaNotranjaToplotnaCrpalkaKoda[row]
+                    reklamiranaNotranjaEnotaTextField.resignFirstResponder()
+                    
+                    izbranaNotranjaReklamiranaEnota = reklamiranaNotranjaEnotaTextField.text
+                } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.Hibridna.rawValue {
+                    reklamiranaNotranjaEnotaTextField.text = hibridnaNotranjaToplotnaCrpalkaKoda[row]
+                    reklamiranaNotranjaEnotaTextField.resignFirstResponder()
+                    
+                    izbranaNotranjaReklamiranaEnota = reklamiranaNotranjaEnotaTextField.text
+                }
+            } else if izbranaVrstaNaprave == VrstaNaprave.KlimatskaNaprava.rawValue {
                 
-                izbranaNotranjaReklamiranaEnota = reklamiranaNotranjaEnotaTextField.text
-            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.NizkoTemperaturna.rawValue {
-                reklamiranaNotranjaEnotaTextField.text = nizkoTemperaturnaNotranjaToplotnaCrpalkaKoda[row]
-                reklamiranaNotranjaEnotaTextField.resignFirstResponder()
+                if let notranjaEnotaKlimatskaNaprava = klimatskeNapraveDictionary[keyPath : "\(izbranTipNaprave ?? "").podtip.\(izbranPodtipNaprave ?? "").notranja"] as? [String] {
+                    reklamiranaNotranjaEnotaTextField.text = notranjaEnotaKlimatskaNaprava[row]
+                    reklamiranaNotranjaEnotaTextField.resignFirstResponder()
                 
-                izbranaNotranjaReklamiranaEnota = reklamiranaNotranjaEnotaTextField.text
-            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.Hibridna.rawValue {
-                reklamiranaNotranjaEnotaTextField.text = hibridnaNotranjaToplotnaCrpalkaKoda[row]
-                reklamiranaNotranjaEnotaTextField.resignFirstResponder()
-                
-                izbranaNotranjaReklamiranaEnota = reklamiranaNotranjaEnotaTextField.text
+                    izbranaNotranjaReklamiranaEnota = reklamiranaNotranjaEnotaTextField.text
+                }
             }
-            
         } else if pickerView == zunanjaEnotaPickerView {
             
-            if izbranTipNaprave == TipNapraveToplotnaCrpalka.VisokoTemperaturna.rawValue {
-                reklamiranaZunanjaEnotaTextField.text = visokoTemperaturnaZunanjaToplotnaCrpalkaKoda[row]
-                reklamiranaZunanjaEnotaTextField.resignFirstResponder()
-                
-                izbranaZunanjaReklamiranaEnota = reklamiranaZunanjaEnotaTextField.text
-            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.NizkoTemperaturna.rawValue {
-                reklamiranaZunanjaEnotaTextField.text = nizkoTemperaturnaZunanjaToplotnaCrpalkaKoda[row]
-                reklamiranaZunanjaEnotaTextField.resignFirstResponder()
-                
-                izbranaZunanjaReklamiranaEnota = reklamiranaZunanjaEnotaTextField.text
-            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.Hibridna.rawValue {
-                reklamiranaZunanjaEnotaTextField.text = hibridnaZunanjaToplotnaCrpalkaKoda[row]
-                reklamiranaZunanjaEnotaTextField.resignFirstResponder()
-                
-                izbranaZunanjaReklamiranaEnota = reklamiranaZunanjaEnotaTextField.text
-            } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.Monoblok.rawValue {
-                reklamiranaZunanjaEnotaTextField.text = monoblokZunanjaToplotnaCrpalkaKoda[row]
-                reklamiranaZunanjaEnotaTextField.resignFirstResponder()
-                
-                izbranaZunanjaReklamiranaEnota = reklamiranaZunanjaEnotaTextField.text
-            } 
+            if izbranaVrstaNaprave == VrstaNaprave.ToplotnaCrpalka.rawValue {
             
+                if izbranTipNaprave == TipNapraveToplotnaCrpalka.VisokoTemperaturna.rawValue {
+                    reklamiranaZunanjaEnotaTextField.text = visokoTemperaturnaZunanjaToplotnaCrpalkaKoda[row]
+                    reklamiranaZunanjaEnotaTextField.resignFirstResponder()
+                    
+                    izbranaZunanjaReklamiranaEnota = reklamiranaZunanjaEnotaTextField.text
+                } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.NizkoTemperaturna.rawValue {
+                    reklamiranaZunanjaEnotaTextField.text = nizkoTemperaturnaZunanjaToplotnaCrpalkaKoda[row]
+                    reklamiranaZunanjaEnotaTextField.resignFirstResponder()
+                    
+                    izbranaZunanjaReklamiranaEnota = reklamiranaZunanjaEnotaTextField.text
+                } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.Hibridna.rawValue {
+                    reklamiranaZunanjaEnotaTextField.text = hibridnaZunanjaToplotnaCrpalkaKoda[row]
+                    reklamiranaZunanjaEnotaTextField.resignFirstResponder()
+                    
+                    izbranaZunanjaReklamiranaEnota = reklamiranaZunanjaEnotaTextField.text
+                } else if izbranTipNaprave == TipNapraveToplotnaCrpalka.Monoblok.rawValue {
+                    reklamiranaZunanjaEnotaTextField.text = monoblokZunanjaToplotnaCrpalkaKoda[row]
+                    reklamiranaZunanjaEnotaTextField.resignFirstResponder()
+                    
+                    izbranaZunanjaReklamiranaEnota = reklamiranaZunanjaEnotaTextField.text
+                }
+                
+            } else if izbranaVrstaNaprave == VrstaNaprave.KlimatskaNaprava.rawValue {
+                
+                if let zunanjaEnotaKlimatskaNaprava = klimatskeNapraveDictionary[keyPath : "\(izbranTipNaprave ?? "").podtip.\(izbranPodtipNaprave ?? "").zunanja"] as? [String] {
+                    reklamiranaZunanjaEnotaTextField.text = zunanjaEnotaKlimatskaNaprava[row]
+                    reklamiranaZunanjaEnotaTextField.resignFirstResponder()
+                    
+                    izbranaZunanjaReklamiranaEnota = reklamiranaZunanjaEnotaTextField.text
+                }
+            }
         } else if pickerView == napravaPickerView {
             if izbranaVrstaNaprave == VrstaNaprave.Rekuperator.rawValue {
                 napravaTextField.text = rekuperatorNapravaKoda[row]
@@ -233,12 +304,29 @@ class PredmetController: ReklamacijaController, UIPickerViewDelegate, UIPickerVi
                 
                 izbranaNaprava = napravaTextField.text
             }
+        } else if pickerView == tipNapraveKlimatskaNapravaPickerView {
+            tipNapraveKlimatskaNapravaTextField.text = tipiNapravKlimatskeNaprave[row]
+            tipNapraveKlimatskaNapravaTextField.resignFirstResponder()
+            
+            izbranTipNaprave = tipNapraveKlimatskaNapravaTextField.text
+        } else if pickerView == podtipKlimatskeNapravePickerView {
+            if let klimatskePodtipi = klimatskeNapraveDictionary[keyPath : "\(izbranTipNaprave ?? "").podtip"] as? [String : Any] {
+                let podtipiArray = Array(klimatskePodtipi.keys)
+                
+                podtipKlimatskeNapraveTextField.text = podtipiArray[row]
+                podtipKlimatskeNapraveTextField.resignFirstResponder()
+                
+                izbranPodtipNaprave = podtipKlimatskeNapraveTextField.text!
+            }
+        } else if pickerView == reklamiranaEnotaKlimatskaNapravaPickerView {
+            reklamiranaEnotaKlimatskaNapravaTextField.text = reklamiraneEnoteVrste[row]
+            reklamiranaEnotaKlimatskaNapravaTextField.resignFirstResponder()
+            izbranaReklamiranaEnota = reklamiranaEnotaKlimatskaNapravaTextField.text
         }
         
     }
     
     // predmet info
-    
     var izbranaVrstaNaprave : String? {
         
         willSet {
@@ -251,6 +339,7 @@ class PredmetController: ReklamacijaController, UIPickerViewDelegate, UIPickerVi
         
         didSet {
             // manage # of views in container view
+            print("Izbrana vrsta naprave", izbranaVrstaNaprave)
             if izbranaVrstaNaprave == VrstaNaprave.ToplotnaCrpalka.rawValue {
                 predmetContainerView.addSubview(tipNapraveToplotnaCrpalkaTextField)
                 tipNapraveToplotnaCrpalkaTextField.anchor(top: vrstaNapraveTextField.bottomAnchor, paddingTop: 20, right: vrstaNapraveTextField.rightAnchor, paddingRight: 0, left: vrstaNapraveTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
@@ -269,6 +358,13 @@ class PredmetController: ReklamacijaController, UIPickerViewDelegate, UIPickerVi
                 // add oznaka naprave textfield
                 predmetContainerView.addSubview(oznakaNapraveTextField)
                 oznakaNapraveTextField.anchor(top: vrstaNapraveTextField.bottomAnchor, paddingTop: 20, right: vrstaNapraveTextField.rightAnchor, paddingRight: 0, left: vrstaNapraveTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
+            } else if izbranaVrstaNaprave == VrstaNaprave.KlimatskaNaprava.rawValue {
+                //
+                predmetContainerView.addSubview(tipNapraveKlimatskaNapravaTextField)
+                tipNapraveKlimatskaNapravaTextField.anchor(top: vrstaNapraveTextField.bottomAnchor, paddingTop: 20, right: vrstaNapraveTextField.rightAnchor, paddingRight: 0, left: vrstaNapraveTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
+                tipNapraveKlimatskaNapravaTextField.inputView = tipNapraveKlimatskaNapravaPickerView
+                tipNapraveKlimatskaNapravaPickerView.delegate = self
+                tipNapraveKlimatskaNapravaPickerView.dataSource = self
             }
         }
     }
@@ -277,13 +373,15 @@ class PredmetController: ReklamacijaController, UIPickerViewDelegate, UIPickerVi
         
         willSet {
             for subView in predmetContainerView.subviews {
-                if !(subView == vrstaNapraveTextField) && !(subView == tipNapraveToplotnaCrpalkaTextField) {
+                if !(subView == vrstaNapraveTextField) && !(subView == tipNapraveToplotnaCrpalkaTextField) && !(subView == tipNapraveKlimatskaNapravaTextField) {
                     subView.removeFromSuperview()
                 }
             }
         }
         
         didSet {
+            
+            print("Izbran tip naprave:", izbranTipNaprave)
             
             if izbranTipNaprave == TipNapraveToplotnaCrpalka.VisokoTemperaturna.rawValue || izbranTipNaprave == TipNapraveToplotnaCrpalka.NizkoTemperaturna.rawValue || izbranTipNaprave == TipNapraveToplotnaCrpalka.Hibridna.rawValue {
                 
@@ -300,6 +398,13 @@ class PredmetController: ReklamacijaController, UIPickerViewDelegate, UIPickerVi
                 zunanjaEnotaPickerView.delegate = self
                 zunanjaEnotaPickerView.dataSource = self
                 
+            } else if izbranTipNaprave == TipNapraveKlimatskaNaprava.Stenska.rawValue || izbranTipNaprave == TipNapraveKlimatskaNaprava.Talna.rawValue || izbranTipNaprave == TipNapraveKlimatskaNaprava.Kasetna.rawValue || izbranTipNaprave == TipNapraveKlimatskaNaprava.SkritaStropna.rawValue || izbranTipNaprave == TipNapraveKlimatskaNaprava.Flexi.rawValue {
+                // add podtip naprave
+                predmetContainerView.addSubview(podtipKlimatskeNapraveTextField)
+                podtipKlimatskeNapraveTextField.anchor(top: tipNapraveKlimatskaNapravaTextField.bottomAnchor, paddingTop: 20, right: tipNapraveKlimatskaNapravaTextField.rightAnchor, paddingRight: 0, left: tipNapraveKlimatskaNapravaTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
+                podtipKlimatskeNapraveTextField.inputView = podtipKlimatskeNapravePickerView
+                podtipKlimatskeNapravePickerView.delegate = self
+                podtipKlimatskeNapravePickerView.dataSource = self
             }
             
         }
@@ -309,40 +414,50 @@ class PredmetController: ReklamacijaController, UIPickerViewDelegate, UIPickerVi
         
         willSet {
             for subView in predmetContainerView.subviews {
-                if !(subView == vrstaNapraveTextField) && !(subView == tipNapraveToplotnaCrpalkaTextField) && !(subView == reklamiranaEnotaToplotnaCrpalkaTextField) {
-                    subView.removeFromSuperview()
+                if izbranaVrstaNaprave == VrstaNaprave.ToplotnaCrpalka.rawValue {
+                    if !(subView == vrstaNapraveTextField) && !(subView == tipNapraveToplotnaCrpalkaTextField) && !(subView == reklamiranaEnotaToplotnaCrpalkaTextField) {
+                        subView.removeFromSuperview()
+                    }
+                } else if izbranaVrstaNaprave == VrstaNaprave.KlimatskaNaprava.rawValue {
+                    if !(subView == vrstaNapraveTextField) && !(subView == tipNapraveKlimatskaNapravaTextField) && !(subView == reklamiranaEnotaKlimatskaNapravaTextField) && !(subView == podtipKlimatskeNapraveTextField) {
+                        subView.removeFromSuperview()
+                    }
                 }
             }
         }
         
         didSet {
             
+            var izbranaToplotna = (izbranaVrstaNaprave == VrstaNaprave.ToplotnaCrpalka.rawValue) ? true : false
+            print("Izbrana reklamirana enota", izbranaReklamiranaEnota)
+            
             if izbranaReklamiranaEnota == ReklamiranaEnota.NotranjaEnota.rawValue {
                 
                 // add notranja enota toplotna view
                 
                 predmetContainerView.addSubview(reklamiranaNotranjaEnotaTextField)
-                reklamiranaNotranjaEnotaTextField.anchor(top: reklamiranaEnotaToplotnaCrpalkaTextField.bottomAnchor, paddingTop: 20, right: reklamiranaEnotaToplotnaCrpalkaTextField.rightAnchor, paddingRight: 0, left: reklamiranaEnotaToplotnaCrpalkaTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
+                reklamiranaNotranjaEnotaTextField.anchor(top: izbranaToplotna ? reklamiranaEnotaToplotnaCrpalkaTextField.bottomAnchor : reklamiranaEnotaKlimatskaNapravaTextField.bottomAnchor, paddingTop: 20, right: izbranaToplotna ? reklamiranaEnotaToplotnaCrpalkaTextField.rightAnchor : reklamiranaEnotaKlimatskaNapravaTextField.rightAnchor, paddingRight: 0, left: izbranaToplotna ? reklamiranaEnotaToplotnaCrpalkaTextField.leftAnchor : reklamiranaEnotaKlimatskaNapravaTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
                 reklamiranaNotranjaEnotaTextField.inputView = notranjaEnotaPickerView
                 notranjaEnotaPickerView.delegate = self
                 notranjaEnotaPickerView.dataSource = self
                 
+                
             } else if izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaEnota.rawValue {
                 
                 // add zunanja enota toplotna view
-                
                 predmetContainerView.addSubview(reklamiranaZunanjaEnotaTextField)
-                reklamiranaZunanjaEnotaTextField.anchor(top: reklamiranaEnotaToplotnaCrpalkaTextField.bottomAnchor, paddingTop: 20, right: reklamiranaEnotaToplotnaCrpalkaTextField.rightAnchor, paddingRight: 0, left: reklamiranaEnotaToplotnaCrpalkaTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
+                reklamiranaZunanjaEnotaTextField.anchor(top: izbranaToplotna ? reklamiranaEnotaToplotnaCrpalkaTextField.bottomAnchor : reklamiranaEnotaKlimatskaNapravaTextField.bottomAnchor, paddingTop: 20, right: izbranaToplotna ? reklamiranaEnotaToplotnaCrpalkaTextField.rightAnchor : reklamiranaEnotaKlimatskaNapravaTextField.rightAnchor, paddingRight: 0, left: izbranaToplotna ? reklamiranaEnotaToplotnaCrpalkaTextField.leftAnchor : reklamiranaEnotaKlimatskaNapravaTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
                 reklamiranaZunanjaEnotaTextField.inputView = zunanjaEnotaPickerView
                 zunanjaEnotaPickerView.delegate = self
                 zunanjaEnotaPickerView.dataSource = self
+                
                 
             } else if izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
                 
                 // add both above
                 
                 predmetContainerView.addSubview(reklamiranaNotranjaEnotaTextField)
-                reklamiranaNotranjaEnotaTextField.anchor(top: reklamiranaEnotaToplotnaCrpalkaTextField.bottomAnchor, paddingTop: 20, right: reklamiranaEnotaToplotnaCrpalkaTextField.rightAnchor, paddingRight: 0, left: reklamiranaEnotaToplotnaCrpalkaTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
+                reklamiranaNotranjaEnotaTextField.anchor(top: izbranaToplotna ? reklamiranaEnotaToplotnaCrpalkaTextField.bottomAnchor : reklamiranaEnotaKlimatskaNapravaTextField.bottomAnchor, paddingTop: 20, right: izbranaToplotna ? reklamiranaEnotaToplotnaCrpalkaTextField.rightAnchor : reklamiranaEnotaKlimatskaNapravaTextField.rightAnchor, paddingRight: 0, left: izbranaToplotna ? reklamiranaEnotaToplotnaCrpalkaTextField.leftAnchor : reklamiranaEnotaKlimatskaNapravaTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
                 reklamiranaNotranjaEnotaTextField.inputView = notranjaEnotaPickerView
                 notranjaEnotaPickerView.delegate = self
                 notranjaEnotaPickerView.dataSource = self
@@ -383,12 +498,31 @@ class PredmetController: ReklamacijaController, UIPickerViewDelegate, UIPickerVi
         }
     }
     
+    var izbranPodtipNaprave : String? {
+        didSet {
+            print("Podtip:", izbranPodtipNaprave)
+            predmetContainerView.addSubview(reklamiranaEnotaKlimatskaNapravaTextField)
+            reklamiranaEnotaKlimatskaNapravaTextField.anchor(top: podtipKlimatskeNapraveTextField.bottomAnchor, paddingTop: 20, right: podtipKlimatskeNapraveTextField.rightAnchor, paddingRight: 0, left: podtipKlimatskeNapraveTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
+            reklamiranaEnotaKlimatskaNapravaTextField.inputView = reklamiranaEnotaKlimatskaNapravaPickerView
+            reklamiranaEnotaKlimatskaNapravaPickerView.delegate = self
+            reklamiranaEnotaKlimatskaNapravaPickerView.dataSource = self
+        }
+    }
+    
     // let predmet views
     
     let predmetContainerView : UIView = {
         let v = UIView()
         v.backgroundColor = UIColor.airabelaGray
         return v
+    }()
+    
+    let tipNapraveKlimatskaNapravaTextField : HoshiTextField = {
+        let tf = HoshiTextField()
+        tf.borderActiveColor = UIColor.airabelaBlue
+        tf.borderInactiveColor = UIColor.airabelaBlue
+        tf.placeholder = "TIP NAPRAVE"
+        return tf
     }()
     
     let vrstaNapraveTextField : HoshiTextField = {
@@ -431,6 +565,14 @@ class PredmetController: ReklamacijaController, UIPickerViewDelegate, UIPickerVi
         return tf
     }()
     
+    let reklamiranaEnotaKlimatskaNapravaTextField : HoshiTextField = {
+        let tf = HoshiTextField()
+        tf.borderActiveColor = UIColor.airabelaBlue
+        tf.borderInactiveColor = UIColor.airabelaBlue
+        tf.placeholder = "REKLAMIRANA ENOTA"
+        return tf
+    }()
+    
     let napravaTextField : HoshiTextField = {
         let tf = HoshiTextField()
         tf.borderActiveColor = UIColor.airabelaBlue
@@ -447,7 +589,30 @@ class PredmetController: ReklamacijaController, UIPickerViewDelegate, UIPickerVi
         return tf
     }()
     
+    let podtipKlimatskeNapraveTextField : HoshiTextField = {
+        let tf = HoshiTextField()
+        tf.borderActiveColor = UIColor.airabelaBlue
+        tf.borderInactiveColor = UIColor.airabelaBlue
+        tf.placeholder = "PODTIP NAPRAVE:"
+        return tf
+    }()
+    
+    let podtipKlimatskeNapravePickerView : UIPickerView = {
+        let pv = UIPickerView()
+        return pv
+    }()
+    
+    let tipNapraveKlimatskaNapravaPickerView : UIPickerView = {
+        let pv = UIPickerView()
+        return pv
+    }()
+    
     let vrstaNapravePickerView : UIPickerView = {
+        let pv = UIPickerView()
+        return pv
+    }()
+    
+    let reklamiranaEnotaKlimatskaNapravaPickerView : UIPickerView = {
         let pv = UIPickerView()
         return pv
     }()
@@ -489,7 +654,7 @@ class PredmetController: ReklamacijaController, UIPickerViewDelegate, UIPickerVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "PREDMET"
+        navigationItem.title = "NAPRAVA"
         
         naprejButton.addTarget(self, action: #selector(handleNaprejButton), for: .touchUpInside)
         

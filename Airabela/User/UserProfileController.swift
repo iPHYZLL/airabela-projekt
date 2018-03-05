@@ -16,6 +16,14 @@ class UserProfileController: UIViewController {
         return v
     }()
     
+    let logoImageview : UIImageView = {
+        let iv = UIImageView()
+        iv.image = #imageLiteral(resourceName: "Airabela+podpis").withRenderingMode(.alwaysTemplate)
+        iv.tintColor = UIColor.airabelaGray
+        iv.contentMode = .scaleAspectFit
+        return iv
+    }()
+    
     let headerView : UIView = {
         let hv = UIView()
         hv.backgroundColor = UIColor.airabelaBlue
@@ -24,11 +32,9 @@ class UserProfileController: UIViewController {
     
     let closeButton : UIButton = {
         let b = UIButton(type: .system)
-        b.backgroundColor = UIColor.airabelaBlue
-        b.setTitle("ZAPRI", for: .normal)
+        b.tintColor = UIColor.airabelaGray
+        b.setImage(#imageLiteral(resourceName: "izbrisiSliko"), for: .normal)
         b.addTarget(self, action: #selector(handleCloseButton), for: .touchUpInside)
-        b.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        b.setTitleColor(UIColor.airabelaGray, for: .normal)
         return b
     }()
     
@@ -144,11 +150,11 @@ class UserProfileController: UIViewController {
     
     let splosniPogojiButton : UIButton = {
         let b = UIButton(type: .system)
-        b.setTitle("SPLOŠNI POGOJI", for: .normal)
+        b.setTitle("POGOJI", for: .normal)
         b.addTarget(self, action: #selector(showPogoji), for: .touchUpInside)
-        b.setTitleColor(UIColor.airabelaBlue, for: .normal)
-        b.backgroundColor = UIColor.white
         b.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        b.setTitleColor(UIColor.airabelaGray, for: .normal)
+        b.backgroundColor = UIColor.airabelaBlue
         return b
     }()
     
@@ -213,18 +219,18 @@ class UserProfileController: UIViewController {
         contentView.addSubview(headerView)
         headerView.anchor(top: contentView.topAnchor, paddingTop: 0, right: contentView.rightAnchor, paddingRight: 0, left: contentView.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 80)
         
-        headerView.addSubview(iconLabel)
-        iconLabel.anchorCenter(to: headerView, withHeight: 0, andWidth: 0)
+        headerView.addSubview(logoImageview)
+        logoImageview.anchorCenter(to: headerView, withHeight: 40, andWidth: 0)
         
-        let buttonsStackView = UIStackView(arrangedSubviews: [closeButton, spremeniButton])
+        headerView.addSubview(closeButton)
+        closeButton.anchor(top: headerView.topAnchor, paddingTop: 10, right: headerView.rightAnchor, paddingRight: 10, left: nil, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 25, height: 25)
+        
+        let buttonsStackView = UIStackView(arrangedSubviews: [splosniPogojiButton, spremeniButton])
         buttonsStackView.distribution = .fillEqually
         buttonsStackView.spacing = 10
         
         contentView.addSubview(buttonsStackView)
         buttonsStackView.anchor(top: nil, paddingTop: 0, right: contentView.rightAnchor, paddingRight: 20, left: contentView.leftAnchor, paddingLeft: 20, bottom: contentView.bottomAnchor, paddingBottom: 20, width: 0, height: 40)
-        
-        contentView.addSubview(splosniPogojiButton)
-        splosniPogojiButton.anchor(top: nil, paddingTop: 0, right: contentView.rightAnchor, paddingRight: 20, left: contentView.leftAnchor, paddingLeft: 20, bottom: buttonsStackView.topAnchor, paddingBottom: 20, width: 0, height: 40)
         
         let podjetjeStackView = UIStackView(arrangedSubviews: [podjetjeInfoLabel,podjetjeLabel, naslovLabel, krajInPostnaStLabel, davcnaStLabel])
         podjetjeStackView.distribution = .fillProportionally

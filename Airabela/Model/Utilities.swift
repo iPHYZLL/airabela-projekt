@@ -10,7 +10,7 @@ import Foundation
 
 enum VrstaNaprave : String {
     case ToplotnaCrpalka = "Toplotna črpalka"
-    case KlimatskaNaprava = "Klimatska Naprava"
+    case KlimatskaNaprava = "Klimatska naprava"
     case Rekuperator = "Rekuperator"
     case CistilecZraka = "Čistilec zraka"
     case Konvektor = "Konvektor"

@@ -41,7 +41,7 @@ let nizkoTemperaturnaNotranjaToplotnaCrpalkaKoda = ["Izberi...","EHBH04C3V", "EH
 let hibridnaZunanjaToplotnaCrpalkaKoda = ["Izberi...","EVLQ05CV3", "EVLQ08CV3", "drugo"]
 let hibridnaNotranjaToplotnaCrpalkaKoda = ["Izberi...","EHYHBH05AV3", "EHYHBH08AV3", "EHYHBX08AV3", "drugo"]
 
-let reklamiraneEnoteToplotnaCrpalka = ["Izberi...", "Zunanja enota", "Notranja enota", "Zunanja in notranja enota"]
+let reklamiraneEnoteVrste = ["Izberi...", "Zunanja enota", "Notranja enota", "Zunanja in notranja enota"]
 let tipiNapravToplotnaCrpalka = ["Izberi...","Visokotemperaturna", "Nizkotemperaturna", "Hibridna", "Monoblok"]
 
 let visokoTemperaturnaZunanjaInNotranjaCrpalkaKoda = [["Izberi...","ERRQ011AV1", "ERRQ011AY1", "ERRQ014AV1", "ERRQ014AY1", "ERRQ016AV1", "ERRQ016AY1", "drugo"],["Izberi...","EKHBRD011ACV1", "EKHBRD011ACY1", "EKHBRD014ACV1", "EKHBRD014ACY1", "EKHBRD016ACV1", "EKHBRD016ACY1", "drugo"]]

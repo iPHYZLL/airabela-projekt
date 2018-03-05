@@ -103,40 +103,110 @@ class AirabelaController: UIViewController {
         return view
     }()
     
-    let direktorInfoView : UILabel = {
-        let l = UILabel()
-        let attributedText = NSMutableAttributedString(string: "Urban Martinuč", attributes: [NSAttributedStringKey.foregroundColor : UIColor.black, NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 16)])
-        attributedText.append(NSAttributedString(string: "\ninfo@airabela.si", attributes: [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 14)]))
-        attributedText.append(NSAttributedString(string: "\n040 131 706", attributes: [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 14)]))
+    // handle contact type
+    
+    @objc func handleCall(sender : UIButton) {
         
-        l.attributedText = attributedText
-        l.numberOfLines = 0
+        guard let buttonTitle = sender.titleLabel?.text else { return }
+        
+        guard let url = URL(string: "tel://\(buttonTitle)") else { return }
+        
+        UIApplication.shared.open(url, options: [ : ])
+        
+    }
+    
+    @objc func handleEmail(sender : UIButton) {
+        
+        guard let buttonTitle = sender.titleLabel?.text else { return }
+        
+        guard let url = URL(string: "mailto:\(buttonTitle)") else { return }
+        
+        UIApplication.shared.open(url, options: [ : ])
+        
+    }
+    
+    // direktor stuff
+    
+    let direktorOseba : UILabel = {
+        let l = UILabel()
+        l.text = "URBAN MARTINUČ"
+        l.font = UIFont.boldSystemFont(ofSize: 14)
         l.textAlignment = .center
         return l
     }()
     
-    let podporaInfoView : UILabel = {
+    let callDirektorButton : UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("040-131-706", for: .normal)
+        button.setTitleColor(UIColor.airabelaBlue, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
+        button.addTarget(self, action: #selector(handleCall(sender:)), for: .touchUpInside)
+        return button
+    }()
+    
+    let mailDirektorButton : UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("info@airabela.si", for: .normal)
+        button.setTitleColor(UIColor.airabelaBlue, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
+        button.addTarget(self, action: #selector(handleEmail(sender:)), for: .touchUpInside)
+        return button
+    }()
+    
+    // podpora stuff
+    
+    let podporaOseba : UILabel = {
         let l = UILabel()
-        let attributedText = NSMutableAttributedString(string: "Žiga Hribar", attributes: [NSAttributedStringKey.foregroundColor : UIColor.black, NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 16)])
-        attributedText.append(NSAttributedString(string: "\npodpora@airabela.si", attributes: [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 14)]))
-        attributedText.append(NSAttributedString(string: "\n040 176 706", attributes: [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 14)]))
-        
-        l.attributedText = attributedText
-        l.numberOfLines = 0
+        l.text = "ŽIGA HRIBAR"
+        l.font = UIFont.boldSystemFont(ofSize: 14)
         l.textAlignment = .center
         return l
     }()
     
-    let narocilaInfoView : UILabel = {
+    let callPodporaButton : UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("040-176-706", for: .normal)
+        button.setTitleColor(UIColor.airabelaBlue, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
+        button.addTarget(self, action: #selector(handleCall(sender:)), for: .touchUpInside)
+        return button
+    }()
+    
+    let mailPodporaButton : UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("podpora@airabela.si", for: .normal)
+        button.setTitleColor(UIColor.airabelaBlue, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
+        button.addTarget(self, action: #selector(handleEmail(sender:)), for: .touchUpInside)
+        return button
+    }()
+    
+    //narocila stuff
+    
+    let narocilaOseba : UILabel = {
         let l = UILabel()
-        let attributedText = NSMutableAttributedString(string: "Franko Troha", attributes: [NSAttributedStringKey.foregroundColor : UIColor.black, NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 16)])
-        attributedText.append(NSAttributedString(string: "\nnarocila@airabela.si", attributes: [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 14)]))
-        attributedText.append(NSAttributedString(string: "\n040 176 703", attributes: [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 14)]))
-        
-        l.attributedText = attributedText
-        l.numberOfLines = 0
+        l.text = "FRANKO TROHA"
+        l.font = UIFont.boldSystemFont(ofSize: 14)
         l.textAlignment = .center
         return l
+    }()
+    
+    let callNarocilaButton : UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("040-176-703", for: .normal)
+        button.setTitleColor(UIColor.airabelaBlue, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
+        button.addTarget(self, action: #selector(handleCall(sender:)), for: .touchUpInside)
+        return button
+    }()
+    
+    let mailNarocilaButton : UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("narocila@airabela.si", for: .normal)
+        button.setTitleColor(UIColor.airabelaBlue, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
+        button.addTarget(self, action: #selector(handleEmail(sender:)), for: .touchUpInside)
+        return button
     }()
     
     @objc func handleCloseButton() {
@@ -221,17 +291,34 @@ class AirabelaController: UIViewController {
         infoStackView.anchor(top: imageEffectView.topAnchor, paddingTop: 20, right: imageEffectView.rightAnchor, paddingRight: 20, left: imageEffectView.leftAnchor, paddingLeft: 20, bottom: imageEffectView.bottomAnchor, paddingBottom: 20, width: 0, height: 0)
         
         // role views
-        direktorView.rightView.addSubview(direktorInfoView)
-        direktorInfoView.anchor(top: direktorView.rightView.topAnchor, paddingTop: 0, right: direktorView.rightView.rightAnchor, paddingRight: 0, left: direktorView.rightView.leftAnchor, paddingLeft: 0, bottom: direktorView.rightView.bottomAnchor, paddingBottom: 0, width: 0, height: 0)
         
-        podporaView.rightView.addSubview(podporaInfoView)
-        podporaInfoView.anchor(top: podporaView.rightView.topAnchor, paddingTop: 0, right: podporaView.rightView.rightAnchor, paddingRight: 0, left: podporaView.rightView.leftAnchor, paddingLeft: 0, bottom: podporaView.rightView.bottomAnchor, paddingBottom: 0, width: 0, height: 0)
+        // direktor stackview
+        let direktorStack = UIStackView(arrangedSubviews: [direktorOseba, mailDirektorButton, callDirektorButton])
+        direktorStack.axis = .vertical
+        direktorStack.distribution = .fillEqually
         
-        narocilaView.rightView.addSubview(narocilaInfoView)
-        narocilaInfoView.anchor(top: narocilaView.rightView.topAnchor, paddingTop: 0, right: narocilaView.rightView.rightAnchor, paddingRight: 0, left: narocilaView.rightView.leftAnchor, paddingLeft: 0, bottom: narocilaView.rightView.bottomAnchor, paddingBottom: 0, width: 0, height: 0)
+        direktorView.rightView.addSubview(direktorStack)
+        direktorStack.anchorCenter(to: direktorView.rightView, withHeight: 60, andWidth: 0)
+        
+        // podpora stackview
+        let podporaStack = UIStackView(arrangedSubviews: [podporaOseba, mailPodporaButton, callPodporaButton])
+        podporaStack.axis = .vertical
+        podporaStack.distribution = .fillEqually
+        
+        podporaView.rightView.addSubview(podporaStack)
+        podporaStack.anchorCenter(to: podporaView.rightView, withHeight: 60, andWidth: 0)
+        
+        // narocila stackview
+        let narocilaStack = UIStackView(arrangedSubviews: [narocilaOseba, mailNarocilaButton, callNarocilaButton])
+        narocilaStack.axis = .vertical
+        narocilaStack.distribution = .fillEqually
+        
+        narocilaView.rightView.addSubview(narocilaStack)
+        narocilaStack.anchorCenter(to: narocilaView.rightView, withHeight: 60, andWidth: 0)
         
         let rolesStackView = UIStackView(arrangedSubviews: [direktorView, podporaView, narocilaView])
         rolesStackView.axis = .vertical
+        rolesStackView.spacing = 5
         rolesStackView.distribution = .fillEqually
 
         contentView.addSubview(rolesStackView)

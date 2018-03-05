@@ -99,7 +99,7 @@ class PogojiController: UIViewController {
         textViewContainerView.anchor(top: headerView.bottomAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 0, left: view.leftAnchor, paddingLeft: 0, bottom: view.bottomAnchor, paddingBottom: 0, width: 0, height: 0)
         
         textViewContainerView.addSubview(homeScreenButton)
-        homeScreenButton.anchor(top: nil, paddingTop: 0, right: textViewContainerView.rightAnchor, paddingRight: 20, left: textViewContainerView.leftAnchor, paddingLeft: 20, bottom: textViewContainerView.bottomAnchor, paddingBottom: 20, width: 0, height: 50)
+        homeScreenButton.anchor(top: nil, paddingTop: 0, right: textViewContainerView.rightAnchor, paddingRight: 20, left: textViewContainerView.leftAnchor, paddingLeft: 20, bottom: textViewContainerView.bottomAnchor, paddingBottom: 20, width: 0, height: 40)
         
         textViewContainerView.addSubview(pogojiTextView)
         pogojiTextView.anchor(top: headerView.bottomAnchor, paddingTop: 20, right: textViewContainerView.rightAnchor, paddingRight: 20, left: textViewContainerView.leftAnchor, paddingLeft: 20, bottom: homeScreenButton.topAnchor, paddingBottom: 20, width: 0, height: 0)

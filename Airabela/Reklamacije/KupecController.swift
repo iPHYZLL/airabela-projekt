@@ -52,6 +52,13 @@ class KupecController : ReklamacijaController {
         return tf
     }()
     
+    let datePicker : UIDatePicker = {
+        let dp = UIDatePicker()
+        dp.datePickerMode = .date
+        dp.locale = Locale.init(identifier: "sl_SI")
+        return dp
+    }()
+    
     @objc func handleNaprejButton() {
         let alertController = UIAlertController(title: "NAPAKA", message: "Za nadaljevanje reklamacijskega zapisnika morate navesti vse podatke o kupcu.", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "VREDU", style: .cancel, handler: nil)
@@ -78,6 +85,32 @@ class KupecController : ReklamacijaController {
         
     }
     
+    @objc func handleDatePicked() {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .full
+        dateFormatter.timeStyle = .none
+        dateFormatter.locale = Locale.init(identifier: "sl_SI")
+        
+        datumVgradnjeTextView.text = dateFormatter.string(from: datePicker.date)
+        self.view.endEditing(true)
+    }
+    
+    func createDatePicker() {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        let flexible1 = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        let flexible2 = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        let doneButton = UIBarButtonItem(title: "IZBERI", style: .done, target: self, action: #selector(handleDatePicked))
+        toolbar.setItems([flexible1, doneButton, flexible2], animated: true)
+        toolbar.barTintColor = UIColor.airabelaBlue
+        toolbar.tintColor = UIColor.airabelaGray
+        
+        datumVgradnjeTextView.inputAccessoryView = toolbar
+        datumVgradnjeTextView.inputView = datePicker
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -100,6 +133,8 @@ class KupecController : ReklamacijaController {
         kupecStackView.distribution = .fillEqually
         kupecStackView.axis = .vertical
         kupecStackView.spacing = 10
+        
+        createDatePicker()
         
         view.addSubview(kupecStackView)
         kupecStackView.anchor(top: headerView.bottomAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 40, left: view.leftAnchor, paddingLeft: 40, bottom:  buttonsStackView.topAnchor, paddingBottom: 20, width: 0, height: 0)
