@@ -106,6 +106,7 @@ class KupecController : ReklamacijaController {
         toolbar.setItems([flexible1, doneButton, flexible2], animated: true)
         toolbar.barTintColor = UIColor.airabelaBlue
         toolbar.tintColor = UIColor.airabelaGray
+        toolbar.isTranslucent = false
         
         datumVgradnjeTextView.inputAccessoryView = toolbar
         datumVgradnjeTextView.inputView = datePicker

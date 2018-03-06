@@ -211,20 +211,30 @@ class SlikaReklamacijaController: ReklamacijaController, UIImagePickerController
             predmetText += "\(naprava.vrstaNaprave)\n"
             if let toplotnaCrpalka = naprava as? ToplotnaCrpalka {
                 if let notranjaNapravaKoda = toplotnaCrpalka.notranjaEnotaStevilka {
-                    predmetText += "Notranja enota koda: \(notranjaNapravaKoda)\n"
+                    predmetText += " NOTRANJA ENOTA KODA: \(notranjaNapravaKoda)\n"
                 }
                 
                 if let zunanjaNapravaKoda = toplotnaCrpalka.zunanjaEnotaStevilka {
-                    predmetText += "Zunanja enota koda: \(zunanjaNapravaKoda)\n"
+                    predmetText += " ZUNANJA ENOTA KODA: \(zunanjaNapravaKoda)\n"
+                }
+                
+                predmetText += "\nSERIJSKA ŠTEVILKA NOTRANJE ENOTE:\n\n   \(reklamacija?.opisReklamacije?.serijskaNotranjeEnote ?? "Neznana")"
+                
+                predmetText += "\n\nSERIJSKA ŠTEVILKA ZUNANJE ENOTE:\n\n   \(reklamacija?.opisReklamacije?.serijskaZunanjeEnote ?? "Neznana")"
+            }
+            
+            if let klimatskaNaprava = naprava as? KlimatskaNaprava {
+                if let notranjaNapravaKoda = klimatskaNaprava.notranjaEnotaStevilka {
+                    predmetText += " NOTRANJA ENOTA KODA: \(notranjaNapravaKoda)\n"
+                }
+                
+                if let zunanjaNapravaKoda = klimatskaNaprava.zunanjaEnotaStevilka {
+                    predmetText += " ZUNANJA ENOTA KODA: \(zunanjaNapravaKoda)\n"
                 }
             }
         }
         
-        let serijskaNotranjaText = "SERIJSKA ŠTEVILKA NOTRANJE ENOTE:\n\n   \(reklamacija?.opisReklamacije?.serijskaNotranjeEnote ?? "Neznana")"
-        
-        let serijskaZunanjaText = "SERIJSKA ŠTEVILKA ZUNANJE ENOTE:\n\n   \(reklamacija?.opisReklamacije?.serijskaZunanjeEnote ?? "Neznana")"
-        
-        let bodyText = "\n\(naslovText.uppercased())\n\n\(podjetjeText.uppercased())\n\n\(kontaktnaOsebaText.uppercased())\n\n\(predmetText.uppercased())\n\n\(serijskaNotranjaText.uppercased())\n\n\(serijskaZunanjaText.uppercased())\n\n\(kodaNapakeText.uppercased())\n\n\(opisNapakeText.uppercased())\n\n\(kupecText.uppercased())\n\n\(vgradnjaText.uppercased())"
+        let bodyText = "\n\(naslovText.uppercased())\n\n\(podjetjeText.uppercased())\n\n\(kontaktnaOsebaText.uppercased())\n\n\(predmetText.uppercased())\n\n\(kodaNapakeText.uppercased())\n\n\(opisNapakeText.uppercased())\n\n\(kupecText.uppercased())\n\n\(vgradnjaText.uppercased())"
         
         return bodyText
     }
