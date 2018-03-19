@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Konvektor : Naprava {
+class Konvektor : Naprava, OznakaNaprave {
     
     var oznakaNaprave : String
     

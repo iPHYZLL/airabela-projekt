@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PlinskiKotel : Naprava {
+class PlinskiKotel : Naprava, OznakaNaprave {
     
     var oznakaNaprave : String
     

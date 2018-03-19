@@ -8,7 +8,7 @@
 
 import Foundation
 
-class VRVSistem : Naprava {
+class VRVSistem : Naprava, OznakaNaprave {
     
     var oznakaNaprave : String
     

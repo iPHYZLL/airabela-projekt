@@ -10,11 +10,25 @@ import UIKit
 
 class OpisReklamacijeController: ReklamacijaController {
     
-    let predmetContainerView : UIView = {
-        let v = UIView()
-        v.backgroundColor = UIColor.airabelaGray
-        return v
-    }()
+    fileprivate var textFieldHeight : CGFloat {
+        if UIDevice().userInterfaceIdiom == .phone {
+            if UIScreen.main.nativeBounds.height == 1136 {
+                print("ITS IPHONE SE!!")
+                return 45
+            }
+        }
+        return 50
+    }
+    
+    fileprivate var textFieldPadding : CGFloat {
+        if UIDevice().userInterfaceIdiom == .phone {
+            if UIScreen.main.nativeBounds.height == 1136 {
+                print("ITS IPHONE SE!!")
+                return 5
+            }
+        }
+        return 10
+    }
     
     let kodaNapakeTextField : HoshiTextField = {
         let tf = HoshiTextField()
@@ -64,7 +78,7 @@ class OpisReklamacijeController: ReklamacijaController {
         } else {
             
             let alertController = UIAlertController(title: "NAPAKA", message: "Za nadaljevanje reklamacijskega zapisnika potrebujemo izpolnjen opis reklamacije.", preferredStyle: .alert)
-            let cancelAction = UIAlertAction(title: "VREDU", style: .cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "V REDU", style: .cancel, handler: nil)
             alertController.addAction(cancelAction)
             
             present(alertController, animated: true, completion: nil)
@@ -90,31 +104,24 @@ class OpisReklamacijeController: ReklamacijaController {
     
     var reklamacija : Reklamacija? {
         
-        willSet {
-            predmetContainerView.addSubview(kodaNapakeTextField)
-            kodaNapakeTextField.anchor(top: predmetContainerView.topAnchor, paddingTop: 0, right: predmetContainerView.rightAnchor, paddingRight: 0, left: predmetContainerView.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
-            predmetContainerView.addSubview(opisNapakeTextField)
-            opisNapakeTextField.anchor(top: kodaNapakeTextField.bottomAnchor, paddingTop: 20, right: predmetContainerView.rightAnchor, paddingRight: 0, left: predmetContainerView.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
-        }
-        
         didSet {
             
             if let naprava = reklamacija?.naprava as? ToplotnaCrpalka {
                 
                 if naprava.zunanjaEnotaStevilka != nil && naprava.notranjaEnotaStevilka != nil {
                     // add both
-                    predmetContainerView.addSubview(serijskaStevilkaZunanjeEnoteTextField)
-                    serijskaStevilkaZunanjeEnoteTextField.anchor(top: opisNapakeTextField.bottomAnchor, paddingTop: 20, right: predmetContainerView.rightAnchor, paddingRight: 0, left: predmetContainerView.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
-                    predmetContainerView.addSubview(serijskaStevilkaNotranjeEnoteTextField)
-                    serijskaStevilkaNotranjeEnoteTextField.anchor(top: serijskaStevilkaZunanjeEnoteTextField.bottomAnchor, paddingTop: 20, right: predmetContainerView.rightAnchor, paddingRight: 0, left: predmetContainerView.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
+                    view.addSubview(serijskaStevilkaZunanjeEnoteTextField)
+                    serijskaStevilkaZunanjeEnoteTextField.anchor(top: opisNapakeTextField.bottomAnchor, paddingTop: textFieldPadding, right: opisNapakeTextField.rightAnchor, paddingRight: 0, left: opisNapakeTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: textFieldHeight)
+                    view.addSubview(serijskaStevilkaNotranjeEnoteTextField)
+                    serijskaStevilkaNotranjeEnoteTextField.anchor(top: serijskaStevilkaZunanjeEnoteTextField.bottomAnchor, paddingTop: textFieldPadding, right: serijskaStevilkaZunanjeEnoteTextField.rightAnchor, paddingRight: 0, left: serijskaStevilkaZunanjeEnoteTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: textFieldHeight)
                 } else if naprava.zunanjaEnotaStevilka != nil && naprava.notranjaEnotaStevilka == nil {
                     // add serijska zunanja subview
-                    predmetContainerView.addSubview(serijskaStevilkaZunanjeEnoteTextField)
-                    serijskaStevilkaZunanjeEnoteTextField.anchor(top: opisNapakeTextField.bottomAnchor, paddingTop: 20, right: predmetContainerView.rightAnchor, paddingRight: 0, left: predmetContainerView.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
+                    view.addSubview(serijskaStevilkaZunanjeEnoteTextField)
+                    serijskaStevilkaZunanjeEnoteTextField.anchor(top: opisNapakeTextField.bottomAnchor, paddingTop: textFieldPadding, right: opisNapakeTextField.rightAnchor, paddingRight: 0, left: opisNapakeTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: textFieldHeight)
                 } else if naprava.notranjaEnotaStevilka != nil && naprava.zunanjaEnotaStevilka == nil {
                     // add serijska notranja subview
-                    predmetContainerView.addSubview(serijskaStevilkaNotranjeEnoteTextField)
-                    serijskaStevilkaNotranjeEnoteTextField.anchor(top: opisNapakeTextField.bottomAnchor, paddingTop: 20, right: predmetContainerView.rightAnchor, paddingRight: 0, left: predmetContainerView.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
+                    view.addSubview(serijskaStevilkaNotranjeEnoteTextField)
+                    serijskaStevilkaNotranjeEnoteTextField.anchor(top: opisNapakeTextField.bottomAnchor, paddingTop: textFieldPadding, right: opisNapakeTextField.rightAnchor, paddingRight: 0, left: opisNapakeTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: textFieldHeight)
                 }
                 
             }
@@ -134,22 +141,14 @@ class OpisReklamacijeController: ReklamacijaController {
         buttonsStackView.spacing = 10
         
         view.addSubview(buttonsStackView)
-        if #available(iOS 11.0, *) {
-            buttonsStackView.anchor(top: nil, paddingTop: 0, right: view.rightAnchor, paddingRight: 40, left: view.leftAnchor, paddingLeft: 40, bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 20, width: 0, height: 40)
-        } else {
-            // Fallback on earlier versions
-            buttonsStackView.anchor(top: nil, paddingTop: 0, right: view.rightAnchor, paddingRight: 40, left: view.leftAnchor, paddingLeft: 40, bottom: view.layoutMarginsGuide.bottomAnchor, paddingBottom: 20, width: 0, height: 40)
-        }
+        buttonsStackView.anchor(top: nil, paddingTop: 0, right: view.rightAnchor, paddingRight: 40, left: view.leftAnchor, paddingLeft: 40, bottom: view.bottomAnchor, paddingBottom: 20, width: 0, height: 40)
         
         // add container view
         
-        view.addSubview(predmetContainerView)
-        predmetContainerView.anchor(top: headerView.bottomAnchor, paddingTop: 0, right: buttonsStackView.rightAnchor, paddingRight: 0, left: buttonsStackView.leftAnchor, paddingLeft: 0, bottom: buttonsStackView.topAnchor, paddingBottom: 20, width: 0, height: 0)
-        
-        predmetContainerView.addSubview(kodaNapakeTextField)
-        kodaNapakeTextField.anchor(top: predmetContainerView.topAnchor, paddingTop: 0, right: predmetContainerView.rightAnchor, paddingRight: 0, left: predmetContainerView.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
-        predmetContainerView.addSubview(opisNapakeTextField)
-        opisNapakeTextField.anchor(top: kodaNapakeTextField.bottomAnchor, paddingTop: 20, right: predmetContainerView.rightAnchor, paddingRight: 0, left: predmetContainerView.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: 50)
+        view.addSubview(kodaNapakeTextField)
+        kodaNapakeTextField.anchor(top: headerView.bottomAnchor, paddingTop: 0, right: buttonsStackView.rightAnchor, paddingRight: 0, left: buttonsStackView.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: textFieldHeight)
+        view.addSubview(opisNapakeTextField)
+        opisNapakeTextField.anchor(top: kodaNapakeTextField.bottomAnchor, paddingTop: textFieldPadding, right: buttonsStackView.rightAnchor, paddingRight: 0, left: buttonsStackView.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: textFieldHeight)
         
     }
     

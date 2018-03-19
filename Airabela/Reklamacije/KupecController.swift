@@ -11,6 +11,25 @@ import UIKit
 class KupecController : ReklamacijaController {
     
     var reklamacija : Reklamacija?
+    fileprivate var textFieldHeight : CGFloat {
+        if UIDevice().userInterfaceIdiom == .phone {
+            if UIScreen.main.nativeBounds.height == 1136 {
+                print("ITS IPHONE SE!!")
+                return 45
+            }
+        }
+        return 50
+    }
+    
+    fileprivate var textFieldPadding : CGFloat {
+        if UIDevice().userInterfaceIdiom == .phone {
+            if UIScreen.main.nativeBounds.height == 1136 {
+                print("ITS IPHONE SE!!")
+                return 5
+            }
+        }
+        return 10
+    }
     
     let imeKupcaTextView : HoshiTextField = {
         let tf = HoshiTextField()
@@ -60,9 +79,7 @@ class KupecController : ReklamacijaController {
     }()
     
     @objc func handleNaprejButton() {
-        let alertController = UIAlertController(title: "NAPAKA", message: "Za nadaljevanje reklamacijskega zapisnika morate navesti vse podatke o kupcu.", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "VREDU", style: .cancel, handler: nil)
-        alertController.addAction(cancelAction)
+        
         
         if let imeKupca = imeKupcaTextView.text, imeKupca.count > 0, let priimekKupca = priimekKupcaTextView.text, priimekKupca.count > 0, let naslovVgradnje = naslovVgradnjeTextView.text, naslovVgradnje.count > 0, let krajVgradnje = krajVgradnjeTextView.text, krajVgradnje.count > 0, let datumVgradnje = datumVgradnjeTextView.text, datumVgradnje.count > 0 {
             
@@ -74,13 +91,16 @@ class KupecController : ReklamacijaController {
             predmetViewController.reklamacija = reklamacija
             
             let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-            
             self.navigationItem.backBarButtonItem = backButton
-            
             navigationController?.pushViewController(predmetViewController, animated: true)
             
         } else {
+            
+            let alertController = UIAlertController(title: "NAPAKA", message: "Za nadaljevanje reklamacijskega zapisnika morate navesti vse podatke o kupcu.", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "V REDU", style: .cancel, handler: nil)
+            alertController.addAction(cancelAction)
             present(alertController, animated: true, completion: nil)
+            
         }
         
     }
@@ -124,21 +144,27 @@ class KupecController : ReklamacijaController {
         buttonsStackView.spacing = 10
         
         view.addSubview(buttonsStackView)
-        if #available(iOS 11.0, *) {
-            buttonsStackView.anchor(top: nil, paddingTop: 0, right: view.rightAnchor, paddingRight: 40, left: view.leftAnchor, paddingLeft: 40, bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 20, width: 0, height: 40)
-        } else {
-            buttonsStackView.anchor(top: nil, paddingTop: 0, right: view.rightAnchor, paddingRight: 40, left: view.leftAnchor, paddingLeft: 40, bottom: view.layoutMarginsGuide.bottomAnchor, paddingBottom: 20, width: 0, height: 40)
-        }
         
-        let kupecStackView = UIStackView(arrangedSubviews: [imeKupcaTextView, priimekKupcaTextView, naslovVgradnjeTextView, krajVgradnjeTextView, datumVgradnjeTextView])
-        kupecStackView.distribution = .fillEqually
-        kupecStackView.axis = .vertical
-        kupecStackView.spacing = 10
+        buttonsStackView.anchor(top: nil, paddingTop: 0, right: view.rightAnchor, paddingRight: 40, left: view.leftAnchor, paddingLeft: 40, bottom: view.bottomAnchor, paddingBottom: 20, width: 0, height: 40)
+        
+        view.addSubview(imeKupcaTextView)
+        imeKupcaTextView.anchor(top: headerView.bottomAnchor, paddingTop: 0, right: buttonsStackView.rightAnchor, paddingRight: 0, left: buttonsStackView.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: textFieldHeight)
+        
+        view.addSubview(priimekKupcaTextView)
+        priimekKupcaTextView.anchor(top: imeKupcaTextView.bottomAnchor, paddingTop: textFieldPadding, right: imeKupcaTextView.rightAnchor, paddingRight: 0, left: imeKupcaTextView.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: textFieldHeight)
+        
+        view.addSubview(naslovVgradnjeTextView)
+        naslovVgradnjeTextView.anchor(top: priimekKupcaTextView.bottomAnchor, paddingTop: textFieldPadding, right: priimekKupcaTextView.rightAnchor, paddingRight: 0, left: priimekKupcaTextView.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: textFieldHeight)
+        
+        view.addSubview(krajVgradnjeTextView)
+        krajVgradnjeTextView.anchor(top: naslovVgradnjeTextView.bottomAnchor, paddingTop: textFieldPadding, right: naslovVgradnjeTextView.rightAnchor, paddingRight: 0, left: naslovVgradnjeTextView.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: textFieldHeight)
+        
+        view.addSubview(datumVgradnjeTextView)
+        datumVgradnjeTextView.anchor(top: krajVgradnjeTextView.bottomAnchor, paddingTop: textFieldPadding, right: krajVgradnjeTextView.rightAnchor, paddingRight: 0, left: krajVgradnjeTextView.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: textFieldHeight)
+        
         
         createDatePicker()
         
-        view.addSubview(kupecStackView)
-        kupecStackView.anchor(top: headerView.bottomAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 40, left: view.leftAnchor, paddingLeft: 40, bottom:  buttonsStackView.topAnchor, paddingBottom: 20, width: 0, height: 0)
     }
     
 }

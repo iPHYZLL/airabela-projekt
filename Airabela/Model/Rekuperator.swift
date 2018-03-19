@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Rekuperator : Naprava {
+class Rekuperator : Naprava, OznakaNaprave {
     
     var naprava : String
     var oznakaNaprave : String

@@ -11,7 +11,15 @@ import MessageUI
 
 class SlikaReklamacijaController: ReklamacijaController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MFMailComposeViewControllerDelegate {
     
-    var imageArray = [UIImage]()
+    var imageArray = [UIImage]() {
+        didSet {
+            if imageArray.count > 0 {
+                izbrisiSlikoNotificationLabel.isHidden = false
+            } else {
+                izbrisiSlikoNotificationLabel.isHidden = true
+            }
+        }
+    }
     let reklamacijaCellId = "reklamacijaCell"
     var reklamacija : Reklamacija?
     let layout = UICollectionViewFlowLayout()
@@ -24,6 +32,17 @@ class SlikaReklamacijaController: ReklamacijaController, UIImagePickerController
         l.textColor = UIColor.black
         l.textAlignment = .center
         l.numberOfLines = 0
+        return l
+    }()
+    
+    let izbrisiSlikoNotificationLabel : UILabel = {
+        let l = UILabel()
+        l.text = "Za odstranitev slike, kliknite na sliko."
+        l.font = UIFont.boldSystemFont(ofSize: 12)
+        l.textColor = UIColor.black
+        l.textAlignment = .center
+        l.numberOfLines = 0
+        l.isHidden = true
         return l
     }()
     
@@ -56,7 +75,7 @@ class SlikaReklamacijaController: ReklamacijaController, UIImagePickerController
             present(alertController, animated: true, completion: nil)
         } else {
             let alertController = UIAlertController(title: "NAPAKA", message: "Maksimalno število slik je 3.", preferredStyle: .alert)
-            let cancelAction = UIAlertAction(title: "VREDU", style: .cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "V REDU", style: .cancel, handler: nil)
             
             alertController.addAction(cancelAction)
             present(alertController, animated: true, completion: nil)
@@ -211,30 +230,46 @@ class SlikaReklamacijaController: ReklamacijaController, UIImagePickerController
             predmetText += "\(naprava.vrstaNaprave)\n"
             if let toplotnaCrpalka = naprava as? ToplotnaCrpalka {
                 if let notranjaNapravaKoda = toplotnaCrpalka.notranjaEnotaStevilka {
-                    predmetText += " NOTRANJA ENOTA KODA: \(notranjaNapravaKoda)\n"
+                    predmetText += "  NOTRANJA ENOTA KODA:   \(notranjaNapravaKoda)\n"
                 }
                 
                 if let zunanjaNapravaKoda = toplotnaCrpalka.zunanjaEnotaStevilka {
-                    predmetText += " ZUNANJA ENOTA KODA: \(zunanjaNapravaKoda)\n"
+                    predmetText += "  ZUNANJA ENOTA KODA:   \(zunanjaNapravaKoda)\n"
                 }
                 
-                predmetText += "\nSERIJSKA ŠTEVILKA NOTRANJE ENOTE:\n\n   \(reklamacija?.opisReklamacije?.serijskaNotranjeEnote ?? "Neznana")"
+                predmetText += "\nSERIJSKA ŠTEVILKA NOTRANJE ENOTE:\n\n   \(reklamacija?.opisReklamacije?.serijskaNotranjeEnote ?? "Neznana")\n"
                 
-                predmetText += "\n\nSERIJSKA ŠTEVILKA ZUNANJE ENOTE:\n\n   \(reklamacija?.opisReklamacije?.serijskaZunanjeEnote ?? "Neznana")"
+                predmetText += "\nSERIJSKA ŠTEVILKA ZUNANJE ENOTE:\n\n   \(reklamacija?.opisReklamacije?.serijskaZunanjeEnote ?? "Neznana")\n"
             }
             
             if let klimatskaNaprava = naprava as? KlimatskaNaprava {
                 if let notranjaNapravaKoda = klimatskaNaprava.notranjaEnotaStevilka {
-                    predmetText += " NOTRANJA ENOTA KODA: \(notranjaNapravaKoda)\n"
+                    predmetText += "  NOTRANJA ENOTA KODA:   \(notranjaNapravaKoda)\n"
                 }
                 
                 if let zunanjaNapravaKoda = klimatskaNaprava.zunanjaEnotaStevilka {
-                    predmetText += " ZUNANJA ENOTA KODA: \(zunanjaNapravaKoda)\n"
+                    predmetText += "  ZUNANJA ENOTA KODA:   \(zunanjaNapravaKoda)\n"
                 }
+            }
+            
+            // if conformed to oznakaNaprave protocol so it has .oznakaNaprave and .naprava property
+            if let naprava = naprava as? OznakaNaprave {
+                
+                // it definitely has oznakaNaprave property so ...
+                if naprava.oznakaNaprave != "" {
+                    predmetText += "\nOZNAKA NAPRAVE:\n\n   \(naprava.oznakaNaprave)\n"
+                }
+                
+                if let stevilkaNaprave = naprava.naprava {
+                    predmetText += "\nSTEVILKA NAPRAVE:\n\n   \(stevilkaNaprave)\n"
+                }
+                
             }
         }
         
-        let bodyText = "\n\(naslovText.uppercased())\n\n\(podjetjeText.uppercased())\n\n\(kontaktnaOsebaText.uppercased())\n\n\(predmetText.uppercased())\n\n\(kodaNapakeText.uppercased())\n\n\(opisNapakeText.uppercased())\n\n\(kupecText.uppercased())\n\n\(vgradnjaText.uppercased())"
+        let nogaText = "Poslano iz mobilne aplikacije Airabela"
+        
+        let bodyText = "\n\(naslovText.uppercased())\n\n\(podjetjeText.uppercased())\n\n\(kontaktnaOsebaText.uppercased())\n\n\(predmetText.uppercased())\n\n\(kodaNapakeText.uppercased())\n\n\(opisNapakeText.uppercased())\n\n\(kupecText.uppercased())\n\n\(vgradnjaText.uppercased())\n\n\(nogaText)"
         
         return bodyText
     }
@@ -259,18 +294,16 @@ class SlikaReklamacijaController: ReklamacijaController, UIImagePickerController
         view.addSubview(collectionView!)
         collectionView?.anchor(top: headerView.bottomAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 20, left: view.leftAnchor, paddingLeft: 20, bottom: nil, paddingBottom: 0, width: 0, height: 100)
         
+        view.addSubview(izbrisiSlikoNotificationLabel)
+        izbrisiSlikoNotificationLabel.anchor(top: collectionView!.bottomAnchor, paddingTop: 20, right: view.rightAnchor, paddingRight: 20, left: view.leftAnchor, paddingLeft: 20, bottom: nil, paddingBottom: 0, width: 0, height: 20)
+        
         let buttonsStackView = UIStackView(arrangedSubviews: [infoLabel, dodajFotografijoButton, pošljiButton, nazajButton])
         buttonsStackView.distribution = .fillEqually
         buttonsStackView.spacing = 10
         buttonsStackView.axis = .vertical
         
         view.addSubview(buttonsStackView)
-        if #available(iOS 11.0, *) {
-            buttonsStackView.anchor(top: nil, paddingTop: 0, right: view.rightAnchor, paddingRight: 40, left: view.leftAnchor, paddingLeft: 40, bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 20, width: 0, height: 230)
-        } else {
-            // Fallback on earlier versions
-            buttonsStackView.anchor(top: nil, paddingTop: 0, right: view.rightAnchor, paddingRight: 40, left: view.leftAnchor, paddingLeft: 40, bottom: view.layoutMarginsGuide.bottomAnchor, paddingBottom: 20, width: 0, height: 230)
-        }
+        buttonsStackView.anchor(top: nil, paddingTop: 0, right: view.rightAnchor, paddingRight: 40, left: view.leftAnchor, paddingLeft: 40, bottom: view.bottomAnchor, paddingBottom: 20, width: 0, height: 230)
         
     }
     

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CistilecZraka : Naprava {
+class CistilecZraka : Naprava, OznakaNaprave {
     
     var naprava : String
     var oznakaNaprave : String

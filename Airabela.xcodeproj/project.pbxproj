@@ -12,6 +12,7 @@
 		BC178410204178B900C56032 /* SlikaReklamacijaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC17840F204178B900C56032 /* SlikaReklamacijaCell.swift */; };
 		BC6580E42037449500C8A3C0 /* Kupec.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6580E32037449500C8A3C0 /* Kupec.swift */; };
 		BC6580E8203C25FF00C8A3C0 /* Reklamacija.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6580E7203C25FF00C8A3C0 /* Reklamacija.swift */; };
+		BC73BD1A20600F4B005FDA8F /* OznakaNaprave.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC73BD1920600F4A005FDA8F /* OznakaNaprave.swift */; };
 		BC7A5E752035155E008679A1 /* AirabelaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7A5E742035155E008679A1 /* AirabelaController.swift */; };
 		BC956A40203D721200B6F0F5 /* Naprava.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC956A3F203D721200B6F0F5 /* Naprava.swift */; };
 		BC956A42203D722800B6F0F5 /* ToplotnaCrpalka.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC956A41203D722800B6F0F5 /* ToplotnaCrpalka.swift */; };
@@ -68,6 +69,7 @@
 		BC17840F204178B900C56032 /* SlikaReklamacijaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlikaReklamacijaCell.swift; sourceTree = "<group>"; };
 		BC6580E32037449500C8A3C0 /* Kupec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kupec.swift; sourceTree = "<group>"; };
 		BC6580E7203C25FF00C8A3C0 /* Reklamacija.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reklamacija.swift; sourceTree = "<group>"; };
+		BC73BD1920600F4A005FDA8F /* OznakaNaprave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OznakaNaprave.swift; sourceTree = "<group>"; };
 		BC7A5E742035155E008679A1 /* AirabelaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirabelaController.swift; sourceTree = "<group>"; };
 		BC956A3F203D721200B6F0F5 /* Naprava.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Naprava.swift; sourceTree = "<group>"; };
 		BC956A41203D722800B6F0F5 /* ToplotnaCrpalka.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToplotnaCrpalka.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				BC956A49203D728100B6F0F5 /* Konvektor.swift */,
 				BC956A4B203D729800B6F0F5 /* VRVSistem.swift */,
 				BC956A4E203D72BA00B6F0F5 /* PlinskiKotel.swift */,
+				BC73BD1920600F4A005FDA8F /* OznakaNaprave.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -454,6 +457,7 @@
 				BCA7054020337E1F00249480 /* IQUIViewController+Additions.swift in Sources */,
 				BCA7053820337E1F00249480 /* IQUIView+IQKeyboardToolbar.swift in Sources */,
 				BCA7053D20337E1F00249480 /* IQKeyboardManager.swift in Sources */,
+				BC73BD1A20600F4B005FDA8F /* OznakaNaprave.swift in Sources */,
 				BCAE96922036F71B0095CB81 /* UserChangeDataController.swift in Sources */,
 				BCA7053C20337E1F00249480 /* IQKeyboardReturnKeyHandler.swift in Sources */,
 				BCA70517203337D100249480 /* TextFieldEffects.swift in Sources */,
@@ -604,7 +608,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -622,7 +626,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

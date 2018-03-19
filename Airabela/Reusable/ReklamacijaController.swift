@@ -36,7 +36,7 @@ class ReklamacijaController : UIViewController {
     let naprejButton : UIButton = {
         let b = UIButton(type: .system)
         b.backgroundColor = UIColor.airabelaBlue
-        b.setTitle("NARPREJ", for: .normal)
+        b.setTitle("NAPREJ", for: .normal)
         b.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         b.setTitleColor(UIColor.airabelaGray, for: .normal)
         return b
@@ -47,7 +47,7 @@ class ReklamacijaController : UIViewController {
     }
     
     @objc func handlePreklici() {
-        let alertController = UIAlertController(title: "PREKLIC REKLAMACIJE", message: "Ste prepričani da želite preklicati reklamacijo in se vrniti na začetni naslov?", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "PREKLIC REKLAMACIJE", message: "Ste prepričani da želite preklicati reklamacijo in se vrniti na začetni zaslon?", preferredStyle: .alert)
         let prekliciAction = UIAlertAction(title: "DA", style: .destructive) { (action) in
             self.navigationController?.popToRootViewController(animated: true)
         }
