@@ -10,9 +10,9 @@ import Foundation
 
 class VRVSistem : Naprava, OznakaNaprave {
     
-    var oznakaNaprave : String
+    var oznakaNaprave : String?
     
-    init(oznakaNaprave : String) {
+    init(oznakaNaprave : String?) {
         self.oznakaNaprave = oznakaNaprave
         super.init(vrstaNaprave: .VRVSistem)
     }

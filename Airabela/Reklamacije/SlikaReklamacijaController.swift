@@ -37,7 +37,7 @@ class SlikaReklamacijaController: ReklamacijaController, UIImagePickerController
     
     let izbrisiSlikoNotificationLabel : UILabel = {
         let l = UILabel()
-        l.text = "Za odstranitev slike, kliknite na sliko."
+        l.text = "Za odstranitev fotografije kliknite nanjo."
         l.font = UIFont.boldSystemFont(ofSize: 12)
         l.textColor = UIColor.black
         l.textAlignment = .center
@@ -125,7 +125,14 @@ class SlikaReklamacijaController: ReklamacijaController, UIImagePickerController
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = collectionView.frame.height
+        
+        var size = collectionView.frame.height
+        
+        if UIDevice().userInterfaceIdiom == .phone {
+            if UIScreen.main.nativeBounds.height == 1136 {
+                size = collectionView.frame.height - CGFloat(20)
+            }
+        }
         
         return CGSize(width: size, height: size)
     }
@@ -157,24 +164,37 @@ class SlikaReklamacijaController: ReklamacijaController, UIImagePickerController
     
     @objc func handleNaprejButton() {
         
-        let mailController = MFMailComposeViewController()
-        mailController.mailComposeDelegate = self
-        mailController.setSubject("Reklamacijski zapisnik")
-        mailController.setToRecipients(["alen.kirm@gmail.com"])
+        let alertController = UIAlertController(title: "POŠLJI ZAPISNIK", message: "Reklamacijski zapisnik je pripravljen za pošiljanje. V naslednjem koraku se bo pojavila Apple Mail aplikacija za pošiljanje zapisnika.", preferredStyle: .alert)
         
-        // mail controller body
-        mailController.setMessageBody(composeBody(), isHTML: false)
-        
-        // mail controller image
-        if imageArray.count > 0 {
-            var i = 0
-            for image in imageArray {
-                i += 1
-                mailController.addAttachmentData(UIImageJPEGRepresentation(image, 1.0)!, mimeType: "image/jpeg", fileName: "slika\(i)")
+        let nadaljujAction = UIAlertAction(title: "NADALJUJ", style: .default) { (action) in
+            
+            let mailController = MFMailComposeViewController()
+            mailController.mailComposeDelegate = self
+            mailController.setSubject("Reklamacijski zapisnik")
+            mailController.setToRecipients(["podpora@airabela.si"])
+            
+            // mail controller body
+            mailController.setMessageBody(self.composeBody(), isHTML: false)
+            
+            // mail controller image
+            if self.imageArray.count > 0 {
+                var i = 0
+                for image in self.imageArray {
+                    i += 1
+                    mailController.addAttachmentData(UIImageJPEGRepresentation(image, 1.0)!, mimeType: "image/jpeg", fileName: "slika\(i)")
+                }
             }
+            
+            self.present(mailController, animated: true, completion: nil)
+            
         }
         
-        present(mailController, animated: true, completion: nil)
+        let prekliciAction = UIAlertAction(title: "PREKLIČI", style: .destructive, handler: nil)
+        
+        alertController.addAction(prekliciAction)
+        alertController.addAction(nadaljujAction)
+        
+        present(alertController, animated: true, completion: nil)
         
     }
     
@@ -223,55 +243,70 @@ class SlikaReklamacijaController: ReklamacijaController, UIImagePickerController
         
         let opisNapakeText = "OPIS NAPAKE:\n\n   \(reklamacija?.opisReklamacije?.opisNapake ?? "")"
         
-        var predmetText = "NAPRAVA:\n\n   "
+        var predmetText = "PREDMET REKLAMACIJE:\n\n"
         
         // naprava stuff
         if let naprava = reklamacija?.naprava {
-            predmetText += "\(naprava.vrstaNaprave)\n"
-            if let toplotnaCrpalka = naprava as? ToplotnaCrpalka {
-                if let notranjaNapravaKoda = toplotnaCrpalka.notranjaEnotaStevilka {
-                    predmetText += "  NOTRANJA ENOTA KODA:   \(notranjaNapravaKoda)\n"
-                }
-                
-                if let zunanjaNapravaKoda = toplotnaCrpalka.zunanjaEnotaStevilka {
-                    predmetText += "  ZUNANJA ENOTA KODA:   \(zunanjaNapravaKoda)\n"
-                }
-                
-                predmetText += "\nSERIJSKA ŠTEVILKA NOTRANJE ENOTE:\n\n   \(reklamacija?.opisReklamacije?.serijskaNotranjeEnote ?? "Neznana")\n"
-                
-                predmetText += "\nSERIJSKA ŠTEVILKA ZUNANJE ENOTE:\n\n   \(reklamacija?.opisReklamacije?.serijskaZunanjeEnote ?? "Neznana")\n"
-            }
             
-            if let klimatskaNaprava = naprava as? KlimatskaNaprava {
-                if let notranjaNapravaKoda = klimatskaNaprava.notranjaEnotaStevilka {
-                    predmetText += "  NOTRANJA ENOTA KODA:   \(notranjaNapravaKoda)\n"
+            let vrstaNaprave = naprava.vrstaNaprave
+            
+            if let naprava = naprava as? ZunanjaInNotranja {
+                if let notranjaNapravaKoda = naprava.notranjaEnotaStevilka, notranjaNapravaKoda != "" {
+                    predmetText += "  \(notranjaNapravaKoda)\n"
                 }
                 
-                if let zunanjaNapravaKoda = klimatskaNaprava.zunanjaEnotaStevilka {
-                    predmetText += "  ZUNANJA ENOTA KODA:   \(zunanjaNapravaKoda)\n"
+                if let zunanjaNapravaKoda = naprava.zunanjaEnotaStevilka, zunanjaNapravaKoda != "" {
+                    predmetText += "  \(zunanjaNapravaKoda)\n"
+                }
+                
+                if let notranjaSerijska = reklamacija?.opisReklamacije?.serijskaNotranjeEnote, notranjaSerijska != "" {
+                    predmetText += "\nNotranja serijska:\n\n  \(notranjaSerijska)\n"
+                }
+                
+                if let zunanjaSerijska = reklamacija?.opisReklamacije?.serijskaZunanjeEnote, zunanjaSerijska != "" {
+                    predmetText += "\nZunanja serijska:\n\n  \(zunanjaSerijska)\n"
                 }
             }
             
             // if conformed to oznakaNaprave protocol so it has .oznakaNaprave and .naprava property
             if let naprava = naprava as? OznakaNaprave {
                 
+                predmetText += "  \(vrstaNaprave)\n\n"
+                
                 // it definitely has oznakaNaprave property so ...
-                if naprava.oznakaNaprave != "" {
-                    predmetText += "\nOZNAKA NAPRAVE:\n\n   \(naprava.oznakaNaprave)\n"
+                if let oznaka = naprava.oznakaNaprave, oznaka != "" {
+                    predmetText += "OZNAKA NAPRAVE:\n\n   \(oznaka)\n"
                 }
                 
-                if let stevilkaNaprave = naprava.naprava {
-                    predmetText += "\nSTEVILKA NAPRAVE:\n\n   \(stevilkaNaprave)\n"
+                if let stevilkaNaprave = naprava.naprava, stevilkaNaprave != "" {
+                    predmetText += "STEVILKA NAPRAVE:\n\n   \(stevilkaNaprave)\n"
                 }
                 
             }
         }
         
-        let nogaText = "Poslano iz mobilne aplikacije Airabela"
+        let nogaText = "Poslano iz mobilne aplikacije Reklamacije, podjetja Airabela d.o.o."
         
-        let bodyText = "\n\(naslovText.uppercased())\n\n\(podjetjeText.uppercased())\n\n\(kontaktnaOsebaText.uppercased())\n\n\(predmetText.uppercased())\n\n\(kodaNapakeText.uppercased())\n\n\(opisNapakeText.uppercased())\n\n\(kupecText.uppercased())\n\n\(vgradnjaText.uppercased())\n\n\(nogaText)"
+        let bodyText = "\n\(naslovText.uppercased())\n\n\(podjetjeText.uppercased())\n\n\(kontaktnaOsebaText.uppercased())\n\n\(predmetText.uppercased())\n\(kodaNapakeText.uppercased())\n\n\(opisNapakeText.uppercased())\n\n\(kupecText.uppercased())\n\n\(vgradnjaText.uppercased())\n\n\(nogaText)"
         
         return bodyText
+    }
+    
+    @objc override func handleNazajButton() {
+        
+        let alertController = UIAlertController(title: "KORAK NAZAJ", message: "Ste prepričani, da se želite vrniti korak nazaj? Izgubili boste fotografije, ki ste jih priložili.", preferredStyle: .alert)
+        
+        let nadaljujAction = UIAlertAction(title: "NADALJUJ", style: .destructive) { (action) in
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        let prekliciAction = UIAlertAction(title: "PREKLIČI", style: .default, handler: nil)
+        
+        alertController.addAction(nadaljujAction)
+        alertController.addAction(prekliciAction)
+        
+        present(alertController, animated: true, completion: nil)
+        
     }
     
     override func viewDidLoad() {
@@ -279,6 +314,15 @@ class SlikaReklamacijaController: ReklamacijaController, UIImagePickerController
         
         navigationItem.title = "FOTOGRAFIJE"
         
+        self.navigationItem.hidesBackButton = true
+        
+        let backBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "backImage"), style: .plain, target: self, action: #selector(handleNazajButton))
+        backBtn.imageInsets = UIEdgeInsetsMake(0, -8, 0, 0)
+        
+        self.navigationItem.leftBarButtonItem = backBtn
+        
+        
+        nazajButton.addTarget(self, action: #selector(handleNazajButton), for: .touchUpInside)
         naprejButton.addTarget(self, action: #selector(handleNaprejButton), for: .touchUpInside)
         
         // add subviews
@@ -295,7 +339,7 @@ class SlikaReklamacijaController: ReklamacijaController, UIImagePickerController
         collectionView?.anchor(top: headerView.bottomAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 20, left: view.leftAnchor, paddingLeft: 20, bottom: nil, paddingBottom: 0, width: 0, height: 100)
         
         view.addSubview(izbrisiSlikoNotificationLabel)
-        izbrisiSlikoNotificationLabel.anchor(top: collectionView!.bottomAnchor, paddingTop: 20, right: view.rightAnchor, paddingRight: 20, left: view.leftAnchor, paddingLeft: 20, bottom: nil, paddingBottom: 0, width: 0, height: 20)
+        izbrisiSlikoNotificationLabel.anchor(top: collectionView!.bottomAnchor, paddingTop: 0, right: view.rightAnchor, paddingRight: 20, left: view.leftAnchor, paddingLeft: 20, bottom: nil, paddingBottom: 0, width: 0, height: 20)
         
         let buttonsStackView = UIStackView(arrangedSubviews: [infoLabel, dodajFotografijoButton, pošljiButton, nazajButton])
         buttonsStackView.distribution = .fillEqually

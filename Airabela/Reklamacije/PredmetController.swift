@@ -43,29 +43,29 @@ class PredmetController: ReklamacijaController, UIPickerViewDelegate, UIPickerVi
         
     }
     
-    fileprivate func getOznakaNaprave() -> String {
+    fileprivate func getOznakaNaprave() -> String? {
         
         if izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaEnota.rawValue || izbranaReklamiranaEnota == ReklamiranaEnota.NotranjaEnota.rawValue {
-            return oznakaNapraveTextField.text ?? ""
+            return oznakaNapraveTextField.text ?? nil
         } else if izbranaReklamiranaEnota == ReklamiranaEnota.ZunanjaInNotranjaEnota.rawValue {
-            return "Drugo - Zunanja : \(oznakaNapraveDrugoZunanjaEnotaTextField.text ?? "\(izbranaZunanjaReklamiranaEnota ?? "")"), Drugo - Notranja : \(oznakaNapraveDrugoNotranjaEnotaTextField.text ?? "\(izbranaNotranjaReklamiranaEnota ?? "")")"
+            return "Drugo - Zunanja : \(oznakaNapraveDrugoZunanjaEnotaTextField.text ?? "\(izbranaZunanjaReklamiranaEnota ?? nil)"), Drugo - Notranja : \(oznakaNapraveDrugoNotranjaEnotaTextField.text ?? "\(izbranaNotranjaReklamiranaEnota ?? nil)")"
         }
         
-        return oznakaNapraveTextField.text ?? "napaka"
+        return oznakaNapraveTextField.text ?? nil
     }
     
-    fileprivate func getZunanja() -> String {
+    fileprivate func getZunanja() -> String? {
         if izbranaZunanjaReklamiranaEnota == "drugo" {
             return "\(izbranaZunanjaReklamiranaEnota ?? "") - \(oznakaNapraveDrugoZunanjaEnotaTextField.text ?? "")"
         }
-        return izbranaZunanjaReklamiranaEnota ?? "napaka"
+        return izbranaZunanjaReklamiranaEnota ?? nil
     }
     
-    fileprivate func getNotranja() -> String {
+    fileprivate func getNotranja() -> String? {
         if izbranaNotranjaReklamiranaEnota == "drugo" {
             return "\(izbranaNotranjaReklamiranaEnota ?? "") - \(oznakaNapraveDrugoNotranjaEnotaTextField.text ?? "")"
         }
-        return izbranaNotranjaReklamiranaEnota ?? "napaka"
+        return izbranaNotranjaReklamiranaEnota ?? nil
     }
     
     @objc func handleNaprejButton() {
@@ -77,6 +77,7 @@ class PredmetController: ReklamacijaController, UIPickerViewDelegate, UIPickerVi
         if izbranaVrstaNaprave == VrstaNaprave.ToplotnaCrpalka.rawValue {
 
             predmet = ToplotnaCrpalka(tipNaprave: izbranTipNaprave, reklamirnaEnota: izbranaReklamiranaEnota, zunanjaEnotaStevilka: getZunanja(), notranjaEnotaStevilka: getNotranja())
+
         } else if izbranaVrstaNaprave == VrstaNaprave.KlimatskaNaprava.rawValue {
             
             predmet = KlimatskaNaprava(tipNaprave: izbranTipNaprave!, podTipNaprave: izbranPodtipNaprave, reklamiranaEnota: izbranaReklamiranaEnota, oznakaNaprave: getOznakaNaprave(), zunanjaEnota: getZunanja(), notranjaEnota: getNotranja())
@@ -102,8 +103,7 @@ class PredmetController: ReklamacijaController, UIPickerViewDelegate, UIPickerVi
         if isValid() {
             
             opisReklamacijeController.reklamacija = reklamacija
-            let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-            self.navigationItem.backBarButtonItem = backButton
+            
             navigationController?.pushViewController(opisReklamacijeController, animated: true)
             
         } else {
@@ -854,20 +854,18 @@ class PredmetController: ReklamacijaController, UIPickerViewDelegate, UIPickerVi
         let pv = UIPickerView()
         return pv
     }()
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        izbranaZunanjaReklamiranaEnota = nil
-        izbranaNotranjaReklamiranaEnota = nil
-        izbranaReklamiranaEnota = nil
-        
-        reklamiranaEnotaToplotnaCrpalkaPickerView.selectRow(0, inComponent: 0, animated: true)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.title = "NAPRAVA"
+        
+        self.navigationItem.hidesBackButton = true
+        
+        let backBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "backImage"), style: .plain, target: self, action: #selector(handleNazajButton))
+        backBtn.imageInsets = UIEdgeInsetsMake(0, -8, 0, 0)
+        
+        self.navigationItem.leftBarButtonItem = backBtn
         
         naprejButton.addTarget(self, action: #selector(handleNaprejButton), for: .touchUpInside)
         

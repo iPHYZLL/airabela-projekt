@@ -13,7 +13,6 @@ class OpisReklamacijeController: ReklamacijaController {
     fileprivate var textFieldHeight : CGFloat {
         if UIDevice().userInterfaceIdiom == .phone {
             if UIScreen.main.nativeBounds.height == 1136 {
-                print("ITS IPHONE SE!!")
                 return 45
             }
         }
@@ -23,7 +22,6 @@ class OpisReklamacijeController: ReklamacijaController {
     fileprivate var textFieldPadding : CGFloat {
         if UIDevice().userInterfaceIdiom == .phone {
             if UIScreen.main.nativeBounds.height == 1136 {
-                print("ITS IPHONE SE!!")
                 return 5
             }
         }
@@ -62,16 +60,16 @@ class OpisReklamacijeController: ReklamacijaController {
         return tf
     }()
     
+    @objc func handleTest() {
+        print("test")
+    }
+    
     @objc func handleNaprejButton() {
         
         if isOpisValid() {
             
             let slikaReklamacijaController = SlikaReklamacijaController()
             slikaReklamacijaController.reklamacija = reklamacija
-            
-            let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-            
-            self.navigationItem.backBarButtonItem = backButton
             
             navigationController?.pushViewController(slikaReklamacijaController, animated: true)
             
@@ -90,10 +88,27 @@ class OpisReklamacijeController: ReklamacijaController {
     func isOpisValid() -> Bool {
         
         if let kodaNapake = kodaNapakeTextField.text, kodaNapake.count > 0, let opisNapake = opisNapakeTextField.text, opisNapake.count > 0 {
-            let zunanjaKoda = serijskaStevilkaZunanjeEnoteTextField.text ?? ""
-            let notranjaKoda = serijskaStevilkaNotranjeEnoteTextField.text ?? ""
             
-            reklamacija?.opisReklamacije = OpisReklamacije(kodaNapake: kodaNapake, opisNapake: opisNapake, serijskaZunanjeEnote: zunanjaKoda, serijskaNotranjeEnote: notranjaKoda)
+            var zunanja : String?
+            var notranja : String?
+            
+            if let naprava = reklamacija?.naprava as? ZunanjaInNotranja {
+                
+                if naprava.zunanjaEnotaStevilka != nil {
+                    if let serijskaZunanja = serijskaStevilkaZunanjeEnoteTextField.text, serijskaZunanja != "" {
+                        zunanja = serijskaZunanja
+                    } else { return false }
+                }
+                
+                if naprava.notranjaEnotaStevilka != nil {
+                    if let serijskaNotranja = serijskaStevilkaNotranjeEnoteTextField.text, serijskaNotranja != "" {
+                        notranja = serijskaNotranja
+                    } else { return false }
+                }
+                
+            }
+            
+            reklamacija?.opisReklamacije = OpisReklamacije(kodaNapake: kodaNapake, opisNapake: opisNapake, serijskaZunanjeEnote: zunanja ?? "", serijskaNotranjeEnote: notranja ?? "")
             
             return true
         }
@@ -106,22 +121,32 @@ class OpisReklamacijeController: ReklamacijaController {
         
         didSet {
             
-            if let naprava = reklamacija?.naprava as? ToplotnaCrpalka {
+            if let naprava = reklamacija?.naprava as? ZunanjaInNotranja {
                 
                 if naprava.zunanjaEnotaStevilka != nil && naprava.notranjaEnotaStevilka != nil {
+                    
                     // add both
                     view.addSubview(serijskaStevilkaZunanjeEnoteTextField)
                     serijskaStevilkaZunanjeEnoteTextField.anchor(top: opisNapakeTextField.bottomAnchor, paddingTop: textFieldPadding, right: opisNapakeTextField.rightAnchor, paddingRight: 0, left: opisNapakeTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: textFieldHeight)
                     view.addSubview(serijskaStevilkaNotranjeEnoteTextField)
                     serijskaStevilkaNotranjeEnoteTextField.anchor(top: serijskaStevilkaZunanjeEnoteTextField.bottomAnchor, paddingTop: textFieldPadding, right: serijskaStevilkaZunanjeEnoteTextField.rightAnchor, paddingRight: 0, left: serijskaStevilkaZunanjeEnoteTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: textFieldHeight)
-                } else if naprava.zunanjaEnotaStevilka != nil && naprava.notranjaEnotaStevilka == nil {
+                    
+                }
+                
+                if naprava.zunanjaEnotaStevilka != nil && naprava.notranjaEnotaStevilka == nil {
+                    
                     // add serijska zunanja subview
                     view.addSubview(serijskaStevilkaZunanjeEnoteTextField)
                     serijskaStevilkaZunanjeEnoteTextField.anchor(top: opisNapakeTextField.bottomAnchor, paddingTop: textFieldPadding, right: opisNapakeTextField.rightAnchor, paddingRight: 0, left: opisNapakeTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: textFieldHeight)
-                } else if naprava.notranjaEnotaStevilka != nil && naprava.zunanjaEnotaStevilka == nil {
+                    
+                }
+                
+                if naprava.notranjaEnotaStevilka != nil && naprava.zunanjaEnotaStevilka == nil {
+                    
                     // add serijska notranja subview
                     view.addSubview(serijskaStevilkaNotranjeEnoteTextField)
                     serijskaStevilkaNotranjeEnoteTextField.anchor(top: opisNapakeTextField.bottomAnchor, paddingTop: textFieldPadding, right: opisNapakeTextField.rightAnchor, paddingRight: 0, left: opisNapakeTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: textFieldHeight)
+                    
                 }
                 
             }
@@ -133,6 +158,13 @@ class OpisReklamacijeController: ReklamacijaController {
         super.viewDidLoad()
         
         navigationItem.title = "OPIS"
+        
+        self.navigationItem.hidesBackButton = true
+        
+        let backBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "backImage"), style: .plain, target: self, action: #selector(handleNazajButton))
+        backBtn.imageInsets = UIEdgeInsetsMake(0, -8, 0, 0)
+        
+        self.navigationItem.leftBarButtonItem = backBtn
         
         naprejButton.addTarget(self, action: #selector(handleNaprejButton), for: .touchUpInside)
         

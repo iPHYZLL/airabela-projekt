@@ -90,8 +90,8 @@ class KupecController : ReklamacijaController {
             let predmetViewController = PredmetController()
             predmetViewController.reklamacija = reklamacija
             
-            let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-            self.navigationItem.backBarButtonItem = backButton
+//            let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+//            self.navigationItem.backBarButtonItem = backButton
             navigationController?.pushViewController(predmetViewController, animated: true)
             
         } else {
@@ -136,6 +136,13 @@ class KupecController : ReklamacijaController {
         super.viewDidLoad()
         
         navigationItem.title = "KUPEC"
+        
+        self.navigationItem.hidesBackButton = true
+        
+        let backBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "backImage"), style: .plain, target: self, action: #selector(handleNazajButton))
+        backBtn.imageInsets = UIEdgeInsetsMake(0, -8, 0, 0)
+        
+        self.navigationItem.leftBarButtonItem = backBtn
         
         naprejButton.addTarget(self, action: #selector(handleNaprejButton), for: .touchUpInside)
         

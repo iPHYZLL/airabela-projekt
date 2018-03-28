@@ -11,9 +11,9 @@ import Foundation
 class Rekuperator : Naprava, OznakaNaprave {
     
     var naprava : String
-    var oznakaNaprave : String
+    var oznakaNaprave : String?
     
-    init(naprava : String, oznakaNaprave : String) {
+    init(naprava : String, oznakaNaprave : String?) {
         self.naprava = naprava
         self.oznakaNaprave = oznakaNaprave
         super.init(vrstaNaprave: .Rekuperator)

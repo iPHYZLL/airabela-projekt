@@ -17,7 +17,7 @@ enum TipNapraveToplotnaCrpalka : String {
     
 }
 
-class ToplotnaCrpalka : Naprava {
+class ToplotnaCrpalka : Naprava, ZunanjaInNotranja {
     
     var tipNaprave : String?
     var reklamirnaEnota : String?

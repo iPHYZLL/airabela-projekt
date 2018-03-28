@@ -20,7 +20,7 @@ enum TipNapraveKlimatskaNaprava : String {
     
 }
 
-class KlimatskaNaprava : Naprava {
+class KlimatskaNaprava : Naprava, ZunanjaInNotranja {
     
     var tipNaprave : String?
     var podTipNaprave : String?

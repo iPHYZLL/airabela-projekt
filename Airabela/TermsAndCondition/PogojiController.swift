@@ -45,7 +45,8 @@ class PogojiController: UIViewController {
         tv.backgroundColor = UIColor.airabelaGray
         tv.isEditable = false
         tv.isScrollEnabled = true
-        tv.text = pogoji
+        tv.attributedText = Pogoji.getPogoji()
+        tv.textAlignment = .center
         tv.font = UIFont.systemFont(ofSize: 14)
         return tv
     }()
@@ -102,7 +103,9 @@ class PogojiController: UIViewController {
         homeScreenButton.anchor(top: nil, paddingTop: 0, right: textViewContainerView.rightAnchor, paddingRight: 20, left: textViewContainerView.leftAnchor, paddingLeft: 20, bottom: textViewContainerView.bottomAnchor, paddingBottom: 20, width: 0, height: 40)
         
         textViewContainerView.addSubview(pogojiTextView)
-        pogojiTextView.anchor(top: headerView.bottomAnchor, paddingTop: 20, right: textViewContainerView.rightAnchor, paddingRight: 20, left: textViewContainerView.leftAnchor, paddingLeft: 20, bottom: homeScreenButton.topAnchor, paddingBottom: 20, width: 0, height: 0)
+        pogojiTextView.anchor(top: headerView.bottomAnchor, paddingTop: 0, right: textViewContainerView.rightAnchor, paddingRight: 20, left: textViewContainerView.leftAnchor, paddingLeft: 20, bottom: homeScreenButton.topAnchor, paddingBottom: 0, width: 0, height: 0)
+        
+        pogojiTextView.textContainerInset = UIEdgeInsetsMake(20, 0, 20, 0)
     }
     
 }
