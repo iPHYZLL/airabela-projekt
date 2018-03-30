@@ -168,10 +168,12 @@ class SlikaReklamacijaController: ReklamacijaController, UIImagePickerController
         
         let nadaljujAction = UIAlertAction(title: "NADALJUJ", style: .default) { (action) in
             
+            let kontaktniEmail = UserDefaults.standard.object(forKey: "kontaktniEnaslov") as? String ?? ""
+            
             let mailController = MFMailComposeViewController()
             mailController.mailComposeDelegate = self
             mailController.setSubject("Reklamacijski zapisnik")
-            mailController.setToRecipients(["podpora@airabela.si"])
+            mailController.setToRecipients(["podpora@airabela.si", kontaktniEmail])
             
             // mail controller body
             mailController.setMessageBody(self.composeBody(), isHTML: false)

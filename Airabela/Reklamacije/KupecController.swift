@@ -14,7 +14,6 @@ class KupecController : ReklamacijaController {
     fileprivate var textFieldHeight : CGFloat {
         if UIDevice().userInterfaceIdiom == .phone {
             if UIScreen.main.nativeBounds.height == 1136 {
-                print("ITS IPHONE SE!!")
                 return 45
             }
         }
@@ -24,7 +23,6 @@ class KupecController : ReklamacijaController {
     fileprivate var textFieldPadding : CGFloat {
         if UIDevice().userInterfaceIdiom == .phone {
             if UIScreen.main.nativeBounds.height == 1136 {
-                print("ITS IPHONE SE!!")
                 return 5
             }
         }
@@ -90,8 +88,6 @@ class KupecController : ReklamacijaController {
             let predmetViewController = PredmetController()
             predmetViewController.reklamacija = reklamacija
             
-//            let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-//            self.navigationItem.backBarButtonItem = backButton
             navigationController?.pushViewController(predmetViewController, animated: true)
             
         } else {

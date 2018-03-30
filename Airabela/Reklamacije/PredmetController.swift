@@ -451,8 +451,7 @@ class PredmetController: ReklamacijaController, UIPickerViewDelegate, UIPickerVi
         }
         
         didSet {
-            // manage # of views in container view
-            print("Izbrana vrsta naprave", izbranaVrstaNaprave)
+            
             if izbranaVrstaNaprave == VrstaNaprave.ToplotnaCrpalka.rawValue {
                 predmetContainerView.addSubview(tipNapraveToplotnaCrpalkaTextField)
                 tipNapraveToplotnaCrpalkaTextField.anchor(top: vrstaNapraveTextField.bottomAnchor, paddingTop: textFieldPadding, right: vrstaNapraveTextField.rightAnchor, paddingRight: 0, left: vrstaNapraveTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: textFieldHeight)
@@ -493,8 +492,6 @@ class PredmetController: ReklamacijaController, UIPickerViewDelegate, UIPickerVi
         }
         
         didSet {
-            
-            print("Izbran tip naprave:", izbranTipNaprave)
             
             if izbranTipNaprave == TipNapraveToplotnaCrpalka.VisokoTemperaturna.rawValue || izbranTipNaprave == TipNapraveToplotnaCrpalka.NizkoTemperaturna.rawValue || izbranTipNaprave == TipNapraveToplotnaCrpalka.Hibridna.rawValue {
                 
@@ -558,14 +555,15 @@ class PredmetController: ReklamacijaController, UIPickerViewDelegate, UIPickerVi
             // reset zunajna in notranja koda
             zunanjaEnotaPickerView.selectRow(0, inComponent: 0, animated: false)
             reklamiranaZunanjaEnotaTextField.text = nil
+            izbranaZunanjaReklamiranaEnota = nil
             notranjaEnotaPickerView.selectRow(0, inComponent: 0, animated: false)
             reklamiranaNotranjaEnotaTextField.text = nil
+            izbranaNotranjaReklamiranaEnota = nil
         }
         
         didSet {
             
             var izbranaToplotna = (izbranaVrstaNaprave == VrstaNaprave.ToplotnaCrpalka.rawValue) ? true : false
-            print("Izbrana reklamirana enota", izbranaReklamiranaEnota)
             
             if izbranaReklamiranaEnota == ReklamiranaEnota.NotranjaEnota.rawValue {
                 
@@ -648,8 +646,6 @@ class PredmetController: ReklamacijaController, UIPickerViewDelegate, UIPickerVi
             // check if drugo
             guard let notranja = izbranaNotranjaReklamiranaEnota else { return }
             
-            print("NOTRANJA", notranja )
-            
             if notranja.lowercased() == "drugo" {
                 if izbranaReklamiranaEnota == "Notranja enota" {
                     predmetContainerView.addSubview(oznakaNapraveDrugoNotranjaEnotaTextField)
@@ -672,7 +668,6 @@ class PredmetController: ReklamacijaController, UIPickerViewDelegate, UIPickerVi
         }
         
         didSet {
-            print("Izbrana naprava", izbranaNaprava ?? "")
             
             if izbranaVrstaNaprave == VrstaNaprave.Rekuperator.rawValue || izbranaVrstaNaprave == VrstaNaprave.CistilecZraka.rawValue {
                 
@@ -680,26 +675,14 @@ class PredmetController: ReklamacijaController, UIPickerViewDelegate, UIPickerVi
                     predmetContainerView.addSubview(oznakaNapraveTextField)
                     oznakaNapraveTextField.anchor(top: napravaTextField.bottomAnchor, paddingTop: textFieldPadding, right: napravaTextField.rightAnchor, paddingRight: 0, left: napravaTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: textFieldHeight)
                 }
-                
             }
-            
         }
-        
     }
     
-    var oznakaNaprave : String? {
-        
-        didSet {
-            print("Oznaka naprave", oznakaNaprave ?? "")
-            
-            
-        }
-        
-    }
+    var oznakaNaprave : String?
     
     var izbranPodtipNaprave : String? {
         didSet {
-            print("Podtip:", izbranPodtipNaprave)
             predmetContainerView.addSubview(reklamiranaEnotaKlimatskaNapravaTextField)
             reklamiranaEnotaKlimatskaNapravaTextField.anchor(top: podtipKlimatskeNapraveTextField.bottomAnchor, paddingTop: textFieldPadding, right: podtipKlimatskeNapraveTextField.rightAnchor, paddingRight: 0, left: podtipKlimatskeNapraveTextField.leftAnchor, paddingLeft: 0, bottom: nil, paddingBottom: 0, width: 0, height: textFieldHeight)
             reklamiranaEnotaKlimatskaNapravaTextField.inputView = reklamiranaEnotaKlimatskaNapravaPickerView
