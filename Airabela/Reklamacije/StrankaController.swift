@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KupecController : ReklamacijaController {
+class StrankaController : ReklamacijaController {
     
     var reklamacija : Reklamacija?
     fileprivate var textFieldHeight : CGFloat {
@@ -31,7 +31,7 @@ class KupecController : ReklamacijaController {
     
     let imeKupcaTextView : HoshiTextField = {
         let tf = HoshiTextField()
-        tf.placeholder = "IME KUPCA"
+        tf.placeholder = "IME STRANKE"
         tf.borderActiveColor = UIColor.airabelaBlue
         tf.borderInactiveColor = UIColor.airabelaBlue
         return tf
@@ -39,7 +39,7 @@ class KupecController : ReklamacijaController {
     
     let priimekKupcaTextView : HoshiTextField = {
         let tf = HoshiTextField()
-        tf.placeholder = "PRIIMEK KUPCA"
+        tf.placeholder = "PRIIMEK STRANKE"
         tf.borderActiveColor = UIColor.airabelaBlue
         tf.borderInactiveColor = UIColor.airabelaBlue
         return tf
@@ -131,7 +131,7 @@ class KupecController : ReklamacijaController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "KUPEC"
+        navigationItem.title = "STRANKA"
         
         self.navigationItem.hidesBackButton = true
         

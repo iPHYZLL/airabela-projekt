@@ -137,7 +137,7 @@ class HomeController: UIViewController {
     
     @objc func reklamacijskiZapisnikButtonTapped() {
         
-        let kupecViewController = KupecController()
+        let kupecViewController = StrankaController()
         
         let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         

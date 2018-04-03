@@ -208,7 +208,7 @@ class SlikaReklamacijaController: ReklamacijaController, UIImagePickerController
             dismiss(animated: true) {
                 self.navigationController?.popToRootViewController(animated: true)
                 
-                let alertController = UIAlertController(title: nil, message: "Hvala, ker uporabljate našo aplikacijo. V primeru uspešno poslane reklamacije, boste na naveden kontaktni e-naslov prejeli potrditveni email.", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "POSTOPEK ZAKLJUČEN", message: "Hvala, ker uporabljate našo aplikacijo. V primeru uspešno poslane reklamacije, boste na naveden kontaktni e-naslov prejeli kopijo reklamacijskega zapisnika.", preferredStyle: .alert)
                 
                 let okAction = UIAlertAction(title: "V REDU", style: .cancel, handler: nil)
                 alertController.addAction(okAction)
@@ -237,7 +237,7 @@ class SlikaReklamacijaController: ReklamacijaController, UIImagePickerController
         
         let kontaktnaOsebaText = "KONTAKTNA OSEBA:\n\n   \(kontaktnaOseba)\n   \(kontaktniEmail)\n   \(telefonska)"
         
-        let kupecText = "KUPEC:\n\n   \(reklamacija?.kupec.ime ?? "") \(reklamacija?.kupec.priimek ?? "")"
+        let kupecText = "STRANKA:\n\n   \(reklamacija?.kupec.ime ?? "") \(reklamacija?.kupec.priimek ?? "")"
         
         let vgradnjaText = "VGRADNJA:\n\n   \(reklamacija?.kupec.krajVgradnje ?? "")\n   \(reklamacija?.kupec.naslovVgradnje ?? "")\n   \(reklamacija?.kupec.datumVgradnje ?? "")"
         
